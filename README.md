@@ -1,21 +1,22 @@
-# Shopify Order Report Cards - Admin Extension
+# UNDERITALL Report Card Generator
 
 > **Making order fulfillment efficient and professional since 2025**
 
-A Shopify Admin Extension that transforms order data into printable report cards for each line item. Built for speed, designed for precision.
+A full-stack web application for generating printable report cards for Shopify order line items. Features a modern React frontend with dark-themed UI and seamless Shopify Admin integration.
 
 ## 🎯 Overview
 
-This application provides a **Shopify Admin Print Action Extension** that generates custom report cards for order line items. The extension integrates directly into the Shopify Admin order details page, allowing merchants to print professional labels with order information, shipping details, and custom product metadata.
+This application provides both a **standalone web interface** and a **Shopify Admin Print Action Extension** that generates custom report cards for order line items. Users can input order numbers directly in the web app or use the native print action within Shopify Admin.
 
 ### Key Features
 
+- **Full-Stack Web App**: Modern React 18 + TypeScript interface with real-time order loading
 - **Admin Integration**: Native print action in Shopify Admin order details page
 - **Individual Item Cards**: Generates separate cards for each line item quantity
 - **Smart Property Parsing**: Extracts dimensions, project names, install locations from product metadata
 - **Print-Optimized**: Clean 8.5" × 5.5" landscape format for professional printing
-- **MCP Server**: Integrated Model Context Protocol server for AI agent interaction
-- **Dual Architecture**: Express backend + Shopify Admin Extension frontend
+- **Dark Theme UI**: Beautiful shadcn/ui components with Tailwind CSS
+- **Live Preview**: See report cards before printing
 
 ## 🏗️ Architecture
 
@@ -23,34 +24,47 @@ This application provides a **Shopify Admin Print Action Extension** that genera
 
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
-| **Backend** | Express + Node.js 20 | API server for print routes and MCP |
-| **Extension** | React + Shopify UI Extensions | Admin print action interface |
-| **Build Tool** | Shopify CLI | Extension building and deployment |
-| **API** | Shopify Admin API | Order data fetching |
+| **Frontend** | React 18 + TypeScript + Vite | Modern UI with HMR |
+| **Backend** | Express + TypeScript | API server and Vite middleware |
+| **Styling** | Tailwind CSS 4.x + shadcn/ui | Dark theme and responsive design |
+| **Router** | Wouter | Client-side routing |
+| **State** | TanStack Query | API state management |
+| **Extension** | Shopify UI Extensions | Admin print action |
+| **API** | Shopify Admin API (GraphQL) | Order data fetching |
 
 ### Project Structure
 
 ```
 .
-├── server/
-│   ├── index.js                    # Express server entry point
-│   ├── routes/
-│   │   ├── print.js               # Print route for report cards
-│   │   └── mcp.js                 # MCP server endpoints
-│   └── lib/
-│       └── htmlGenerator.js       # Report card HTML generation
+├── client/                        # React frontend
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ui/               # shadcn/ui components
+│   │   │   ├── Header.tsx        # App header
+│   │   │   ├── OrderInput.tsx    # Order number input
+│   │   │   ├── PrintPreview.tsx  # Print preview
+│   │   │   └── SettingsPanel.tsx # Print settings
+│   │   ├── pages/
+│   │   │   └── ReportCardGenerator.tsx
+│   │   ├── lib/
+│   │   │   ├── htmlGenerator.ts  # Report card HTML generation
+│   │   │   └── utils.ts
+│   │   └── App.tsx
+│   └── index.html
+├── server/                        # Express backend
+│   ├── index.ts                  # Server entry point
+│   ├── routes.ts                 # API routes
+│   └── vite.ts                   # Vite middleware
 ├── extensions/
-│   └── order-report-cards/
-│       ├── shopify.extension.toml # Extension configuration
-│       ├── package.json           # Extension dependencies
+│   └── admin-print/
+│       ├── shopify.extension.toml
 │       ├── src/
-│       │   └── PrintActionExtension.jsx  # Print action UI
-│       └── locales/
-│           └── en.default.json    # Localization
-├── shopify.app.toml               # App configuration
-├── package.json                   # Root dependencies
-└── replit.md                      # This file
-
+│       │   └── PrintActionExtension.jsx
+│       └── package.json
+├── shared/
+│   └── schema.ts                 # Shared types
+├── shopify.app.toml
+└── package.json
 ```
 
 ## 🚀 Quick Start
@@ -63,22 +77,22 @@ This application provides a **Shopify Admin Print Action Extension** that genera
 
 ### Local Development
 
-The server is already running on port 3000. To restart or check status:
+The server runs automatically on port 5000:
 
 ```bash
 # Server runs automatically via workflow
 # Check logs in the Replit console
 
 # Or run manually:
-npm start
+npm run dev
 ```
 
 ### Endpoints
 
-- **Generate Print Token**: `POST http://localhost:3000/auth/generate-print-token`
-- **Print Route**: `GET http://localhost:3000/print?t=<TOKEN>&printType=all`
-- **MCP Server**: `http://localhost:3000/mcp/*`
-- **Health Check**: `http://localhost:3000/health`
+- **Frontend**: `http://localhost:5000/`
+- **Order API**: `GET http://localhost:5000/api/order/:orderNumber`
+- **Print Route**: `POST http://localhost:5000/api/print`
+- **Settings API**: `GET/POST http://localhost:5000/api/settings`
 
 ## 📋 Shopify Setup
 
@@ -100,15 +114,9 @@ SHOPIFY_API_SECRET=your_api_secret_here
 SHOPIFY_ACCESS_TOKEN=your_access_token_here
 SHOPIFY_APP_URL=https://your-repl-url.repl.co
 SHOPIFY_SCOPES=read_orders,read_products,read_customers
-PORT=3000
+PORT=5000
 NODE_ENV=development
 ```
-
-**Important**: The app uses session token authentication:
-- Extension obtains session token from Shopify
-- Backend validates session token using API secret
-- Backend fetches order data using access token
-- Falls back to mock data if credentials not configured
 
 ### Step 2: Update shopify.app.toml
 
@@ -116,63 +124,31 @@ NODE_ENV=development
 2. Add your `client_id` (API key)
 3. Set your `dev_store_url`
 
-### Step 3: Deploy Extension
+### Step 3: Deploy Extension (Optional)
 
 ```bash
 # Authenticate with Shopify
 shopify auth login
 
-# Build and deploy
-npm run deploy
+# Build and deploy extension
+shopify app deploy
 ```
 
-### Step 4: Test in Admin
+### Step 4: Use the Web App
+
+1. Open the preview at `http://localhost:5000`
+2. Enter an order number (e.g., 1217)
+3. Click **Load Order**
+4. Preview the generated report cards
+5. Click **Print** to print
+
+### Step 5: Test in Admin (if extension deployed)
 
 1. Navigate to your development store admin
 2. Go to Orders → Select an order
 3. Click the **Print** dropdown
 4. Select **Order Report Cards**
 5. Preview and print the generated cards
-
-## 🔧 MCP Server Integration
-
-This app includes a **Model Context Protocol (MCP) server** for AI agent interaction. The MCP server allows external AI tools to interact with the Shopify app.
-
-### MCP Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/mcp/run` | POST | Execute shell commands |
-| `/mcp/state` | GET | Get daemon state |
-| `/mcp/awaken` | POST | Switch to Goddess mode |
-| `/mcp/vanilla` | POST | Switch to vanilla CLI mode |
-
-### MCP Usage Example
-
-```bash
-# Check server state
-curl http://localhost:3000/mcp/state
-
-# Execute a command
-curl -X POST http://localhost:3000/mcp/run \
-  -H "Content-Type: application/json" \
-  -d '{"command": "npm run build"}'
-```
-
-### Connecting from AI Workspace
-
-Add this tool configuration to your AI workspace:
-
-```json
-{
-  "name": "shopify_report_cards_mcp",
-  "base_url": "http://localhost:3000/mcp",
-  "endpoints": {
-    "run": {"method": "POST", "path": "/run"},
-    "state": {"method": "GET", "path": "/state"}
-  }
-}
-```
 
 ## 📄 Report Card Format
 
@@ -192,7 +168,7 @@ Each line item generates cards equal to its quantity. Each card includes:
 - Custom properties:
   - Project Name
   - Install Location
-  - Dimensions
+  - Dimensions (Rectangle, Rug Shape, Thickness)
 - Order reference (number and date)
 
 ### Print Specifications
@@ -202,59 +178,13 @@ Each line item generates cards equal to its quantity. Each card includes:
 - **Page Breaks**: Automatic between cards
 - **Styling**: Clean black text on white background
 
-## 🔌 API Integration
-
-### Print Route
-
-**Endpoint**: `GET /print`
-
-**Query Parameters**:
-- `orderId` (required): Order ID number
-- `sessionToken` (required for real data): Shopify session token from admin extension
-- `printType` (optional): Type of cards to print (default: "all")
-
-**Secure Authentication Flow** (One-Time Print Tokens):
-1. Admin extension obtains session token using `useSessionToken()` hook
-2. Extension sends POST to `/auth/generate-print-token` with session token in Authorization header
-3. Backend validates session token using JWT verification
-4. Backend generates one-time print token (5 min expiry, single-use)
-5. Extension receives print token and builds secure print URL
-6. Print route validates one-time token and fetches real order data from Shopify
-7. Token automatically expires after use or timeout
-8. Falls back to mock data if credentials not configured
-
-**Security Features**:
-- Session tokens never exposed in URLs (transmitted via Authorization header)
-- One-time print tokens prevent replay attacks
-- Automatic token expiration and cleanup
-- Secure shop domain parsing (removes /admin suffix)
-
-**Example**:
-```
-GET /print?orderId=1234567890&sessionToken=eyJhbGc...&printType=all
-```
-
-**Response**: HTML document ready for printing
-
-### Custom Property Parsing
-
-The HTML generator intelligently extracts custom properties from line items:
-
-```javascript
-// Automatically parsed properties:
-- Project Name
-- Install Location  
-- Dimensions
-- Custom Attributes
-```
-
 ## 🎨 Customization
 
 ### Modifying Card Layout
 
-Edit `server/lib/htmlGenerator.js`:
+Edit `client/src/lib/htmlGenerator.ts`:
 
-```javascript
+```typescript
 // Customize card styling
 const cardStyles = `
   .report-card {
@@ -267,60 +197,44 @@ const cardStyles = `
 
 ### Adding New Properties
 
-In `htmlGenerator.js`, add new property extraction:
+In `htmlGenerator.ts`, add new property extraction:
 
-```javascript
-const customField = customProps.find(
+```typescript
+const customField = lineItem.customAttributes?.find(
   attr => attr.key === 'Your Custom Field'
 )?.value || '';
 ```
 
-### Print Settings
+### UI Customization
 
-The CSS includes `@media print` rules for optimal printing:
-
-```css
-@media print {
-  .report-card {
-    page-break-after: always;
-    // Print-specific styles
-  }
-}
-
-@page {
-  size: 8.5in 5.5in landscape;
-  margin: 0;
-}
-```
+- Edit components in `client/src/components/`
+- Modify Tailwind config in `tailwind.config.ts`
+- Customize dark theme in `client/src/index.css`
 
 ## 🛠️ Development Commands
 
 | Command | Description |
 |---------|-------------|
-| `npm start` | Start Express server |
-| `npm run dev` | Start Shopify app dev server |
-| `npm run build` | Build the app |
-| `npm run deploy` | Deploy to Shopify |
-| `npm run env` | Pull environment config |
-| `npm run generate` | Generate new extensions |
+| `npm run dev` | Start development server with HMR |
+| `npm run build` | Build for production |
+| `npm start` | Start production server |
+| `npm run check` | Type check TypeScript |
+| `shopify app deploy` | Deploy extension to Shopify |
 
 ## 🧪 Testing
 
-### Test Print Route Locally
+### Test Web Interface
+
+1. Open `http://localhost:5000` in browser
+2. Enter a test order number
+3. Verify order data loads correctly
+4. Check print preview renders properly
+
+### Test Print Route
 
 ```bash
 # Test with sample order
-curl "http://localhost:3000/print?orderId=12345"
-```
-
-### Test MCP Server
-
-```bash
-# Check health
-curl http://localhost:3000/health
-
-# Get MCP state
-curl http://localhost:3000/mcp/state
+curl "http://localhost:5000/api/order/12345"
 ```
 
 ### Test in Shopify Admin
@@ -334,26 +248,28 @@ curl http://localhost:3000/mcp/state
 
 ## 📦 Dependencies
 
-### Root Dependencies
+### Core Dependencies
 
 - `express`: Web server framework
 - `@shopify/shopify-api`: Shopify API client
-- `cors`: CORS middleware
-- `dotenv`: Environment variable management
-
-### Extension Dependencies
-
-- `@shopify/ui-extensions`: Shopify UI components
-- `@shopify/ui-extensions-react`: React bindings for Shopify UI
 - `react`: UI library
+- `@tanstack/react-query`: Data fetching
+- `wouter`: Client-side routing
+- `tailwindcss`: Utility-first CSS
+- Radix UI components (via shadcn/ui)
 
 ### Dev Dependencies
 
+- `vite`: Build tool and dev server
+- `tsx`: TypeScript execution
+- `typescript`: Type checking
 - `@shopify/cli`: Shopify CLI tools
+- `esbuild`: Production builds
 
 ## 🔒 Security
 
 - API keys stored in environment variables
+- JWT validation for Shopify session tokens
 - CORS enabled for cross-origin requests
 - No credentials exposed in code
 - Cache-Control headers prevent caching of sensitive data
@@ -366,7 +282,13 @@ curl http://localhost:3000/mcp/state
 2. Configure environment variables in Secrets:
    - `SHOPIFY_API_KEY`
    - `SHOPIFY_API_SECRET`
+   - `SHOPIFY_ACCESS_TOKEN`
    - `SHOPIFY_APP_URL`
+
+The deployment is configured with:
+- **Build**: `npm run build`
+- **Run**: `npm start`
+- **Type**: Autoscale
 
 ### Deploy Extension to Shopify
 
@@ -387,23 +309,29 @@ This will:
 
 ## 🐛 Troubleshooting
 
+### Web App Not Loading
+
+1. Verify server is running on port 5000
+2. Check browser console for errors
+3. Review server logs in Replit console
+
+### Order Data Not Loading
+
+1. Check Shopify credentials in `.env`
+2. Verify access token has correct scopes
+3. Ensure order number exists in store
+
 ### Extension Not Showing in Admin
 
 1. Verify extension is deployed: `shopify app versions list`
 2. Check access scopes are granted
 3. Ensure development store is linked
 
-### Print Route Returns Empty
+### Print Preview Empty
 
-1. Check order ID is valid
-2. Verify server is running on port 3000
-3. Check CORS headers in response
-
-### MCP Server Not Responding
-
-1. Verify server is running: `curl http://localhost:3000/health`
-2. Check port 3000 is accessible
-3. Review server logs in console
+1. Check order data loads successfully
+2. Verify HTML generator in `htmlGenerator.ts`
+3. Check browser console for rendering errors
 
 ## 📚 Resources
 
@@ -411,15 +339,18 @@ This will:
 - [Print Action Extension Tutorial](https://shopify.dev/docs/apps/build/admin/actions-blocks/build-admin-print-action)
 - [Shopify CLI Documentation](https://shopify.dev/docs/api/shopify-cli)
 - [Admin API Reference](https://shopify.dev/docs/api/admin)
+- [Vite Documentation](https://vitejs.dev/)
+- [shadcn/ui Components](https://ui.shadcn.com/)
 
 ## 🤝 Contributing
 
 When making changes:
 
-1. Test locally with `npm start`
-2. Test extension with `npm run dev`
-3. Verify print output before deploying
-4. Update this documentation
+1. Test locally with `npm run dev`
+2. Run type checking with `npm run check`
+3. Test extension with `shopify app dev`
+4. Verify print output before deploying
+5. Update this documentation
 
 ## 📝 License
 
@@ -429,6 +360,6 @@ MIT
 
 **Built for efficiency. Optimized for professional fulfillment.**
 
-*Server Status: Running on port 3000*  
-*MCP Server: Active*  
+*Server Status: Running on port 5000*  
+*Frontend: React 18 + Vite with HMR*  
 *Extension: Ready for deployment*

@@ -1,0 +1,25 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "order-report-cards"
+client_id = ""
+application_url = "https://{{REPL_SLUG}}.{{REPL_OWNER}}.repl.co"
+embedded = true
+
+[build]
+dev_store_url = ""
+
+[access_scopes]
+scopes = "read_orders,read_products,read_customers"
+
+[auth]
+redirect_urls = [
+  "https://{{REPL_SLUG}}.{{REPL_OWNER}}.repl.co/auth/callback",
+  "https://{{REPL_SLUG}}.{{REPL_OWNER}}.repl.co/auth/shopify/callback",
+  "https://{{REPL_SLUG}}.{{REPL_OWNER}}.repl.co/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2025-01"
+
+[pos]
+embedded = false

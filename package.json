@@ -1,0 +1,31 @@
+{
+  "name": "shopify-order-report-cards",
+  "version": "1.0.0",
+  "description": "Shopify Admin Extension for printing order report cards",
+  "type": "module",
+  "scripts": {
+    "dev": "shopify app dev",
+    "build": "shopify app build",
+    "deploy": "shopify app deploy",
+    "env": "shopify app env pull",
+    "generate": "shopify app generate",
+    "start": "node server/index.js"
+  },
+  "keywords": [
+    "shopify",
+    "admin-extension",
+    "print-action"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@shopify/shopify-api": "latest",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@shopify/cli": "latest"
+  }
+}

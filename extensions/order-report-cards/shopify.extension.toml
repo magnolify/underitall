@@ -1,0 +1,10 @@
+api_version = "2025-01"
+
+[[extensions]]
+name = "order-report-cards"
+handle = "order-report-cards"
+type = "ui_extension"
+
+[[extensions.targeting]]
+module = "./src/PrintActionExtension.jsx"
+target = "admin.order-details.print-action.render"

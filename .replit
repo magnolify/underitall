@@ -43,6 +43,6 @@ channel = "stable-25_05"
 packages = ["shopify-cli"]
 
 [deployment]
-deploymentTarget = "autoscale"
-run = ["npm", "start"]
-build = ["npm", "run", "build"]
+deploymentTarget = "cloudrun"
+run = ["sh", "-c", "npm start"]
+build = ["sh", "-c", "npm run build"]

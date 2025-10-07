@@ -1,10 +1,10 @@
-# Shopify Order Report Cards - Admin Extension
+# UNDERITALL Report Card Generator
 
 ## Overview
 
-This application is a Shopify Admin Extension that generates printable report cards for order line items. It integrates directly into the Shopify Admin interface as a print action on order details pages, allowing merchants to create custom 8.5" × 5.5" landscape-format labels for each item in an order. The system intelligently parses product properties (dimensions, project names, install locations) and creates individual numbered cards for each unit quantity.
+This is a full-stack web application for generating printable report cards for Shopify order line items. The app features a React frontend with a modern dark-themed UI where users can input order numbers to load and preview report cards. It also includes a Shopify Admin Extension for seamless integration within the Shopify Admin interface.
 
-The application features a dual-mode architecture: a production mode that runs natively within Shopify Admin, and a developer mode accessible via standalone URL for testing with order numbers.
+The application generates custom 8.5" × 5.5" landscape-format labels for each item in an order, intelligently parsing product properties (dimensions, project names, install locations) and creating individual numbered cards for each unit quantity.
 
 ## User Preferences
 
@@ -14,31 +14,33 @@ Preferred communication style: Simple, everyday language.
 
 ### Core Architecture Pattern
 
-**Dual-Mode Deployment Strategy**
-- **Live Mode**: Shopify Admin Extension using UI Extensions React framework
-- **Developer Mode**: Standalone Express server with React frontend for testing
+**Full-Stack Web Application**
+- **Frontend**: React 18 + Vite development server with TypeScript
+- **Backend**: Express server serving both API routes and Vite dev server
+- **Shopify Extension**: Admin print action for in-admin integration
+- **Styling**: Tailwind CSS with dark theme and shadcn/ui components
 
-**Security Model**
-- Session token validation via JWT (HS256) for Shopify Admin requests
-- One-time print tokens with 5-minute expiry for secure print URL generation
-- Token-based authentication prevents unauthorized access to order data
-
-**Extension Architecture**
-- Admin print action extension (`extensions/order-report-cards/`) built with Shopify UI Extensions
-- Print action appears natively in Shopify Admin order details page
-- Extension triggers token generation and opens print preview in new window
+**Development Architecture**
+- Vite provides HMR (Hot Module Replacement) in development mode
+- Express serves as proxy for API routes (`/api/*`)
+- Server runs on port 5000 (only non-firewalled port for Replit webview)
+- Production builds bundle frontend and compile TypeScript backend
 
 ### Backend Architecture
 
-**Express Server** (`server/index.js`)
-- Port 3000 default, configurable via environment
-- CORS enabled for cross-origin admin requests
-- Three primary route modules: `/auth`, `/print`, `/mcp`
+**Express Server** (`server/index.ts`)
+- Port 5000 (Replit webview requirement)
+- TypeScript with tsx for development
+- Serves both API and frontend via Vite middleware
 
-**Route Structure**
-1. **Authentication Route** (`/auth/generate-print-token`): Validates Shopify session tokens and issues short-lived print tokens
-2. **Print Route** (`/print`): Serves printable HTML using validated print tokens, fetches order data from Shopify GraphQL API
-3. **MCP Route** (`/mcp`): Model Context Protocol endpoints for daemon mode switching (goddess/vanilla-cli modes)
+**Route Structure** (`server/routes.ts`)
+1. **Order API** (`/api/order/:id`): Fetches order data from Shopify GraphQL API
+2. **Print Route** (`/api/print`): Generates printable HTML for report cards
+3. **Settings API** (`/api/settings`): Manages print configuration and preferences
+
+**Vite Integration** (`server/vite.ts`)
+- Development: Vite middleware with HMR
+- Production: Serves pre-built static assets from `dist/public`
 
 **Shopify Integration**
 - Uses `@shopify/shopify-api` package (latest version)
@@ -48,17 +50,22 @@ Preferred communication style: Simple, everyday language.
 
 ### Frontend Architecture
 
-**Extension UI** (`extensions/order-report-cards/src/`)
-- Built with `@shopify/ui-extensions-react` (latest)
-- React 18.3.1 components
-- Shopify CLI for building and deployment
-- Localization support via `locales/en.default.json`
+**React Application** (`client/src/`)
+- React 18.3.1 with TypeScript
+- Wouter for client-side routing
+- TanStack Query for API state management
+- shadcn/ui component library (Radix UI primitives)
 
-**Print Preview System**
-- Server-side HTML generation (`server/lib/htmlGenerator.js`)
-- CSS optimized for 8.5" × 5.5" landscape printing
-- Automatic page breaks between cards
-- Print-specific media queries
+**Key Components**
+- `OrderInput`: Load orders by number with real-time validation
+- `PrintPreview`: Live preview of report cards before printing
+- `SettingsPanel`: Configure print preferences (page size, margins, etc.)
+- `Header`: App navigation and branding
+
+**Styling**
+- Tailwind CSS 4.x with custom dark theme
+- Print-optimized CSS for 8.5" × 5.5" landscape format
+- Responsive design with mobile support
 
 ### Data Flow
 

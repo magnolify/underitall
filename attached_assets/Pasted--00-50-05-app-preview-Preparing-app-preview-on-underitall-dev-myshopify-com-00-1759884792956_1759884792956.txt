@@ -1,0 +1,37 @@
+
+
+00:50:05 │               app-preview │ Preparing app preview on underitall-dev.myshopify.com
+00:50:05 │                     proxy │ Proxy server started on port 443
+00:50:05 │                  graphiql │ GraphiQL server started on port 3457
+00:50:05 │        order-report-cards │ ✘ [ERROR] No matching export in "extensions/order-report
+-cards/node_modules/@shopify/ui-extensions-react/build/esm/surfaces/admin.mjs" for import 
+"useData"
+00:50:05 │        order-report-cards │
+00:50:05 │        order-report-cards │
+extensions/order-report-cards/src/PrintActionExtension.jsx:5:2:
+00:50:05 │        order-report-cards │       5 │   useData,
+00:50:05 │        order-report-cards │         ╵   ~~~~~~~
+00:50:05 │        order-report-cards │
+00:50:05 │        order-report-cards │ ✘ [ERROR] No matching export in "extensions/order-report
+-cards/node_modules/@shopify/ui-extensions-react/build/esm/surfaces/admin.mjs" for import 
+"useSessionToken"
+00:50:05 │        order-report-cards │
+00:50:05 │        order-report-cards │
+extensions/order-report-cards/src/PrintActionExtension.jsx:6:2:
+00:50:05 │        order-report-cards │       6 │   useSessionToken,
+00:50:05 │        order-report-cards │         ╵   ~~~~~~~~~~~~~~~
+00:50:05 │        order-report-cards │
+00:50:05 │               app-preview │ ❌ Error
+00:50:06 │        order-report-cards │ └  Build error. Please review your code and try again.
+
+─────────────────────────────────────────────────────────────────────────────────────
+│ (d) Dev status │ (a) App info │ (s) Store info │                           (q) Quit
+
+ ⠼ Preparing app preview
+
+
+╭─ error ──────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  App preview aborted, build errors detected in extensions                    │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯

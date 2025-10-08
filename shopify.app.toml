@@ -2,7 +2,7 @@
 
 client_id = "4ae50f96f3f8c6ef4f269f27aa4e2ebf"
 name = "UIA"
-application_url = "https://example.com"
+application_url = "https://underitall.replit.app"
 embedded = true
 
 [build]
@@ -13,7 +13,7 @@ api_version = "2025-10"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = ""
+scopes = "read_orders,read_products,read_customers"
 optional_scopes = [ ]
 use_legacy_install_flow = false
 

@@ -4,6 +4,16 @@ import { storage } from "./storage";
 import express from "express";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Serve dev console for Shopify extensions
+  app.get("/extensions/dev-console", (req, res) => {
+    res.redirect(`https://admin.shopify.com/store/${process.env.SHOPIFY_SHOP_DOMAIN?.replace('.myshopify.com', '')}/apps/${process.env.SHOPIFY_API_KEY || '4ae50f96f3f8c6ef4f269f27aa4e2ebf'}`);
+  });
+
+  // Proxy GraphiQL requests to Shopify's GraphiQL server
+  app.get("/graphiql", (req, res) => {
+    res.redirect("http://localhost:3457/graphiql");
+  });
+
   // Fetch Shopify order by order number
   app.get("/api/orders/:orderNumber", async (req, res) => {
     const orderNumber = req.params.orderNumber;
@@ -143,6 +153,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }
+  });
+
+  // Print route for Shopify Admin extension
+  app.get("/print/:orderNumber", async (req, res) => {
+    const orderNumber = req.params.orderNumber;
+    res.redirect(`/?${orderNumber}`);
   });
 
   // Serve HTML preview for printing

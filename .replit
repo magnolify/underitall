@@ -6,15 +6,6 @@ expertMode = true
 runButton = "Project"
 
 [[workflows.workflow]]
-name = "Shopify Dev"
-author = 48416190
-mode = "sequential"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "npx shopify app dev --tunnel-url https://underitall.replit.app:443"
-
-[[workflows.workflow]]
 name = "Deploy to Shopify"
 author = 48416190
 mode = "sequential"
@@ -32,6 +23,10 @@ author = "agent"
 task = "workflow.run"
 args = "Server"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Shopify Dev"
+
 [[workflows.workflow]]
 name = "Server"
 author = "agent"
@@ -40,6 +35,17 @@ author = "agent"
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 3000
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow]]
+name = "Shopify Dev"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx shopify app dev --tunnel-url https://workspace.chris2250.replit.app:443"
 
 [workflows.workflow.metadata]
 outputType = "console"
@@ -64,9 +70,4 @@ exposeLocalhost = true
 [[ports]]
 localPort = 5000
 externalPort = 5000
-exposeLocalhost = true
-
-[[ports]]
-localPort = 44419
-externalPort = 4200
 exposeLocalhost = true

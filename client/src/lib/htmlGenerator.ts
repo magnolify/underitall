@@ -45,11 +45,33 @@ const parseTitleForLabel = (item: ShopifyLineItem): { title: string; properties:
 
 const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
   const clientName = escapeHtml(order.shipping_address?.name || `${order.customer?.first_name || ''} ${order.customer?.last_name || ''}`.trim());
-  const company = escapeHtml(order.shipping_address?.company || '');
-  const address = escapeHtml(`${order.shipping_address?.address1 || ''}${order.shipping_address?.address2 ? `, ${order.shipping_address.address2}` : ''}`);
-  const cityStateZip = escapeHtml(`${order.shipping_address?.city || ''}, ${order.shipping_address?.province_code || ''} ${order.shipping_address?.zip || ''}`);
-  const poNumber = escapeHtml(order.name);
-  const orderDate = new Date(order.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const company = order.shipping_address?.company ? escapeHtml(order.shipping_address.company) : '';
+  const orderNumber = escapeHtml(order.name.replace('#', ''));
+  const orderDate = new Date(order.created_at).toLocaleDateString('en-US');
+  
+  // Extract PO# from line item properties
+  let poNumber = '';
+  for (const item of order.line_items) {
+    const po = findPropertyValue(item.properties, 'PO#');
+    if (po) {
+      poNumber = escapeHtml(po);
+      break;
+    }
+  }
+  
+  const addressLines = [];
+  if (order.shipping_address?.address1) addressLines.push(escapeHtml(order.shipping_address.address1));
+  if (order.shipping_address?.address2) addressLines.push(escapeHtml(order.shipping_address.address2));
+  
+  const cityStateZip = [];
+  if (order.shipping_address?.city) cityStateZip.push(escapeHtml(order.shipping_address.city));
+  if (order.shipping_address?.province_code) cityStateZip.push(escapeHtml(order.shipping_address.province_code));
+  if (order.shipping_address?.zip) cityStateZip.push(escapeHtml(order.shipping_address.zip));
+  if (cityStateZip.length > 0) addressLines.push(cityStateZip.join(', '));
+  
+  if (order.shipping_address?.country && order.shipping_address.country !== 'United States') {
+    addressLines.push(escapeHtml(order.shipping_address.country));
+  }
 
   return `
     <div class="card header-card">
@@ -57,27 +79,24 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
         <img src="https://www.itsunderitall.com/cdn/shop/files/UnderItAll_Logo_FeltGrey_350x.png?v=1720724526" alt="UNDERITALL Logo">
       </div>
       <div class="header-content">
-        <h1 class="header-title">Order Summary</h1>
         <div class="header-info-grid">
           <div class="info-col">
-            <div class="info-item"><span class="label">Client:</span> ${clientName}</div>
-            <div class="info-item"><span class="label">Company:</span> ${company}</div>
+            <div class="info-item"><span class="label">Ship To:</span></div>
+            ${company ? `<div class="info-item">${company}</div>` : ''}
+            <div class="info-item">Attn: ${clientName}</div>
+            ${addressLines.map(line => `<div class="info-item">${line}</div>`).join('')}
           </div>
           <div class="info-col">
-            <div class="info-item"><span class="label">PO #:</span> ${poNumber}</div>
-            <div class="info-item"><span class="label">Order Date:</span> ${orderDate}</div>
+            <div class="info-item">Order: ${orderNumber}</div>
+            <div class="info-item">Order Date: ${orderDate}</div>
+            ${poNumber ? `<div class="info-item">PO #: ${poNumber}</div>` : ''}
           </div>
-        </div>
-        <div class="address-info">
-          <span class="label">Shipping To:</span>
-          <div>${address}</div>
-          <div>${cityStateZip}</div>
         </div>
       </div>
       <div class="footer">
-        <div class="thank-you">THANK YOU FOR YOUR ORDER !</div>
+        <div class="thank-you">THANK YOU FOR GOING SCISSORLESS!</div>
         <div class="contact-info">
-          Phone: (404) 438-0986 - Email: info@underitall.com
+          PHONE: (404) 439-0985 - EMAIL: INFO@ITSUNDERITALL.COM
         </div>
       </div>
     </div>

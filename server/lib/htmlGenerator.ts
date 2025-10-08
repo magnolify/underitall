@@ -81,12 +81,23 @@ function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties:
 function generateOrderHeaderHTML(order: ShopifyOrder): string {
   const clientName = escapeHtml(order.shippingAddress?.name || 
     `${order.customer?.firstName || ''} ${order.customer?.lastName || ''}`.trim());
-  const poNumber = escapeHtml(order.name);
+  const orderNumber = escapeHtml(order.name.replace('#', ''));
+  const orderDate = new Date(order.createdAt).toLocaleDateString('en-US');
+  
+  // Extract PO# from line item properties
+  let poNumber = '';
+  for (const item of order.lineItems) {
+    const po = findPropertyValue(item.properties, 'PO#');
+    if (po) {
+      poNumber = escapeHtml(po);
+      break;
+    }
+  }
   
   const address = order.shippingAddress;
+  const company = address?.company ? escapeHtml(address.company) : '';
   const addressLines = [];
   
-  if (address?.company) addressLines.push(escapeHtml(address.company));
   if (address?.address1) addressLines.push(escapeHtml(address.address1));
   if (address?.address2) addressLines.push(escapeHtml(address.address2));
   
@@ -100,26 +111,23 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
     addressLines.push(escapeHtml(address.country));
   }
   
-  const totalQuantity = order.lineItems.reduce((sum, item) => sum + item.quantity, 0);
-  
   return `
     <div class="order-header">
       <div class="logo">
         <img src="https://www.itsunderitall.com/cdn/shop/files/UnderItAll_Logo_FeltGrey_350x.png?v=1720724526" alt="UNDERITALL Logo">
       </div>
       
-      <h2>Order ${poNumber} Summary</h2>
       <div class="header-details">
         <div class="header-column">
           <div class="header-label">Ship To:</div>
-          <div class="header-value">${clientName}</div>
+          ${company ? `<div class="header-value">${company}</div>` : ''}
+          <div class="header-value">Attn: ${clientName}</div>
           ${addressLines.map(line => `<div class="header-value">${line}</div>`).join('')}
         </div>
         <div class="header-column">
-          <div class="header-label">Order Details:</div>
-          <div class="header-value">Order #: ${poNumber}</div>
-          <div class="header-value">Total Cards: ${totalQuantity}</div>
-          <div class="header-value">Date: ${new Date().toLocaleDateString('en-US')}</div>
+          <div class="header-value">Order: ${orderNumber}</div>
+          <div class="header-value">Order Date: ${orderDate}</div>
+          ${poNumber ? `<div class="header-value">PO #: ${poNumber}</div>` : ''}
         </div>
       </div>
     </div>
@@ -170,7 +178,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
         <div class="footer">
           <div class="thank-you">THANK YOU FOR GOING SCISSORLESS!</div>
           <div class="contact-info">
-            PHONE: (404) 439-0985 - EMAIL: INFO@UNDERITALL.COM
+            PHONE: (404) 439-0985 - EMAIL: INFO@ITSUNDERITALL.COM
           </div>
         </div>
       </div>

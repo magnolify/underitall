@@ -146,7 +146,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
         <div class="footer">
           <div class="thank-you">THANK YOU FOR GOING SCISSORLESS!</div>
           <div class="contact-info">
-            PHONE: (404) 439-0985 - EMAIL: INFO@UNDERITALL.COM
+            PHONE: (404) 439-0985 - EMAIL: INFO@ITSUNDERITALL.COM
           </div>
         </div>
       </div>

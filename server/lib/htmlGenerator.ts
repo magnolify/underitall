@@ -54,10 +54,10 @@ function findPropertyValue(properties: Array<{ key: string; value: string }> | u
 
 function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties: string[] } {
   const title = item.title || item.name || '';
-  
+
   // Clean the title - remove Default_cpc suffix
   const cleanTitle = title.replace(/ - Default_cpc_.*$/, '').trim();
-  
+
   // Filter and format properties - exclude _ZapietId and any empty values
   const relevantProperties = (item.properties || [])
     .filter(prop => {
@@ -71,7 +71,7 @@ function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties:
       // Format the property as "Name: Value"
       return `${prop.key.trim()}: ${prop.value.trim()}`;
     });
-  
+
   return {
     title: escapeHtml(cleanTitle),
     properties: relevantProperties.map(p => escapeHtml(p))
@@ -83,7 +83,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
     `${order.customer?.firstName || ''} ${order.customer?.lastName || ''}`.trim());
   const orderNumber = escapeHtml(order.name.replace('#', ''));
   const orderDate = new Date(order.createdAt).toLocaleDateString('en-US');
-  
+
   // Extract PO# from line item properties
   let poNumber = '';
   for (const item of order.lineItems) {
@@ -93,30 +93,30 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
       break;
     }
   }
-  
+
   const address = order.shippingAddress;
   const company = address?.company ? escapeHtml(address.company) : '';
   const addressLines = [];
-  
+
   if (address?.address1) addressLines.push(escapeHtml(address.address1));
   if (address?.address2) addressLines.push(escapeHtml(address.address2));
-  
+
   const cityStateZip = [];
   if (address?.city) cityStateZip.push(escapeHtml(address.city));
   if (address?.province) cityStateZip.push(escapeHtml(address.province));
   if (address?.zip) cityStateZip.push(escapeHtml(address.zip));
   if (cityStateZip.length > 0) addressLines.push(cityStateZip.join(', '));
-  
+
   if (address?.country && address.country !== 'United States') {
     addressLines.push(escapeHtml(address.country));
   }
-  
+
   return `
     <div class="order-header">
       <div class="logo">
         <img src="https://www.itsunderitall.com/cdn/shop/files/UnderItAll_Logo_FeltGrey_350x.png?v=1720724526" alt="UNDERITALL Logo">
       </div>
-      
+
       <div class="header-details">
         <div class="header-column">
           <div class="header-label">Ship To:</div>
@@ -401,7 +401,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
         size: 8.5in 5.5in landscape;
         margin: 0;
       }
-      
+
       body {
         background-color: white !important;
         margin: 0 !important;
@@ -409,11 +409,11 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
-      
+
       .container {
         padding: 0 !important;
       }
-      
+
       .order-header {
         break-after: page;
         background: white !important;
@@ -421,16 +421,16 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
         box-shadow: none !important;
         color: black !important;
       }
-      
+
       .order-header h2,
       .header-label {
         color: black !important;
       }
-      
+
       .header-value {
         color: #333 !important;
       }
-      
+
       .card {
         break-after: page;
         box-shadow: none !important;
@@ -443,15 +443,15 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
         transform-origin: center center;
         color: black !important;
       }
-      
+
       .card:last-of-type {
         page-break-after: auto;
       }
-      
+
       .logo img {
         filter: none !important;
       }
-      
+
       hr {
         border-top: 1px solid #ddd !important;
       }

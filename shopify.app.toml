@@ -2,7 +2,7 @@
 
 name = "order-report-cards"
 client_id = ""
-application_url = "https://{{REPL_SLUG}}.{{REPL_OWNER}}.repl.co"
+application_url = "https://underitall.replit.app"
 embedded = true
 
 [build]
@@ -13,9 +13,9 @@ scopes = "read_orders,read_products,read_customers"
 
 [auth]
 redirect_urls = [
-  "https://{{REPL_SLUG}}.{{REPL_OWNER}}.repl.co/auth/callback",
-  "https://{{REPL_SLUG}}.{{REPL_OWNER}}.repl.co/auth/shopify/callback",
-  "https://{{REPL_SLUG}}.{{REPL_OWNER}}.repl.co/api/auth/callback"
+  "https://underitall.replit.app/auth/callback",
+  "https://underitall.replit.app/auth/shopify/callback",
+  "https://underitall.replit.app/api/auth/callback"
 ]
 
 [webhooks]

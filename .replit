@@ -33,7 +33,7 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npx shopify app dev"
+args = "npx shopify app dev --tunnel-url https://underitall.replit.app:443"
 
 [[workflows.workflow]]
 name = "Deploy to Shopify"
@@ -47,6 +47,10 @@ args = "npx shopify app deploy"
 [[ports]]
 localPort = 3000
 externalPort = 3000
+
+[[ports]]
+localPort = 3458
+externalPort = 3001
 
 [[ports]]
 localPort = 5000

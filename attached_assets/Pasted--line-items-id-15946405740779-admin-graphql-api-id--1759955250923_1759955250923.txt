@@ -1,0 +1,74 @@
+"line_items": [
+          {
+            "id": 15946405740779,
+            "admin_graphql_api_id": "gid://shopify/LineItem/15946405740779",
+            "attributed_staffs": [],
+            "current_quantity": 1,
+            "fulfillable_quantity": 0,
+            "fulfillment_service": "manual",
+            "fulfillment_status": "fulfilled",
+            "gift_card": false,
+            "grams": 0,
+            "name": "Rectangle Rug Pad, Luxe ¼” thick - Default_cpc_E91065561ECF4",
+            "pre_tax_price": "146.48",
+            "pre_tax_price_set": {
+              "shop_money": {
+                "amount": "146.48",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "146.48",
+                "currency_code": "USD"
+              }
+            },
+            "price": "146.48",
+            "price_set": {
+              "shop_money": {
+                "amount": "146.48",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "146.48",
+                "currency_code": "USD"
+              }
+            },
+            "product_exists": true,
+            "product_id": 8847034482923,
+            "properties": [
+              {
+                "name": "Rectangle Width (ft)",
+                "value": "7 ft"
+              },
+              {
+                "name": "Rectangle Width (in)",
+                "value": "10 in"
+              },
+              {
+                "name": "Rectangle Length (ft)",
+                "value": "10 ft"
+              },
+              {
+                "name": "Rectangle Length (in)",
+                "value": "0 in"
+              },
+              {
+                "name": "Project Name ",
+                "value": "Pine Nursery "
+              },
+              {
+                "name": "Install Location",
+                "value": "Nursery "
+              },
+              {
+                "name": "PO#",
+                "value": "200807"
+              },
+              {
+                "name": "Design Firm/Attn",
+                "value": "b. blanton design "
+              },
+              {
+                "name": "_ZapietId",
+                "value": "M=S"
+              }
+            ],

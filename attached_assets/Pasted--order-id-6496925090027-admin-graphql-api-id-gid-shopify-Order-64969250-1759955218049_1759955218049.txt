@@ -1,0 +1,734 @@
+{
+  "order": {
+    "id": 6496925090027,
+    "admin_graphql_api_id": "gid://shopify/Order/6496925090027",
+    "app_id": 580111,
+    "browser_ip": "50.222.33.170",
+    "buyer_accepts_marketing": true,
+    "cancel_reason": null,
+    "cancelled_at": null,
+    "cart_token": "hWN2YLOI5cYCXJ2SCkZV7hMf",
+    "checkout_id": 36444958327019,
+    "checkout_token": "e74dbbebf4737ebcba12c90fbbb70047",
+    "client_details": {
+      "accept_language": "en",
+      "browser_height": null,
+      "browser_ip": "50.222.33.170",
+      "browser_width": null,
+      "session_hash": null,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+    },
+    "closed_at": "2025-10-07T15:27:25-04:00",
+    "confirmation_number": "VK58LWHLR",
+    "confirmed": true,
+    "contact_email": "brittney@bblantondesign.com",
+    "created_at": "2025-10-07T14:37:27-04:00",
+    "currency": "USD",
+    "current_subtotal_price": "279.72",
+    "current_subtotal_price_set": {
+      "shop_money": {
+        "amount": "279.72",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "279.72",
+        "currency_code": "USD"
+      }
+    },
+    "current_total_additional_fees_set": null,
+    "current_total_discounts": "0.00",
+    "current_total_discounts_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      }
+    },
+    "current_total_duties_set": null,
+    "current_total_price": "319.67",
+    "current_total_price_set": {
+      "shop_money": {
+        "amount": "319.67",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "319.67",
+        "currency_code": "USD"
+      }
+    },
+    "current_total_tax": "0.00",
+    "current_total_tax_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      }
+    },
+    "customer_locale": "en-US",
+    "device_id": null,
+    "discount_codes": [],
+    "duties_included": false,
+    "email": "brittney@bblantondesign.com",
+    "estimated_taxes": false,
+    "financial_status": "paid",
+    "fulfillment_status": "fulfilled",
+    "landing_site": "/",
+    "landing_site_ref": null,
+    "location_id": null,
+    "merchant_business_entity_id": "MTY1ODQyNTc3NjQz",
+    "merchant_of_record_app_id": null,
+    "name": "#2265",
+    "note": null,
+    "note_attributes": [],
+    "number": 1265,
+    "order_number": 2265,
+    "order_status_url": "https://www.itsunderitall.com/65842577643/orders/f596f7f6b35b6d0d58c5b3c2224c7dae/authenticate?key=d976e7280c11b939e7c55edc208349e2",
+    "original_total_additional_fees_set": null,
+    "original_total_duties_set": null,
+    "payment_gateway_names": [
+      "shopify_payments"
+    ],
+    "phone": null,
+    "po_number": null,
+    "presentment_currency": "USD",
+    "processed_at": "2025-10-07T14:37:24-04:00",
+    "reference": null,
+    "referring_site": "https://www.google.com/",
+    "source_identifier": null,
+    "source_name": "web",
+    "source_url": null,
+    "subtotal_price": "279.72",
+    "subtotal_price_set": {
+      "shop_money": {
+        "amount": "279.72",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "279.72",
+        "currency_code": "USD"
+      }
+    },
+    "tags": "",
+    "tax_exempt": false,
+    "tax_lines": [],
+    "taxes_included": false,
+    "test": false,
+    "token": "f596f7f6b35b6d0d58c5b3c2224c7dae",
+    "total_cash_rounding_payment_adjustment_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      }
+    },
+    "total_cash_rounding_refund_adjustment_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      }
+    },
+    "total_discounts": "0.00",
+    "total_discounts_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      }
+    },
+    "total_line_items_price": "279.72",
+    "total_line_items_price_set": {
+      "shop_money": {
+        "amount": "279.72",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "279.72",
+        "currency_code": "USD"
+      }
+    },
+    "total_outstanding": "0.00",
+    "total_price": "319.67",
+    "total_price_set": {
+      "shop_money": {
+        "amount": "319.67",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "319.67",
+        "currency_code": "USD"
+      }
+    },
+    "total_shipping_price_set": {
+      "shop_money": {
+        "amount": "39.95",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "39.95",
+        "currency_code": "USD"
+      }
+    },
+    "total_tax": "0.00",
+    "total_tax_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "USD"
+      }
+    },
+    "total_tip_received": "0.00",
+    "total_weight": 0,
+    "updated_at": "2025-10-08T12:22:20-04:00",
+    "user_id": null,
+    "billing_address": {
+      "first_name": "Brittney",
+      "address1": "1009 Somerset downs Blvd",
+      "phone": null,
+      "city": "Hendersonville",
+      "zip": "37075",
+      "province": "Tennessee",
+      "country": "United States",
+      "last_name": "Blanton",
+      "address2": null,
+      "company": "b. blanton design",
+      "latitude": 36.3742938,
+      "longitude": -86.5992458,
+      "name": "Brittney Blanton",
+      "country_code": "US",
+      "province_code": "TN"
+    },
+    "customer": {
+      "id": 7670546301163,
+      "created_at": "2024-09-16T09:52:31-04:00",
+      "updated_at": "2025-10-07T14:37:28-04:00",
+      "first_name": "BRITTNEY",
+      "last_name": "BLANTON",
+      "state": "enabled",
+      "note": "",
+      "verified_email": true,
+      "multipass_identifier": null,
+      "tax_exempt": false,
+      "email_marketing_consent": {
+        "state": "subscribed",
+        "opt_in_level": "single_opt_in",
+        "consent_updated_at": "2024-10-10T19:56:56-04:00"
+      },
+      "sms_marketing_consent": null,
+      "tags": "N24, sales_rep_bruce150",
+      "email": "brittney@bblantondesign.com",
+      "phone": null,
+      "currency": "USD",
+      "tax_exemptions": [
+        "US_TN_RESELLER_EXEMPTION"
+      ],
+      "admin_graphql_api_id": "gid://shopify/Customer/7670546301163",
+      "default_address": {
+        "id": 9342318608619,
+        "customer_id": 7670546301163,
+        "first_name": "Brittney",
+        "last_name": "Blanton",
+        "company": "b. blanton design",
+        "address1": "1009 Somerset downs Blvd",
+        "address2": null,
+        "city": "Hendersonville",
+        "province": "Tennessee",
+        "country": "United States",
+        "zip": "37075",
+        "phone": null,
+        "name": "Brittney Blanton",
+        "province_code": "TN",
+        "country_code": "US",
+        "country_name": "United States",
+        "default": true
+      }
+    },
+    "discount_applications": [],
+    "fulfillments": [
+      {
+        "id": 5862037520619,
+        "admin_graphql_api_id": "gid://shopify/Fulfillment/5862037520619",
+        "created_at": "2025-10-07T15:27:24-04:00",
+        "location_id": 70440812779,
+        "name": "#2265.1",
+        "order_id": 6496925090027,
+        "origin_address": {
+
+        },
+        "receipt": {
+
+        },
+        "service": "manual",
+        "shipment_status": "delivered",
+        "status": "success",
+        "tracking_company": "FedEx",
+        "tracking_number": "884978754922",
+        "tracking_numbers": [
+          "884978754922"
+        ],
+        "tracking_url": "https://www.fedex.com/fedextrack/?trknbr=884978754922",
+        "tracking_urls": [
+          "https://www.fedex.com/fedextrack/?trknbr=884978754922"
+        ],
+        "updated_at": "2025-10-08T12:21:41-04:00",
+        "line_items": [
+          {
+            "id": 15946405740779,
+            "admin_graphql_api_id": "gid://shopify/LineItem/15946405740779",
+            "attributed_staffs": [],
+            "current_quantity": 1,
+            "fulfillable_quantity": 0,
+            "fulfillment_service": "manual",
+            "fulfillment_status": "fulfilled",
+            "gift_card": false,
+            "grams": 0,
+            "name": "Rectangle Rug Pad, Luxe ¼” thick - Default_cpc_E91065561ECF4",
+            "pre_tax_price": "146.48",
+            "pre_tax_price_set": {
+              "shop_money": {
+                "amount": "146.48",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "146.48",
+                "currency_code": "USD"
+              }
+            },
+            "price": "146.48",
+            "price_set": {
+              "shop_money": {
+                "amount": "146.48",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "146.48",
+                "currency_code": "USD"
+              }
+            },
+            "product_exists": true,
+            "product_id": 8847034482923,
+            "properties": [
+              {
+                "name": "Rectangle Width (ft)",
+                "value": "7 ft"
+              },
+              {
+                "name": "Rectangle Width (in)",
+                "value": "10 in"
+              },
+              {
+                "name": "Rectangle Length (ft)",
+                "value": "10 ft"
+              },
+              {
+                "name": "Rectangle Length (in)",
+                "value": "0 in"
+              },
+              {
+                "name": "Project Name ",
+                "value": "Pine Nursery "
+              },
+              {
+                "name": "Install Location",
+                "value": "Nursery "
+              },
+              {
+                "name": "PO#",
+                "value": "200807"
+              },
+              {
+                "name": "Design Firm/Attn",
+                "value": "b. blanton design "
+              },
+              {
+                "name": "_ZapietId",
+                "value": "M=S"
+              }
+            ],
+            "quantity": 1,
+            "requires_shipping": true,
+            "sku": "Custom",
+            "taxable": false,
+            "title": "Rectangle Rug Pad, Luxe ¼” thick",
+            "total_discount": "0.00",
+            "total_discount_set": {
+              "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              }
+            },
+            "variant_id": 46946681553131,
+            "variant_inventory_management": null,
+            "variant_title": "Default_cpc_E91065561ECF4",
+            "vendor": "UNDER IT ALL",
+            "tax_lines": [],
+            "duties": [],
+            "discount_allocations": []
+          },
+          {
+            "id": 15946405773547,
+            "admin_graphql_api_id": "gid://shopify/LineItem/15946405773547",
+            "attributed_staffs": [],
+            "current_quantity": 1,
+            "fulfillable_quantity": 0,
+            "fulfillment_service": "manual",
+            "fulfillment_status": "fulfilled",
+            "gift_card": false,
+            "grams": 0,
+            "name": "Rectangle Rug Pad, Luxe ¼” thick - Default_cpc_0F8657617D6D4",
+            "pre_tax_price": "133.24",
+            "pre_tax_price_set": {
+              "shop_money": {
+                "amount": "133.24",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "133.24",
+                "currency_code": "USD"
+              }
+            },
+            "price": "133.24",
+            "price_set": {
+              "shop_money": {
+                "amount": "133.24",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "133.24",
+                "currency_code": "USD"
+              }
+            },
+            "product_exists": true,
+            "product_id": 8847034482923,
+            "properties": [
+              {
+                "name": "Rectangle Width (ft)",
+                "value": "7 ft"
+              },
+              {
+                "name": "Rectangle Width (in)",
+                "value": "6 in"
+              },
+              {
+                "name": "Rectangle Length (ft)",
+                "value": "9 ft"
+              },
+              {
+                "name": "Rectangle Length (in)",
+                "value": "6 in"
+              },
+              {
+                "name": "Project Name ",
+                "value": "Pine Nursery "
+              },
+              {
+                "name": "Install Location",
+                "value": "Sloane's Room "
+              },
+              {
+                "name": "PO#",
+                "value": "200807"
+              },
+              {
+                "name": "Design Firm/Attn",
+                "value": "b. blanton design"
+              }
+            ],
+            "quantity": 1,
+            "requires_shipping": true,
+            "sku": "Custom",
+            "taxable": false,
+            "title": "Rectangle Rug Pad, Luxe ¼” thick",
+            "total_discount": "0.00",
+            "total_discount_set": {
+              "shop_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              },
+              "presentment_money": {
+                "amount": "0.00",
+                "currency_code": "USD"
+              }
+            },
+            "variant_id": 46946680176875,
+            "variant_inventory_management": null,
+            "variant_title": "Default_cpc_0F8657617D6D4",
+            "vendor": "UNDER IT ALL",
+            "tax_lines": [],
+            "duties": [],
+            "discount_allocations": []
+          }
+        ]
+      }
+    ],
+    "line_items": [
+      {
+        "id": 15946405740779,
+        "admin_graphql_api_id": "gid://shopify/LineItem/15946405740779",
+        "attributed_staffs": [],
+        "current_quantity": 1,
+        "fulfillable_quantity": 0,
+        "fulfillment_service": "manual",
+        "fulfillment_status": "fulfilled",
+        "gift_card": false,
+        "grams": 0,
+        "name": "Rectangle Rug Pad, Luxe ¼” thick - Default_cpc_E91065561ECF4",
+        "pre_tax_price": "146.48",
+        "pre_tax_price_set": {
+          "shop_money": {
+            "amount": "146.48",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "146.48",
+            "currency_code": "USD"
+          }
+        },
+        "price": "146.48",
+        "price_set": {
+          "shop_money": {
+            "amount": "146.48",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "146.48",
+            "currency_code": "USD"
+          }
+        },
+        "product_exists": true,
+        "product_id": 8847034482923,
+        "properties": [
+          {
+            "name": "Rectangle Width (ft)",
+            "value": "7 ft"
+          },
+          {
+            "name": "Rectangle Width (in)",
+            "value": "10 in"
+          },
+          {
+            "name": "Rectangle Length (ft)",
+            "value": "10 ft"
+          },
+          {
+            "name": "Rectangle Length (in)",
+            "value": "0 in"
+          },
+          {
+            "name": "Project Name ",
+            "value": "Pine Nursery "
+          },
+          {
+            "name": "Install Location",
+            "value": "Nursery "
+          },
+          {
+            "name": "PO#",
+            "value": "200807"
+          },
+          {
+            "name": "Design Firm/Attn",
+            "value": "b. blanton design "
+          },
+          {
+            "name": "_ZapietId",
+            "value": "M=S"
+          }
+        ],
+        "quantity": 1,
+        "requires_shipping": true,
+        "sku": "Custom",
+        "taxable": false,
+        "title": "Rectangle Rug Pad, Luxe ¼” thick",
+        "total_discount": "0.00",
+        "total_discount_set": {
+          "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          }
+        },
+        "variant_id": 46946681553131,
+        "variant_inventory_management": null,
+        "variant_title": "Default_cpc_E91065561ECF4",
+        "vendor": "UNDER IT ALL",
+        "tax_lines": [],
+        "duties": [],
+        "discount_allocations": []
+      },
+      {
+        "id": 15946405773547,
+        "admin_graphql_api_id": "gid://shopify/LineItem/15946405773547",
+        "attributed_staffs": [],
+        "current_quantity": 1,
+        "fulfillable_quantity": 0,
+        "fulfillment_service": "manual",
+        "fulfillment_status": "fulfilled",
+        "gift_card": false,
+        "grams": 0,
+        "name": "Rectangle Rug Pad, Luxe ¼” thick - Default_cpc_0F8657617D6D4",
+        "pre_tax_price": "133.24",
+        "pre_tax_price_set": {
+          "shop_money": {
+            "amount": "133.24",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "133.24",
+            "currency_code": "USD"
+          }
+        },
+        "price": "133.24",
+        "price_set": {
+          "shop_money": {
+            "amount": "133.24",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "133.24",
+            "currency_code": "USD"
+          }
+        },
+        "product_exists": true,
+        "product_id": 8847034482923,
+        "properties": [
+          {
+            "name": "Rectangle Width (ft)",
+            "value": "7 ft"
+          },
+          {
+            "name": "Rectangle Width (in)",
+            "value": "6 in"
+          },
+          {
+            "name": "Rectangle Length (ft)",
+            "value": "9 ft"
+          },
+          {
+            "name": "Rectangle Length (in)",
+            "value": "6 in"
+          },
+          {
+            "name": "Project Name ",
+            "value": "Pine Nursery "
+          },
+          {
+            "name": "Install Location",
+            "value": "Sloane's Room "
+          },
+          {
+            "name": "PO#",
+            "value": "200807"
+          },
+          {
+            "name": "Design Firm/Attn",
+            "value": "b. blanton design"
+          }
+        ],
+        "quantity": 1,
+        "requires_shipping": true,
+        "sku": "Custom",
+        "taxable": false,
+        "title": "Rectangle Rug Pad, Luxe ¼” thick",
+        "total_discount": "0.00",
+        "total_discount_set": {
+          "shop_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "USD"
+          }
+        },
+        "variant_id": 46946680176875,
+        "variant_inventory_management": null,
+        "variant_title": "Default_cpc_0F8657617D6D4",
+        "vendor": "UNDER IT ALL",
+        "tax_lines": [],
+        "duties": [],
+        "discount_allocations": []
+      }
+    ],
+    "payment_terms": null,
+    "refunds": [],
+    "shipping_address": {
+      "first_name": "Brittney",
+      "address1": "1009 Somerset downs Blvd",
+      "phone": "+15622901105",
+      "city": "Hendersonville",
+      "zip": "37075",
+      "province": "Tennessee",
+      "country": "United States",
+      "last_name": "Blanton",
+      "address2": "",
+      "company": "b. blanton design",
+      "latitude": 36.3742938,
+      "longitude": -86.5992458,
+      "name": "Brittney Blanton",
+      "country_code": "US",
+      "province_code": "TN"
+    },
+    "shipping_lines": [
+      {
+        "id": 5286561120491,
+        "carrier_identifier": null,
+        "code": "Economy",
+        "discounted_price": "39.95",
+        "discounted_price_set": {
+          "shop_money": {
+            "amount": "39.95",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "39.95",
+            "currency_code": "USD"
+          }
+        },
+        "is_removed": false,
+        "phone": null,
+        "price": "39.95",
+        "price_set": {
+          "shop_money": {
+            "amount": "39.95",
+            "currency_code": "USD"
+          },
+          "presentment_money": {
+            "amount": "39.95",
+            "currency_code": "USD"
+          }
+        },
+        "requested_fulfillment_service_id": null,
+        "source": "shopify",
+        "title": "Economy",
+        "tax_lines": [],
+        "discount_allocations": []
+      }
+    ]
+  }
+}

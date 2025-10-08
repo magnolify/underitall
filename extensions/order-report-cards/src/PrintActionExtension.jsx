@@ -15,30 +15,30 @@ function PrintAction() {
 
   useEffect(() => {
     async function buildPrintUrl() {
-      // Get the order name (order number) from the extension context
-      // The extension provides both id (gid://shopify/Order/...) and name (#1001)
-      const orderName = extension?.target?.data?.name;
+      // Get the order data from the extension context
+      const orderData = extension?.target?.data;
+      const orderName = orderData?.name;
 
       if (orderName) {
         try {
           // Remove the # prefix from the order name to get the order number
           const orderNumber = orderName.replace('#', '');
           
-          // Use the production URL - this will work once deployed
-          // For development testing, use the Shopify Dev Console preview
+          // Use the deployed production URL
           const baseUrl = 'https://underitall.replit.app';
 
-          // Build the print URL
+          // Build the print URL with order number
           const url = `${baseUrl}/print/${orderNumber}`;
-          console.log('Generated print URL:', url);
+          console.log('Generated print URL for order:', orderNumber, url);
           setPrintUrl(url);
         } catch (err) {
           console.error('Error generating print URL:', err);
-          setPrintUrl('');
+          // Provide a fallback URL
+          setPrintUrl('https://underitall.replit.app/print/error');
         }
       } else {
-        console.log('No order name available in extension context');
-        setPrintUrl('');
+        console.log('No order data available:', orderData);
+        setPrintUrl('https://underitall.replit.app/print/loading');
       }
     }
 

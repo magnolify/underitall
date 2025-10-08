@@ -43,11 +43,32 @@ const parseTitleForLabel = (item: ShopifyLineItem): { title: string; properties:
   };
 };
 
+const formatOrderDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const month = monthNames[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  
+  // Add ordinal suffix (st, nd, rd, th)
+  const suffix = (day: number) => {
+    if (day > 3 && day < 21) return 'th';
+    switch (day % 10) {
+      case 1: return 'st';
+      case 2: return 'nd';
+      case 3: return 'rd';
+      default: return 'th';
+    }
+  };
+  
+  return `${month} ${day}${suffix(day)}, ${year}`;
+};
+
 const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
   const clientName = escapeHtml(order.shipping_address?.name || `${order.customer?.first_name || ''} ${order.customer?.last_name || ''}`.trim());
   const company = order.shipping_address?.company ? escapeHtml(order.shipping_address.company) : '';
   const orderNumber = escapeHtml(order.name.replace('#', ''));
-  const orderDate = new Date(order.created_at).toLocaleDateString('en-US');
+  const orderDate = formatOrderDate(order.created_at);
   
   // Extract PO# from line item properties
   let poNumber = '';
@@ -97,7 +118,7 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
 
       <div class="pad-description">
         <div style="font-size: 14px; color: #6b7280; font-weight: 500;">
-          ${order.line_items.length} ${order.line_items.length === 1 ? 'Line Item' : 'Line Items'} • ${order.line_items.reduce((sum, item) => sum + item.quantity, 0)} Total Units
+          Total Line Items: ${order.line_items.length}
         </div>
       </div>
 

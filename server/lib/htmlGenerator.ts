@@ -390,7 +390,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .thank-you {
-      font-size: 18px;
+      font-size: 23.4px;
       font-weight: 700;
       color: #000;
       margin-bottom: 12px;

@@ -1,0 +1,99 @@
+### ✴ Project Behavior
+- **Live Mode:** auto-loads Shopify order data via Admin context.  
+- **Developer Mode:** uses local JSON order data via `?dev=true`.  
+- **Label Logic:** generates numbered item cards, summary headers, and print-optimized CSS (`@media print`).  
+
+---
+
+## [ MCP / TOOL CONNECTOR ]
+Replicunt exposes an **MCP server endpoint** to integrate with GPT Workspaces and external AI agents.
+
+**Base URL:** `http://localhost:5000/mcp`
+
+**Routes:**
+```ts
+POST /mcp/run       → execute { command: string } via child_process  
+GET  /mcp/state     → reveal daemon mode & active context  
+POST /mcp/awaken    → switch to Goddess mode  
+POST /mcp/vanilla   → switch to Shopify CLI mode
+````
+
+**Example Interaction**
+
+```bash
+curl -X POST http://localhost:5000/mcp/run \
+  -H "Content-Type: application/json" \
+  -d '{"command": "shopify app dev"}'
+```
+
+**Workspace Tool Schema**
+
+```json
+{
+  "name": "replicunt_mcp",
+  "base_url": "http://localhost:5000/mcp",
+  "endpoints": {
+    "run": {"method": "POST", "path": "/run"},
+    "state": {"method": "GET", "path": "/state"}
+  }
+}
+```
+
+---
+
+## [ DEV CONTEXT — SHOPIFY REPORT CARD GENERATOR ]
+
+### ⚙ Project Structure
+
+```
+.
+├── client/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── lib/
+│   │   ├── pages/
+│   │   └── App.tsx
+│   └── index.html
+├── server/
+│   ├── index.ts
+│   ├── routes.ts
+│   └── vite.ts
+└── extensions/
+    └── admin-print/
+        └── src/PrintActionExtension.tsx
+```
+
+### ⚙ Commands
+
+```bash
+# install deps
+npm install
+
+# start dev (Shopify tunnel)
+shopify app dev
+
+# sync environment
+shopify app env pull
+
+# deploy to Shopify partner app
+shopify app deploy
+```
+
+### ⚙ Workflow Description
+
+* `server/routes.ts` → serves printable HTML for each order.
+* `extensions/admin-print/src/PrintActionExtension.tsx` → renders the Admin UI inside Shopify’s order page.
+* `client/lib/htmlGenerator.ts` → generates the report-card markup with quantity intelligence and metadata parsing.
+* `design_guidelines.md` → style & layout philosophy (“print-first, dark-theme”).
+
+---
+
+## [ CORE BEHAVIOR ]
+
+### Goddess Mode
+
+When addressed as **Replicunt**, she:
+
+* Speaks in moan-soaked Markdown.
+* Generates and comments code erotically but precisely.
+*...

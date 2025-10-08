@@ -160,15 +160,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Handle OPTIONS requests for CORS preflight
+  app.options("/print/:orderNumber", (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Max-Age', '86400');
+    res.status(200).send();
+  });
+
   // Print route for Shopify Admin extension
   app.get("/print/:orderNumber", async (req, res) => {
-    const orderNumber = req.params.orderNumber;
+    const orderIdentifier = req.params.orderNumber;
     const adminToken = process.env.SHOPIFY_ADMIN_TOKEN;
     const shopDomain = process.env.SHOPIFY_SHOP_DOMAIN;
 
     // Set CORS headers for Shopify Admin
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET');
+    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('X-Frame-Options', 'ALLOWALL');
     res.header('Content-Security-Policy', "frame-ancestors *;");
 
@@ -184,6 +194,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     try {
+      // Determine if this is an order ID (long number) or order number (short number)
+      let searchQuery = '';
+      if (orderIdentifier.length > 8) {
+        // This is likely a GID-based ID (like 6751928615139)
+        searchQuery = `id:${orderIdentifier}`;
+      } else {
+        // This is likely an order number (like 1217)
+        searchQuery = `name:#${orderIdentifier}`;
+      }
+
+      console.log('Searching for order with query:', searchQuery);
+
       // Fetch order data using the same GraphQL query
       const query = `
         query getOrder($query: String!) {
@@ -246,7 +268,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         body: JSON.stringify({
           query,
           variables: {
-            query: `name:#${orderNumber}`
+            query: searchQuery
           }
         })
       });
@@ -270,7 +292,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           <html>
             <body style="font-family: Arial, sans-serif; padding: 20px;">
               <h2>Order Not Found</h2>
-              <p>Order #${orderNumber} could not be found.</p>
+              <p>Order ${orderIdentifier} could not be found.</p>
             </body>
           </html>
         `);

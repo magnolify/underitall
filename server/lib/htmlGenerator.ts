@@ -112,22 +112,37 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
   }
 
   return `
-    <div class="order-header">
+    <div class="card">
       <div class="logo">
         <img src="https://www.itsunderitall.com/cdn/shop/files/UnderItAll_Logo_FeltGrey_350x.png?v=1720724526" alt="UNDERITALL Logo">
       </div>
 
-      <div class="header-details">
-        <div class="header-column">
-          <div class="header-label">Ship To:</div>
-          ${company ? `<div class="header-value">${company}</div>` : ''}
-          <div class="header-value">Attn: ${clientName}</div>
-          ${addressLines.map(line => `<div class="header-value">${line}</div>`).join('')}
+      <div class="info-grid">
+        <div class="info-left">
+          <div><span class="label">Ship To:</span></div>
+          ${company ? `<div>${company}</div>` : ''}
+          <div>Attn: ${clientName}</div>
+          ${addressLines.map(line => `<div>${line}</div>`).join('')}
         </div>
-        <div class="header-column">
-          <div class="header-value">Order: ${orderNumber}</div>
-          <div class="header-value">Order Date: ${orderDate}</div>
-          ${poNumber ? `<div class="header-value">PO #: ${poNumber}</div>` : ''}
+        <div class="info-right">
+          <div><span class="label">Order #:</span> ${orderNumber}</div>
+          <div><span class="label">Order Date:</span> ${orderDate}</div>
+          ${poNumber ? `<div><span class="label">PO #:</span> ${poNumber}</div>` : ''}
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="pad-description">
+        <div class="item-title">ORDER SUMMARY</div>
+      </div>
+
+      <hr />
+
+      <div class="footer">
+        <div class="thank-you">THANK YOU FOR GOING SCISSORLESS!</div>
+        <div class="contact-info">
+          PHONE: (404) 439-0985 - EMAIL: INFO@ITSUNDERITALL.COM
         </div>
       </div>
     </div>
@@ -212,62 +227,6 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       max-width: 100%;
       margin: 0 auto;
       padding: 0.5rem;
-    }
-
-    .order-header {
-      background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .order-header .logo {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .order-header .logo img {
-      width: 70%;
-      height: auto;
-      filter: brightness(0.9);
-    }
-
-    .order-header h2 {
-      color: #ffffff;
-      text-align: center;
-      margin: 0 0 1.5rem 0;
-      font-size: 1.8rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-
-    .header-details {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      color: #e0e0e0;
-    }
-
-    .header-column {
-      padding: 0.5rem;
-    }
-
-    .header-label {
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 0.5rem;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .header-value {
-      color: #cccccc;
-      margin-bottom: 0.25rem;
-      font-size: 0.9rem;
-      line-height: 1.4;
     }
 
     .card {
@@ -412,23 +371,6 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
       .container {
         padding: 0 !important;
-      }
-
-      .order-header {
-        break-after: page;
-        background: white !important;
-        border: 1px solid #ddd !important;
-        box-shadow: none !important;
-        color: black !important;
-      }
-
-      .order-header h2,
-      .header-label {
-        color: black !important;
-      }
-
-      .header-value {
-        color: #333 !important;
       }
 
       .card {

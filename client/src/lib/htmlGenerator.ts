@@ -74,25 +74,33 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
   }
 
   return `
-    <div class="card header-card">
+    <div class="card">
       <div class="logo">
         <img src="https://www.itsunderitall.com/cdn/shop/files/UnderItAll_Logo_FeltGrey_350x.png?v=1720724526" alt="UNDERITALL Logo">
       </div>
-      <div class="header-content">
-        <div class="header-info-grid">
-          <div class="info-col">
-            <div class="info-item"><span class="label">Ship To:</span></div>
-            ${company ? `<div class="info-item">${company}</div>` : ''}
-            <div class="info-item">Attn: ${clientName}</div>
-            ${addressLines.map(line => `<div class="info-item">${line}</div>`).join('')}
-          </div>
-          <div class="info-col">
-            <div class="info-item">Order: ${orderNumber}</div>
-            <div class="info-item">Order Date: ${orderDate}</div>
-            ${poNumber ? `<div class="info-item">PO #: ${poNumber}</div>` : ''}
-          </div>
+
+      <div class="info-grid">
+        <div class="info-left">
+          <div><span class="label">Ship To:</span></div>
+          ${company ? `<div>${company}</div>` : ''}
+          <div>Attn: ${clientName}</div>
+          ${addressLines.map(line => `<div>${line}</div>`).join('')}
+        </div>
+        <div class="info-right">
+          <div><span class="label">Order #:</span> ${orderNumber}</div>
+          <div><span class="label">Order Date:</span> ${orderDate}</div>
+          ${poNumber ? `<div><span class="label">PO #:</span> ${poNumber}</div>` : ''}
         </div>
       </div>
+
+      <hr />
+
+      <div class="pad-description">
+        <div class="item-title">ORDER SUMMARY</div>
+      </div>
+
+      <hr />
+
       <div class="footer">
         <div class="thank-you">THANK YOU FOR GOING SCISSORLESS!</div>
         <div class="contact-info">

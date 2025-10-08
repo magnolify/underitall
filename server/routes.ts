@@ -4,8 +4,8 @@ import { storage } from "./storage";
 import express from "express";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Health check endpoint for deployment
-  app.get("/", (req, res) => {
+  // Health check endpoint for deployment (separate from root)
+  app.get("/health", (req, res) => {
     res.status(200).json({ status: "ok", service: "Shopify Report Card Generator" });
   });
 

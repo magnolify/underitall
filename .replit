@@ -33,7 +33,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npx shopify app dev --tunnel-url https://b2fc0def-6ac7-48a7-a9bd-cd2b71270629-00-3bziosto0yeeu.riker.replit.dev/"
+args = "npx shopify app dev --tunnel-url https://b2fc0def-6ac7-48a7-a9bd-cd2b71270629-00-3bziosto0yeeu.riker.replit.dev"
 
 [workflows.workflow.metadata]
 outputType = "console"

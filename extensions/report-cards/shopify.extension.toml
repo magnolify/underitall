@@ -1,6 +1,6 @@
 api_version = "2025-10"
 [[extensions]]
-name = "report-cards"
+name = "Report Cards"
 handle = "report-cards"
 type = "ui_extension"
 uid = "e7198085-4ce2-8443-e24c-e06457cbc27795de71bc"

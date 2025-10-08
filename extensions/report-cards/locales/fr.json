@@ -1,7 +1,7 @@
 {
-  "warningTitle": "Titre",
-  "warningBody": "Afficher une bannière d'avertissement lorsque le formulaire est dans un état invalide.",
-  "documents": "Documents",
-  "document1": "Document 1",
-  "document2": "Document 2"
+  "bannerTitle": "Imprimer les cartes de rapport de commande",
+  "bannerBody": "Générer des cartes de rapport au format paysage 5,5″ × 8,5″ pour chaque article de cette commande.",
+  "printOptions": "Sélectionner les documents à imprimer",
+  "reportCards": "Cartes de rapport de commande",
+  "description": "Des cartes individuelles seront générées pour chaque unité d'article, incluant les détails du produit, les dimensions et les propriétés personnalisées."
 }

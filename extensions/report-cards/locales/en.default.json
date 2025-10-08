@@ -1,7 +1,7 @@
 {
-  "warningTitle": "Title",
-  "warningBody": "Show warning banner when form is in an invalid state.",
-  "documents": "Documents",
-  "document1": "Document 1",
-  "document2": "Document 2"
+  "bannerTitle": "Print Order Report Cards",
+  "bannerBody": "Generate 5.5″ × 8.5″ landscape format report cards for each item in this order. Perfect for organization and fulfillment.",
+  "printOptions": "Select Documents to Print",
+  "reportCards": "Order Report Cards",
+  "description": "Individual cards will be generated for each line item unit, including product details, dimensions, and custom properties."
 }

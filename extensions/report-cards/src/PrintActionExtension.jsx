@@ -1,79 +1,77 @@
 import {render} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 
-const baseSrc = `https://cdn.shopify.com/static/extensibility/print-example`;
-
 export default async () => {
-  render(<Extension />, document.body);
+  render(<ReportCardsExtension />, document.body);
 }
 
-function Extension() {
+function ReportCardsExtension() {
   const {i18n, data} = shopify;
   const [src, setSrc] = useState(null);
-  // It's best practice to load a printable src when first launching the extension.
-  const [document1, setDocument1] = useState(true);
-  const [document2, setDocument2] = useState(false);
-  // data has information about the resource to be printed.
-  console.log({ data });
-
-  /*
-    This template fetches static documents from the CDN to demonstrate printing.
-    However, when building your extension, you should update the src document
-    to match the resource that the user is printing. You can do this by getting the
-    resource id from the data API and using it to create a URL with a path to your app
-    that shows the correct document. For example, you might use a URL parameter to
-    render an invoice for a specific order.
-
-    `/print/invoice&orderId=${data.selected[0].id}`
-  */
+  const [printReportCards, setPrintReportCards] = useState(true);
+  
+  // Log the order data for debugging
+  console.log('Order data received:', data);
+  
   useEffect(() => {
-    if (document1 && document2) {
-      setSrc(`${baseSrc}/document1-and-document2.html`);
-    } else if (document1) {
-      setSrc(`${baseSrc}/document1.html`);
-    } else if (document2) {
-      setSrc(`${baseSrc}/document2.html`);
+    // Check if we have order data
+    if (data && data.selected && data.selected.length > 0) {
+      // Extract order information
+      const order = data.selected[0];
+      
+      if (order && order.id && printReportCards) {
+        // The order ID is a GID like "gid://shopify/Order/1234567890"
+        // We need to extract the order name/number if available
+        // For now, we'll extract the numeric ID from the GID
+        const orderIdMatch = order.id.match(/Order\/(\d+)/);
+        
+        if (orderIdMatch && orderIdMatch[1]) {
+          const orderId = orderIdMatch[1];
+          
+          // Build the URL for our print route using the numeric order ID
+          // Note: This assumes your backend can lookup orders by ID
+          // You may need to modify your backend to accept order ID instead of order name
+          const printUrl = `https://underitall.replit.app/print/${orderId}`;
+          
+          console.log('Setting print URL for order ID:', orderId, printUrl);
+          setSrc(printUrl);
+        } else {
+          console.log('Could not extract order ID from:', order.id);
+          setSrc(null);
+        }
+      } else {
+        setSrc(null);
+      }
     } else {
+      console.log('No order data available');
       setSrc(null);
     }
-  }, [document1, document2]);
-
+  }, [data, printReportCards]);
+  
   return (
-    /*
-      The s-admin-print-action component provides an API for setting the src of the Print Action extension wrapper.
-      The document you set as src will be displayed as a print preview.
-      When the user clicks the Print button, the browser will print that document.
-      HTML, PDFs and images are supported.
-
-      The `src` prop can be a...
-        - Full URL: https://cdn.shopify.com/static/extensibility/print-example/document1.html
-        - Relative path in your app: print-example/document1.html or /print-example/document1.html
-        - Custom app: protocol: app:print (https://shopify.dev/docs/api/admin-extensions#custom-protocols)
-    */
     <s-admin-print-action src={src}>
       <s-stack direction="block">
-        <s-banner tone="warning" heading={i18n.translate('warningTitle')}>
-          {i18n.translate('warningBody')}
+        <s-banner tone="info" heading={i18n.translate('bannerTitle')}>
+          {i18n.translate('bannerBody')}
         </s-banner>
-        <s-text type="strong">{i18n.translate('documents')}</s-text>
+        
+        <s-text type="strong">{i18n.translate('printOptions')}</s-text>
+        
         <s-checkbox
-          name="document-1"
-          checked={document1}
+          name="print-report-cards"
+          checked={printReportCards}
           onChange={(event) => {
-            setDocument1(event.target.checked);
+            // Cast to the expected checkbox element type
+            const checkbox = event.target;
+            setPrintReportCards(checkbox.checked);
           }}
-          label={i18n.translate('document1')}
+          label={i18n.translate('reportCards')}
         >
         </s-checkbox>
-        <s-checkbox
-          name="document-2"
-          checked={document2}
-          onChange={(event) => {
-            setDocument2(event.target.checked);
-          }}
-          label={i18n.translate('document2')}
-        >
-        </s-checkbox>
+        
+        <s-text>
+          {i18n.translate('description')}
+        </s-text>
       </s-stack>
     </s-admin-print-action>
   );

@@ -21,7 +21,8 @@ function PrintAction() {
       if (orderId) {
         try {
           const orderIdNumber = orderId.split('/').pop();
-          const baseUrl = process.env.SHOPIFY_APP_URL || 'https://underitall.replit.app';
+          // Use the current app URL - Shopify will inject the correct domain
+          const baseUrl = 'https://underitall.replit.app';
 
           // For now, use direct order ID access (we'll add token auth later if needed)
           const url = `${baseUrl}/print/${orderIdNumber}?printType=all`;

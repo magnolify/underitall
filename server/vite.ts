@@ -44,6 +44,11 @@ export async function setupVite(app: Express, server: Server) {
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
 
+    // Skip Vite's catch-all for API routes and print routes
+    if (url.startsWith('/api/') || url.startsWith('/print/') || url === '/extensions/dev-console' || url === '/graphiql') {
+      return next();
+    }
+
     try {
       const clientTemplate = path.resolve(
         import.meta.dirname,

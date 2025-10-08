@@ -24,12 +24,9 @@ function PrintAction() {
           // Remove the # prefix from the order name to get the order number
           const orderNumber = orderName.replace('#', '');
           
-          // Use the port-mapped URL that works with Shopify Admin
-          // In production, this should be https://underitall.replit.app
-          const isDevelopment = true; // Set this based on environment
-          const baseUrl = isDevelopment 
-            ? 'https://b2fc0def-6ac7-48a7-a9bd-cd2b71270629-00-3bziosto0yeeu.riker.replit.dev:4200'
-            : 'https://underitall.replit.app';
+          // Use the production URL - this will work once deployed
+          // For development testing, use the Shopify Dev Console preview
+          const baseUrl = 'https://underitall.replit.app';
 
           // Build the print URL
           const url = `${baseUrl}/print/${orderNumber}`;

@@ -322,7 +322,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     .logo {
       display: flex;
       justify-content: center;
-      margin-bottom: 25px;
+      margin-bottom: 12px;
     }
 
     .logo img {
@@ -335,47 +335,50 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     .info-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      margin-bottom: 20px;
-      font-size: 14px;
+      gap: 20px;
+      margin-bottom: 12px;
+      font-size: 11px;
     }
 
     .info-left, .info-right {
-      width: 48%;
+      width: 50%;
     }
 
     .info-left div, .info-right div {
-      margin-bottom: 3px;
-      line-height: 1.2;
+      margin-bottom: 1px;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .info-grid .label {
       font-weight: 600;
       color: #333;
-      margin-right: 8px;
+      margin-right: 6px;
     }
 
     hr {
       border: none;
       border-top: 1px solid #e0e0e0;
-      margin: 20px 0;
+      margin: 12px 0;
     }
 
     .pad-description {
-      padding: 30px 20px;
-      min-height: 100px;
+      padding: 20px 16px;
+      min-height: 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 12px;
       color: #1a1a1a;
       background: rgba(0, 0, 0, 0.02);
       border-radius: 8px;
     }
 
     .item-title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
       line-height: 1.1;
     }
@@ -383,42 +386,42 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     .properties-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px 16px;
+      gap: 6px 12px;
       width: 100%;
       max-width: 90%;
-      font-size: 11px;
+      font-size: 10px;
       text-align: left;
       color: #374151;
     }
 
     .property-item {
-      line-height: 1.2;
+      line-height: 1.1;
     }
 
     .header-card .header-content {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .footer {
       text-align: center;
       margin-top: auto;
-      padding-top: 20px;
+      padding-top: 12px;
     }
 
     .thank-you {
-      font-size: 23.4px;
+      font-size: 12px;
       font-weight: 700;
       color: #000;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
     }
 
     .contact-info {
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 700;
       color: #4b5563;
-      line-height: 1.2;
+      line-height: 1.1;
     }
 
     @media print {

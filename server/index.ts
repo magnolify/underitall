@@ -57,9 +57,9 @@ app.use((req, res, next) => {
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Deployment sets PORT to 3000, development uses 5000
+  // Deployment will set PORT automatically, development uses 5000
   // This serves both the API and the client.
-  const port = parseInt(process.env.PORT || '3000', 10);
+  const port = parseInt(process.env.PORT || '5000', 10);
   server.listen({
     port,
     host: "0.0.0.0",

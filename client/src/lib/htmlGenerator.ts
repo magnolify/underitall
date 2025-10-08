@@ -151,6 +151,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
   }
 
+  const company = order.shipping_address?.company ? escapeHtml(order.shipping_address.company) : '';
   const addressLines = [];
   if (order.shipping_address?.address1) addressLines.push(escapeHtml(order.shipping_address.address1));
   if (order.shipping_address?.address2) addressLines.push(escapeHtml(order.shipping_address.address2));

@@ -298,7 +298,8 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .info-left div, .info-right div {
-      margin-bottom: 6px;
+      margin-bottom: 3px;
+      line-height: 1.2;
     }
 
     .info-grid .label {
@@ -328,7 +329,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     .item-title {
       font-size: 22px;
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1.1;
     }
 
     .properties-grid {
@@ -343,7 +344,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .property-item {
-      line-height: 1.4;
+      line-height: 1.2;
     }
 
     .header-card .header-content {
@@ -406,6 +407,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       font-size: 12px;
       font-weight: 700;
       color: #4b5563;
+      line-height: 1.2;
     }
 
     @media print {

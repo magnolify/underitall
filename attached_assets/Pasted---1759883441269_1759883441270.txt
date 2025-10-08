@@ -1,0 +1,40 @@
+                                                                             │
+│                                                                              │
+│  The App Management GraphQL API responded unsuccessfully with errors:        │
+│                                                                              │
+│  [                                                                           │
+│    {                                                                         │
+│      "message": "CLI version 3.81.2 is no longer supported. Please upgrade   │
+│  to the latest version.",                                                    │
+│      "field": null,                                                          │
+│      "type": "GraphApi::UserError",                                          │
+│      "code": null,                                                           │
+│      "extra_info": null                                                      │
+│    }                                                                         │
+│  ]                                                                           │
+│                                                                              │
+│  Request ID: 1b118572-b3e2-4b32-93a4-aaae1c08f388-1759883428                 │
+│                                                                              │
+│                                                                              │
+│  To investigate the issue, examine this stack trace:                         │
+│    at makeRequest                                                            │
+│    (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_modu  │
+│    les/shopify/node_modules/@shopify/cli/dist/chunk-V7M7AO2M.js:27347)       │
+│    at processTicksAndRejections (node:internal/process/task_queues:105)      │
+│    at rawGraphQLRequest [as request]                                         │
+│    (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_modu  │
+│    les/shopify/node_modules/@shopify/cli/dist/chunk-QWR45GZB.js:136561)      │
+│    at async runRequestWithNetworkLevelRetry                                  │
+│    (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_modu  │
+│    les/shopify/node_modules/@shopify/cli/dist/chunk-V7M7AO2M.js:27402)       │
+│    at async makeVerboseRequest                                               │
+│    (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_modu  │
+│    les/shopify/node_modules/@shopify/cli/dist/chunk-V7M7AO2M.js:27413)       │
+│    at async retryAwareRequest                                                │
+│    (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_modu  │
+│    les/shopify/node_modules/@shopify/cli/dist/chunk-V7M7AO2M.js:27500)       │
+│    at (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_m  │
+│    odules/shopify/node_modules/@shopify/cli/dist/chunk-QWR45GZB.js:136579)   │
+│    at (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_m  │
+│    odules/shopify/node_modules/@shopify/cli/dist/chunk-2KWYWUB3.js:29566)    │
+│                                                                              │

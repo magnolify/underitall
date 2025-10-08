@@ -14,36 +14,51 @@ function ReportCardsExtension() {
   console.log('Order data received:', data);
   
   useEffect(() => {
-    // Check if we have order data
-    if (data && data.selected && data.selected.length > 0) {
-      // Extract order information
+    // The extension receives order data in data.selected array
+    // Each order has an id (GID format) and possibly a name property
+    if (data && data.selected && data.selected.length > 0 && printReportCards) {
       const order = data.selected[0];
+      console.log('Processing order:', order);
       
-      if (order && order.id && printReportCards) {
-        // The order ID is a GID like "gid://shopify/Order/1234567890"
-        // We need to extract the order name/number if available
-        // For now, we'll extract the numeric ID from the GID
-        const orderIdMatch = order.id.match(/Order\/(\d+)/);
+      if (order && order.id) {
+        // Try to get the order number from the order data
+        // The order.id is in format: gid://shopify/Order/5678901234567
+        // But we need the order name/number (like #1217)
         
-        if (orderIdMatch && orderIdMatch[1]) {
-          const orderId = orderIdMatch[1];
-          
-          // Build the URL for our print route using the numeric order ID
-          // Note: This assumes your backend can lookup orders by ID
-          // You may need to modify your backend to accept order ID instead of order name
-          const printUrl = `https://underitall.replit.app/print/${orderId}`;
-          
-          console.log('Setting print URL for order ID:', orderId, printUrl);
+        // First check if we have a name property
+        let orderNumber = null;
+        
+        // If the order has a name field (like "#1217"), use it
+        if (order.name) {
+          orderNumber = order.name.replace('#', '');
+        } else {
+          // Fallback: extract the numeric ID from the GID and use it
+          // This might not match the order number exactly
+          const match = order.id.match(/Order\/(\d+)/);
+          if (match && match[1]) {
+            // Note: This is the internal order ID, not the order number
+            // The print route expects the order number, so this is a fallback
+            orderNumber = match[1];
+            console.warn('Using order ID as fallback, order name not available');
+          }
+        }
+        
+        if (orderNumber) {
+          const printUrl = `https://underitall.replit.app/print/${orderNumber}`;
+          console.log('Setting print URL for order:', orderNumber, printUrl);
           setSrc(printUrl);
         } else {
-          console.log('Could not extract order ID from:', order.id);
+          console.log('Could not determine order number from data:', order);
           setSrc(null);
         }
       } else {
         setSrc(null);
       }
+    } else if (!printReportCards) {
+      // Checkbox is unchecked
+      setSrc(null);
     } else {
-      console.log('No order data available');
+      console.log('No order data available or checkbox unchecked');
       setSrc(null);
     }
   }, [data, printReportCards]);
@@ -61,9 +76,8 @@ function ReportCardsExtension() {
           name="print-report-cards"
           checked={printReportCards}
           onChange={(event) => {
-            // Cast to the expected checkbox element type
-            const checkbox = event.target;
-            setPrintReportCards(checkbox.checked);
+            // Access checked property directly from event.target
+            setPrintReportCards(event.target?.['checked'] || false);
           }}
           label={i18n.translate('reportCards')}
         >

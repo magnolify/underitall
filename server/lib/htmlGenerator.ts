@@ -175,6 +175,8 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
 export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false): string {
   const clientName = escapeHtml(order.shippingAddress?.name || 
     `${order.customer?.firstName || ''} ${order.customer?.lastName || ''}`.trim());
+  const orderNumber = escapeHtml(order.name.replace('#', ''));
+  const orderDate = formatOrderDate(order.createdAt);
   const poNumber = escapeHtml(order.name);
   const packagedDate = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
 

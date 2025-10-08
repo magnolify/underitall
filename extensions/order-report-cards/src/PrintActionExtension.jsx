@@ -15,23 +15,27 @@ function PrintAction() {
 
   useEffect(() => {
     async function buildPrintUrl() {
-      // Get the order ID from the extension context
-      const orderId = extension?.target?.data?.id;
+      // Get the order name (order number) from the extension context
+      // The extension provides both id (gid://shopify/Order/...) and name (#1001)
+      const orderName = extension?.target?.data?.name;
 
-      if (orderId) {
+      if (orderName) {
         try {
-          const orderIdNumber = orderId.split('/').pop();
-          // Use the current app URL - Shopify will inject the correct domain
-          const baseUrl = 'https://underitall.replit.app';
+          // Remove the # prefix from the order name to get the order number
+          const orderNumber = orderName.replace('#', '');
+          // Use the current app URL - this needs to match your Replit workspace
+          const baseUrl = 'https://workspace.chris2250.replit.app';
 
-          // For now, use direct order ID access (we'll add token auth later if needed)
-          const url = `${baseUrl}/print/${orderIdNumber}?printType=all`;
+          // Build the print URL
+          const url = `${baseUrl}/print/${orderNumber}`;
+          console.log('Generated print URL:', url);
           setPrintUrl(url);
         } catch (err) {
           console.error('Error generating print URL:', err);
           setPrintUrl('');
         }
       } else {
+        console.log('No order name available in extension context');
         setPrintUrl('');
       }
     }

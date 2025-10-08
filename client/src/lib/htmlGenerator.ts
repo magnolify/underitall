@@ -19,48 +19,28 @@ const findPropertyValue = (properties: ShopifyLineItemProperty[], name: string):
   return prop?.value?.trim() || '';
 };
 
-const parseTitleForLabel = (item: ShopifyLineItem): string => {
-  const widthFt = findPropertyValue(item.properties, "Rectangle Width (ft)").replace('ft', '').trim();
-  const widthIn = findPropertyValue(item.properties, "Rectangle Width (in)").replace('in', '').trim();
-  const lengthFt = findPropertyValue(item.properties, "Rectangle Length (ft)").replace('ft', '').trim();
-  const lengthIn = findPropertyValue(item.properties, "Rectangle Length (in)").replace('in', '').trim();
-  const location = findPropertyValue(item.properties, "Install Location");
-  const rugShape = findPropertyValue(item.properties, "Choose Rug Shape");
-  const thickness = findPropertyValue(item.properties, "Choose Thickness");
-
-  let dimensions = '';
-  if (widthFt !== '0' || widthIn !== '0' || lengthFt !== '0' || lengthIn !== '0') {
-    dimensions = `${widthFt}' ${widthIn}" x ${lengthFt}' ${lengthIn}"`;
-  }
-
-  // Fallback for old format if no dimensions found in properties
-  if (!dimensions) {
-    const sizeMatch = item.title.match(/(\d+x\d+)/);
-    if (sizeMatch) {
-      dimensions = sizeMatch[0].replace('x', "' x ") + "'";
-    }
-  }
-
-  let productName = '';
-  if (rugShape && thickness) {
-    productName = `${rugShape} : ${thickness}`;
-  } else {
-    // Fallback for old format
-    productName = item.title.replace(/ - Default_cpc_.*/, '').trim();
-    productName = productName.replace(/\s*\(.*\)\s*/, '').trim();
-  }
-
-  let finalDescription = `Pad: `;
-  if (dimensions) {
-    finalDescription += `${dimensions} - `;
-  }
-  finalDescription += productName;
-
-  if (location) {
-    finalDescription += ` - ${location}`;
-  }
-
-  return escapeHtml(finalDescription);
+const parseTitleForLabel = (item: ShopifyLineItem): { title: string; properties: string[] } => {
+  // Clean the title - remove Default_cpc suffix
+  const cleanTitle = item.title.replace(/ - Default_cpc_.*$/, '').trim();
+  
+  // Filter and format properties - exclude _ZapietId and any empty values
+  const relevantProperties = item.properties
+    .filter(prop => {
+      const name = prop.name.trim().toLowerCase();
+      return prop.value && 
+             prop.value.trim() !== '' && 
+             !name.startsWith('_') &&
+             name !== '_zapietid';
+    })
+    .map(prop => {
+      // Format the property as "Name: Value"
+      return `${prop.name.trim()}: ${prop.value.trim()}`;
+    });
+  
+  return {
+    title: escapeHtml(cleanTitle),
+    properties: relevantProperties.map(p => escapeHtml(p))
+  };
 };
 
 const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
@@ -112,8 +92,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
   const orderHeaderHtml = hideHeader ? '' : generateOrderHeaderHTML(order);
 
   const cardsHtml = order.line_items.flatMap((item: ShopifyLineItem) => {
-    const padDescription = parseTitleForLabel(item);
-    const projectName = findPropertyValue(item.properties, 'Project Name');
+    const { title, properties } = parseTitleForLabel(item);
 
     return Array.from({ length: item.quantity }, (_, i) => `
       <div class="card">
@@ -128,14 +107,19 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
           </div>
           <div class="info-right">
             <div><span class="label">PO #:</span> ${poNumber}</div>
-            <div><span class="label">Project Name:</span> ${escapeHtml(projectName)}</div>
+            <div><span class="label">Packaged:</span> ${packagedDate}</div>
           </div>
         </div>
 
         <hr />
 
         <div class="pad-description">
-          ${padDescription}
+          <div class="item-title">${title}</div>
+          ${properties.length > 0 ? `
+            <div class="properties-grid">
+              ${properties.map(prop => `<div class="property-item">• ${prop}</div>`).join('')}
+            </div>
+          ` : ''}
         </div>
 
         <hr />
@@ -143,7 +127,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
         <div class="footer">
           <div class="thank-you">THANK YOU FOR YOUR ORDER !</div>
           <div class="contact-info">
-            Phone: (404) 438-0986 - Email: info@underitall.com - Packaged Date: ${packagedDate}
+            Phone: (404) 438-0986 - Email: info@underitall.com
           </div>
         </div>
       </div>
@@ -256,13 +240,33 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     .pad-description {
       flex-grow: 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      font-size: 32px;
-      font-weight: 700;
       color: #111827;
+      gap: 16px;
+    }
+
+    .item-title {
+      font-size: 28px;
+      font-weight: 700;
       line-height: 1.2;
+    }
+
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px 16px;
+      width: 100%;
+      max-width: 90%;
+      font-size: 11px;
+      text-align: left;
+      color: #374151;
+    }
+
+    .property-item {
+      line-height: 1.4;
     }
 
     .header-card .header-content {

@@ -52,50 +52,30 @@ function findPropertyValue(properties: Array<{ key: string; value: string }> | u
   return prop?.value || '';
 }
 
-function parseTitleForLabel(item: ShopifyLineItem): string {
+function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties: string[] } {
   const title = item.title || item.name || '';
   
-  // Extract dimensions from properties
-  const widthProp = findPropertyValue(item.properties, 'Width');
-  const lengthProp = findPropertyValue(item.properties, 'Length');
-  const installLocation = findPropertyValue(item.properties, 'Install Location');
-  const rugShape = findPropertyValue(item.properties, 'Rug Shape');
-  const thickness = findPropertyValue(item.properties, 'Thickness');
+  // Clean the title - remove Default_cpc suffix
+  const cleanTitle = title.replace(/ - Default_cpc_.*$/, '').trim();
   
-  // If we have dimension properties, use them
-  if (widthProp && lengthProp) {
-    const width = widthProp;
-    const length = lengthProp;
-    const shape = rugShape || 'Rectangle';
-    const thicknessStr = thickness ? ` - ${thickness}` : '';
-    const location = installLocation ? ` - ${installLocation}` : '';
-    return `<strong>${shape} (${width}" × ${length}")${thicknessStr}</strong>${location}`;
-  }
+  // Filter and format properties - exclude _ZapietId and any empty values
+  const relevantProperties = (item.properties || [])
+    .filter(prop => {
+      const name = prop.key.trim().toLowerCase();
+      return prop.value && 
+             prop.value.trim() !== '' && 
+             !name.startsWith('_') &&
+             name !== '_zapietid';
+    })
+    .map(prop => {
+      // Format the property as "Name: Value"
+      return `${prop.key.trim()}: ${prop.value.trim()}`;
+    });
   
-  // Legacy parsing from title
-  const dimensionRegex = /(\d+(?:\.\d+)?)['"]\s*[xX×]\s*(\d+(?:\.\d+)?)['"]/;
-  const match = title.match(dimensionRegex);
-  
-  if (match) {
-    const width = match[1];
-    const length = match[2];
-    
-    const shapeRegex = /(Rectangle|Square|Circle|Oval|Runner|Custom|Diamond|Hexagon|Triangle)/i;
-    const shapeMatch = title.match(shapeRegex) || rugShape;
-    const shape = shapeMatch ? (typeof shapeMatch === 'string' ? shapeMatch : shapeMatch[1]) : 'Rectangle';
-    
-    const thicknessRegex = /(\d+(?:\.\d+)?)['"]\s*(?:Thick|thick)/;
-    const thicknessMatch = title.match(thicknessRegex) || thickness;
-    const thicknessStr = thicknessMatch ? 
-      (typeof thicknessMatch === 'string' ? ` - ${thicknessMatch}` : ` - ${thicknessMatch[1]}" Thick`) : '';
-    
-    const locationStr = installLocation ? ` - ${installLocation}` : '';
-    
-    return `<strong>${shape} (${width}" × ${length}")${thicknessStr}</strong>${locationStr}`;
-  }
-  
-  // Fallback
-  return `<strong>${escapeHtml(title)}</strong>`;
+  return {
+    title: escapeHtml(cleanTitle),
+    properties: relevantProperties.map(p => escapeHtml(p))
+  };
 }
 
 function generateOrderHeaderHTML(order: ShopifyOrder): string {
@@ -155,8 +135,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
   const orderHeaderHtml = hideHeader ? '' : generateOrderHeaderHTML(order);
 
   const cardsHtml = order.lineItems.flatMap((item: ShopifyLineItem) => {
-    const padDescription = parseTitleForLabel(item);
-    const projectName = findPropertyValue(item.properties, 'Project Name');
+    const { title, properties } = parseTitleForLabel(item);
 
     return Array.from({ length: item.quantity }, (_, i) => `
       <div class="card">
@@ -171,14 +150,19 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
           </div>
           <div class="info-right">
             <div><span class="label">PO #:</span> ${poNumber}</div>
-            <div><span class="label">Project Name:</span> ${escapeHtml(projectName)}</div>
+            <div><span class="label">Packaged:</span> ${packagedDate}</div>
           </div>
         </div>
 
         <hr />
 
         <div class="pad-description">
-          ${padDescription}
+          <div class="item-title">${title}</div>
+          ${properties.length > 0 ? `
+            <div class="properties-grid">
+              ${properties.map(prop => `<div class="property-item">• ${prop}</div>`).join('')}
+            </div>
+          ` : ''}
         </div>
 
         <hr />
@@ -186,7 +170,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
         <div class="footer">
           <div class="thank-you">THANK YOU FOR YOUR ORDER !</div>
           <div class="contact-info">
-            Phone: (404) 438-0986 - Email: info@underitall.com - Packaged Date: ${packagedDate}
+            Phone: (404) 438-0986 - Email: info@underitall.com
           </div>
         </div>
       </div>
@@ -348,22 +332,39 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .pad-description {
-      font-size: 24px;
-      text-align: center;
       padding: 30px 20px;
       min-height: 100px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 16px;
       color: #1a1a1a;
       background: rgba(0, 0, 0, 0.02);
       border-radius: 8px;
-      line-height: 1.4;
     }
 
-    .pad-description strong {
+    .item-title {
+      font-size: 24px;
       font-weight: 600;
+      text-align: center;
+      line-height: 1.4;
       color: #000;
+    }
+
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px 16px;
+      width: 100%;
+      max-width: 90%;
+      font-size: 11px;
+      text-align: left;
+      color: #374151;
+    }
+
+    .property-item {
+      line-height: 1.4;
     }
 
     .footer {

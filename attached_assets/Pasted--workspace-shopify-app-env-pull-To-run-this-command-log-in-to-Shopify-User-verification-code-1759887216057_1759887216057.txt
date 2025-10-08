@@ -1,0 +1,56 @@
+~/workspace$ shopify app env pull
+
+To run this command, log in to Shopify.
+User verification code: JBZS-SJQX
+👉 Press any key to open the login page on your browser
+Opened link to start the auth process: https://accounts.shopify.com/activate-with-code?device_code%5Buser_code%5D=JBZS-SJQX
+✔ Logged in.
+╭─ error ──────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│                                                                              │
+│  The Partners GraphQL API responded unsuccessfully with errors:              │
+│                                                                              │
+│  [                                                                           │
+│    {                                                                         │
+│      "message": "This app has been migrated to the new Next-Gen Dev          │
+│  Platform. Please use CLI version 3.84.1 or higher to manage this app.",     │
+│      "locations": [                                                          │
+│        {                                                                     │
+│          "line": 3,                                                          │
+│          "column": 5                                                         │
+│        }                                                                     │
+│      ],                                                                      │
+│      "path": [                                                               │
+│        "app"                                                                 │
+│      ]                                                                       │
+│    }                                                                         │
+│  ]                                                                           │
+│                                                                              │
+│  Request ID: 65b5a3ff-ce91-4564-835a-c1612c7e9479-1759887160                 │
+│                                                                              │
+│                                                                              │
+│  To investigate the issue, examine this stack trace:                         │
+│    at makeRequest                                                            │
+│    (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_modu  │
+│    les/shopify/node_modules/@shopify/cli/dist/chunk-V7M7AO2M.js:27347)       │
+│    at processTicksAndRejections (node:internal/process/task_queues:105)      │
+│    at rawGraphQLRequest [as request]                                         │
+│    (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_modu  │
+│    les/shopify/node_modules/@shopify/cli/dist/chunk-QWR45GZB.js:136561)      │
+│    at async runRequestWithNetworkLevelRetry                                  │
+│    (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_modu  │
+│    les/shopify/node_modules/@shopify/cli/dist/chunk-V7M7AO2M.js:27402)       │
+│    at async makeVerboseRequest                                               │
+│    (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_modu  │
+│    les/shopify/node_modules/@shopify/cli/dist/chunk-V7M7AO2M.js:27413)       │
+│    at async retryAwareRequest                                                │
+│    (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_modu  │
+│    les/shopify/node_modules/@shopify/cli/dist/chunk-V7M7AO2M.js:27500)       │
+│    at (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_m  │
+│    odules/shopify/node_modules/@shopify/cli/dist/chunk-QWR45GZB.js:136579)   │
+│    at (nix/store/2p0ipxx17vqi8wjcc1idv4vmkhzqv0gi-shopify-3.81.2/lib/node_m  │
+│    odules/shopify/node_modules/@shopify/cli/dist/chunk-2KWYWUB3.js:29566)    │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+~/workspace$ 

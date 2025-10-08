@@ -134,7 +134,9 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
       <hr />
 
       <div class="pad-description">
-        <div class="item-title">ORDER SUMMARY</div>
+        <div style="font-size: 14px; color: #6b7280; font-weight: 500;">
+          ${order.lineItems.length} ${order.lineItems.length === 1 ? 'Line Item' : 'Line Items'} • ${order.lineItems.reduce((sum, item) => sum + item.quantity, 0)} Total Units
+        </div>
       </div>
 
       <hr />

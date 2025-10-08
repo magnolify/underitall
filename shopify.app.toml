@@ -12,13 +12,18 @@ dev_store_url = "underitall-dev.myshopify.com"
 api_version = "2025-10"
 
 [access_scopes]
+scopes = "read_orders,read_products,read_customers"
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = ""
 optional_scopes = [ ]
 use_legacy_install_flow = false
 
-[auth]
-redirect_urls = [ ]
-
 [pos]
 embedded = false
+
+[auth]
+redirect_urls = [
+  "https://underitall.replit.app/auth/callback",
+  "https://underitall.replit.app/auth/shopify/callback",
+  "https://underitall.replit.app/api/auth/callback"
+]
+

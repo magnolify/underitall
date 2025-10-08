@@ -26,6 +26,24 @@ task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
 
+[[workflows.workflow]]
+name = "Shopify Dev"
+author = 48416190
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx shopify app dev"
+
+[[workflows.workflow]]
+name = "Deploy to Shopify"
+author = 48416190
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx shopify app deploy"
+
 [[ports]]
 localPort = 3000
 externalPort = 3000

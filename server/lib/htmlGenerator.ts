@@ -237,9 +237,8 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .order-header .logo img {
-      height: 80px;
-      width: auto;
-      max-width: 70%;
+      width: 70%;
+      height: auto;
       filter: brightness(0.9);
     }
 
@@ -316,9 +315,8 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .logo img {
-      height: 100px;
-      width: auto;
-      max-width: 70%;
+      width: 70%;
+      height: auto;
       filter: grayscale(20%);
       opacity: 0.9;
     }

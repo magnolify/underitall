@@ -62,8 +62,8 @@ function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties:
   const relevantProperties = (item.properties || [])
     .filter(prop => {
       const name = prop.key.trim().toLowerCase();
-      return prop.value && 
-             prop.value.trim() !== '' && 
+      return prop.value &&
+             prop.value.trim() !== '' &&
              !name.startsWith('_') &&
              name !== '_zapietid';
     })
@@ -84,7 +84,7 @@ function formatOrderDate(dateString: string): string {
   const month = monthNames[date.getMonth()];
   const day = date.getDate();
   const year = date.getFullYear();
-  
+
   // Add ordinal suffix (st, nd, rd, th)
   const suffix = (day: number) => {
     if (day > 3 && day < 21) return 'th';
@@ -95,12 +95,12 @@ function formatOrderDate(dateString: string): string {
       default: return 'th';
     }
   };
-  
+
   return `${month} ${day}${suffix(day)}, ${year}`;
 }
 
 function generateOrderHeaderHTML(order: ShopifyOrder): string {
-  const clientName = escapeHtml(order.shippingAddress?.name || 
+  const clientName = escapeHtml(order.shippingAddress?.name ||
     `${order.customer?.firstName || ''} ${order.customer?.lastName || ''}`.trim());
   const orderNumber = escapeHtml(order.name.replace('#', ''));
   const orderDate = formatOrderDate(order.createdAt);
@@ -173,7 +173,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
 }
 
 export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false): string {
-  const clientName = escapeHtml(order.shippingAddress?.name || 
+  const clientName = escapeHtml(order.shippingAddress?.name ||
     `${order.customer?.firstName || ''} ${order.customer?.lastName || ''}`.trim());
   const orderNumber = escapeHtml(order.name.replace('#', ''));
   const orderDate = formatOrderDate(order.createdAt);
@@ -275,39 +275,48 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .container {
-      max-width: 100%;
-      margin: 0 auto;
-      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 2rem;
+      max-width: 100vw;
+      overflow-x: hidden;
     }
 
     .card {
-      width: 765px;
-      height: 495px;
-      background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
-      border: 1px solid #e0e0e0;
-      border-radius: 12px;
-      padding: 50px;
-      margin: 0 auto 2rem;
+      background-color: white;
+      border: 1px solid #e5e7eb;
+      padding: 24px;
+      box-sizing: border-box;
+      width: 8.5in;
+      height: 5.5in;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-      position: relative;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      page-break-inside: avoid;
+      color: #111827;
+      transform-origin: top center;
+      transform: scale(0.85);
       overflow: hidden;
     }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #666 0%, #999 50%, #666 100%);
+    @media screen and (max-width: 1000px) {
+      .card {
+        transform: scale(0.75);
+      }
+      .container {
+        padding: 0 1rem;
+      }
     }
 
-    .card:nth-child(even) {
-      background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+    @media screen and (max-width: 768px) {
+      .card {
+        transform: scale(0.6);
+      }
+      .container {
+        padding: 0 0.5rem;
+      }
     }
 
     .logo {
@@ -332,12 +341,15 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .info-left, .info-right {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      width: 48%;
     }
 
-    .label {
+    .info-left div, .info-right div {
+      margin-bottom: 3px;
+      line-height: 1.2;
+    }
+
+    .info-grid .label {
       font-weight: 600;
       color: #333;
       margin-right: 8px;
@@ -363,11 +375,9 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .item-title {
-      font-size: 24px;
-      font-weight: 600;
-      text-align: center;
-      line-height: 1.4;
-      color: #000;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.1;
     }
 
     .properties-grid {
@@ -382,7 +392,11 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .property-item {
-      line-height: 1.4;
+      line-height: 1.2;
+    }
+
+    .header-card .header-content {
+      margin-bottom: 10px;
     }
 
     .footer {
@@ -401,9 +415,10 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .contact-info {
-      font-size: 11px;
-      color: #666;
-      line-height: 1.4;
+      font-size: 12px;
+      font-weight: 700;
+      color: #4b5563;
+      line-height: 1.2;
     }
 
     @media print {

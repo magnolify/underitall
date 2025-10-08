@@ -4,6 +4,11 @@ import { storage } from "./storage";
 import express from "express";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Health check endpoint for deployment
+  app.get("/", (req, res) => {
+    res.status(200).json({ status: "ok", service: "Shopify Report Card Generator" });
+  });
+
   // Serve dev console for Shopify extensions
   app.get("/extensions/dev-console", (req, res) => {
     res.redirect(`https://admin.shopify.com/store/${process.env.SHOPIFY_SHOP_DOMAIN?.replace('.myshopify.com', '')}/apps/${process.env.SHOPIFY_API_KEY || '4ae50f96f3f8c6ef4f269f27aa4e2ebf'}`);

@@ -21,26 +21,41 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
+args = "Shopify Dev"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
 args = "Server"
+
+[[workflows.workflow]]
+name = "Shopify Dev"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx shopify app dev --tunnel-url https://b2fc0def-6ac7-48a7-a9bd-cd2b71270629-00-3bziosto0yeeu.riker.replit.dev/"
+
+[workflows.workflow.metadata]
+outputType = "console"
 
 [[workflows.workflow]]
 name = "Server"
 author = "agent"
+
+[workflows.workflow.metadata]
+outputType = "console"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
 
-[workflows.workflow.metadata]
-outputType = "webview"
-
 [nix]
 channel = "stable-25_05"
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["npm", "run", "start"]
+run = ["npm", "run"]
 build = ["npm", "run", "build"]
 
 [[ports]]
@@ -50,3 +65,7 @@ externalPort = 80
 [[ports]]
 localPort = 41753
 externalPort = 5000
+
+[[ports]]
+localPort = 43151
+externalPort = 3000

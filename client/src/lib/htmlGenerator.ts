@@ -258,7 +258,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
     @media screen and (max-width: 1000px) {
       .card {
-        transform: scale(0.75);
+        transform: scale(0.95);
       }
       .container {
         padding: 0 1rem;
@@ -267,7 +267,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
     @media screen and (max-width: 768px) {
       .card {
-        transform: scale(0.6);
+        transform: scale(0.9);
       }
       .container {
         padding: 0 0.5rem;

@@ -180,6 +180,29 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
   const orderHeaderHtml = hideHeader ? '' : generateOrderHeaderHTML(order);
 
+  // Extract PO# from line item properties for item cards
+  let itemPoNumber = '';
+  for (const item of order.lineItems) {
+    const po = findPropertyValue(item.properties, 'PO#');
+    if (po) {
+      itemPoNumber = escapeHtml(po);
+      break;
+    }
+  }
+
+  const address = order.shippingAddress;
+  const company = address?.company ? escapeHtml(address.company) : '';
+  const addressLines = [];
+
+  if (address?.address1) addressLines.push(escapeHtml(address.address1));
+  if (address?.address2) addressLines.push(escapeHtml(address.address2));
+
+  const cityStateZip = [];
+  if (address?.city) cityStateZip.push(escapeHtml(address.city));
+  if (address?.province) cityStateZip.push(escapeHtml(address.province));
+  if (address?.zip) cityStateZip.push(escapeHtml(address.zip));
+  if (cityStateZip.length > 0) addressLines.push(cityStateZip.join(', '));
+
   const cardsHtml = order.lineItems.flatMap((item: ShopifyLineItem) => {
     const { title, properties } = parseTitleForLabel(item);
 
@@ -191,12 +214,15 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
         <div class="info-grid">
           <div class="info-left">
-            <div><span class="label">Client Name:</span> ${clientName}</div>
-            <div><span class="label">Sidemark:</span> UnderItAll</div>
+            <div><span class="label">Ship To:</span></div>
+            ${company ? `<div>${company}</div>` : ''}
+            <div>Attn: ${clientName}</div>
+            ${addressLines.map(line => `<div>${line}</div>`).join('')}
           </div>
           <div class="info-right">
-            <div><span class="label">PO #:</span> ${poNumber}</div>
-            <div><span class="label">Packaged:</span> ${packagedDate}</div>
+            <div><span class="label">Order #:</span> ${orderNumber}</div>
+            <div><span class="label">Order Date:</span> ${orderDate}</div>
+            ${itemPoNumber ? `<div><span class="label">PO #:</span> ${itemPoNumber}</div>` : ''}
           </div>
         </div>
 

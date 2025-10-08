@@ -21,51 +21,32 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Shopify Dev"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
 args = "Server"
-
-[[workflows.workflow]]
-name = "Shopify Dev"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "npx shopify app dev --tunnel-url https://workspace.chris2250.replit.app:443"
-
-[workflows.workflow.metadata]
-outputType = "console"
 
 [[workflows.workflow]]
 name = "Server"
 author = "agent"
 
-[workflows.workflow.metadata]
-outputType = "console"
-
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
-waitForPort = 4200
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
 
 [nix]
 channel = "stable-25_05"
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["npm", "run"]
+run = ["npm", "run", "start"]
 build = ["npm", "run", "build"]
 
 [[ports]]
 localPort = 443
-externalPort = 9000
+externalPort = 4200
 exposeLocalhost = true
-
-[[ports]]
-localPort = 3000
-externalPort = 80
 
 [[ports]]
 localPort = 3457
@@ -74,14 +55,12 @@ exposeLocalhost = true
 
 [[ports]]
 localPort = 4200
-externalPort = 4200
+externalPort = 80
 
 [[ports]]
 localPort = 5000
-externalPort = 5000
-exposeLocalhost = true
+externalPort = 80
 
 [[ports]]
-localPort = 42723
-externalPort = 4200
-exposeLocalhost = true
+localPort = 41753
+externalPort = 3001

@@ -242,7 +242,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     .card {
       background-color: white;
       border: 1px solid #e5e7eb;
-      padding: 32px;
+      padding: 24px;
       box-sizing: border-box;
       width: 8.5in;
       height: 5.5in;
@@ -253,6 +253,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       color: #111827;
       transform-origin: top center;
       transform: scale(0.85);
+      overflow: hidden;
     }
 
     @media screen and (max-width: 1000px) {
@@ -275,11 +276,11 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
     .logo {
       text-align: center;
-      padding-bottom: 24px;
+      padding-bottom: 16px;
     }
 
     .logo img {
-      width: 250px;
+      width: 200px;
       height: auto;
       filter: none;
     }
@@ -287,7 +288,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     .info-grid {
       display: flex;
       justify-content: space-between;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 600;
       color: #1f2937;
     }
@@ -310,7 +311,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     hr {
       border: none;
       border-top: 1px solid #e5e7eb;
-      margin: 20px 0;
+      margin: 12px 0;
     }
 
     .pad-description {
@@ -325,7 +326,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .item-title {
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 700;
       line-height: 1.2;
     }
@@ -394,8 +395,8 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
     .footer .thank-you {
       font-weight: 700;
-      font-size: 15.6px;
-      margin-bottom: 8px;
+      font-size: 12px;
+      margin-bottom: 6px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: #4b5563;

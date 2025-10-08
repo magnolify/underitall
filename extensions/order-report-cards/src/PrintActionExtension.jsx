@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   reactExtension,
   AdminPrintAction,
-  useData,
-  useSessionToken,
+  useApi,
 } from '@shopify/ui-extensions-react/admin';
 
 const TARGET = 'admin.order-details.print-action.render';
@@ -11,44 +10,24 @@ const TARGET = 'admin.order-details.print-action.render';
 export default reactExtension(TARGET, () => <PrintAction />);
 
 function PrintAction() {
-  const { data } = useData(TARGET);
-  const { getSessionToken } = useSessionToken();
+  const { extension } = useApi(TARGET);
   const [printUrl, setPrintUrl] = useState('');
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function buildPrintUrl() {
-      const selectedOrders = data?.selected || [];
-      
-      if (selectedOrders.length > 0) {
+      // Get the order ID from the extension context
+      const orderId = extension?.target?.data?.id;
+
+      if (orderId) {
         try {
-          const orderId = selectedOrders[0].id;
           const orderIdNumber = orderId.split('/').pop();
-          
-          const sessionToken = await getSessionToken();
-          const baseUrl = process.env.SHOPIFY_APP_URL || 'http://localhost:3000';
-          
-          const response = await fetch(`${baseUrl}/auth/generate-print-token`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${sessionToken}`
-            },
-            body: JSON.stringify({ orderId: orderIdNumber })
-          });
+          const baseUrl = process.env.SHOPIFY_APP_URL || 'https://underitall.replit.app';
 
-          if (!response.ok) {
-            throw new Error('Failed to generate print token');
-          }
-
-          const { printToken } = await response.json();
-          
-          const url = `${baseUrl}/print?t=${printToken}&printType=all`;
+          // For now, use direct order ID access (we'll add token auth later if needed)
+          const url = `${baseUrl}/print/${orderIdNumber}?printType=all`;
           setPrintUrl(url);
-          setError(null);
         } catch (err) {
           console.error('Error generating print URL:', err);
-          setError(err.message);
           setPrintUrl('');
         }
       } else {
@@ -57,11 +36,7 @@ function PrintAction() {
     }
 
     buildPrintUrl();
-  }, [data, getSessionToken]);
-
-  if (error) {
-    return <AdminPrintAction src="" />;
-  }
+  }, [extension]);
 
   return (
     <AdminPrintAction 

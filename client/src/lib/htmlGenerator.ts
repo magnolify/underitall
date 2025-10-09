@@ -27,9 +27,38 @@ const parseTitleForLabel = (item: ShopifyLineItem): { title: string; properties:
   const poNumber = findPropertyValue(item.properties, 'PO#');
   const projectName = findPropertyValue(item.properties, 'Project Name');
   
-  // Extract dimension properties
-  const length = findPropertyValue(item.properties, 'Length');
-  const width = findPropertyValue(item.properties, 'Width');
+  // Extract dimension properties - search for properties containing "width" and "length"
+  const widthFtProp = item.properties.find(p => p.name.toLowerCase().includes('width') && p.name.toLowerCase().includes('(ft)'));
+  const widthInProp = item.properties.find(p => p.name.toLowerCase().includes('width') && p.name.toLowerCase().includes('(in)'));
+  const lengthFtProp = item.properties.find(p => p.name.toLowerCase().includes('length') && p.name.toLowerCase().includes('(ft)'));
+  const lengthInProp = item.properties.find(p => p.name.toLowerCase().includes('length') && p.name.toLowerCase().includes('(in)'));
+  
+  // Build dimension strings
+  let width = '';
+  if (widthFtProp?.value || widthInProp?.value) {
+    const ft = widthFtProp?.value?.trim() || '';
+    const inches = widthInProp?.value?.trim() || '';
+    if (ft && inches && inches !== '0 in') {
+      width = `${ft} ${inches}`;
+    } else if (ft) {
+      width = ft;
+    } else if (inches) {
+      width = inches;
+    }
+  }
+  
+  let length = '';
+  if (lengthFtProp?.value || lengthInProp?.value) {
+    const ft = lengthFtProp?.value?.trim() || '';
+    const inches = lengthInProp?.value?.trim() || '';
+    if (ft && inches && inches !== '0 in') {
+      length = `${ft} ${inches}`;
+    } else if (ft) {
+      length = ft;
+    } else if (inches) {
+      length = inches;
+    }
+  }
   
   // Build dimensions string if we have length and/or width
   let dimensions = '';
@@ -41,15 +70,17 @@ const parseTitleForLabel = (item: ShopifyLineItem): { title: string; properties:
     dimensions = `DIMENSIONS: ${length}`;
   }
   
-  // Filter and format properties - exclude _ZapietId, PO#, Project Name, Length, Width, and any empty values
-  const excludedKeys = ['_zapietid', 'po#', 'project name', 'length', 'width'];
+  // Filter and format properties - exclude dimension properties, _ZapietId, PO#, Project Name, and any empty values
+  const excludedPatterns = ['width', 'length'];
+  const excludedKeys = ['_zapietid', 'po#', 'project name'];
   const relevantProperties = item.properties
     .filter(prop => {
       const name = prop.name.trim().toLowerCase();
       return prop.value && 
              prop.value.trim() !== '' && 
              !name.startsWith('_') &&
-             !excludedKeys.includes(name);
+             !excludedKeys.includes(name) &&
+             !excludedPatterns.some(pattern => name.includes(pattern));
     })
     .map(prop => {
       // Format the property as "Name: Value"

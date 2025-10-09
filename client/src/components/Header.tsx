@@ -1,5 +1,3 @@
-import { UIAIcon } from "./icons";
-
 interface HeaderProps {
   isDevMode?: boolean;
 }
@@ -8,7 +6,7 @@ export default function Header({ isDevMode }: HeaderProps) {
   return (
     <header className="flex items-center justify-between p-4 border-b border-[#777] bg-[#1a1a1a] shadow-md">
       <div className="flex items-center gap-3">
-        <UIAIcon className="w-8 h-8 text-[#f2633a]" />
+        <img src="/icon.svg" alt="Logo" className="w-16 h-auto mx-auto" />
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-bold text-white font-['Archivo',_sans-serif]" data-testid="text-app-title">

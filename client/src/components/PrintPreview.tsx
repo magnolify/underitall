@@ -156,7 +156,8 @@ export default function PrintPreview({
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gray-800">
-            <p className="text-gray-500">Print preview will appear here.</p>
+            <p className="text-gray-500">Print preview will appear here.<br/><img src="/logo.svg" alt="Logo" className="w-24 h-auto mx-auto" /></p>
+            
           </div>
         )}
       </div>

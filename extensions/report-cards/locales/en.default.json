@@ -1,6 +1,6 @@
 {
   "bannerTitle": "Print Order Report Cards",
-  "bannerBody": "Generate 5.5″ × 8.5″ landscape format report cards for each item in this order. Perfect for organization and fulfillment.",
+  "bannerBody": "Generate report cards for each item in this order.",
   "printOptions": "Select Documents to Print",
   "reportCards": "Order Report Cards",
   "description": "Individual cards will be generated for each line item unit, including product details, dimensions, and custom properties."

@@ -2,8 +2,18 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import express from "express";
+import path from "path";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Serve static assets (logo and icon)
+  app.get("/logo.svg", (req, res) => {
+    res.sendFile(path.resolve(import.meta.dirname, "..", "client", "logo.svg"));
+  });
+
+  app.get("/icon.svg", (req, res) => {
+    res.sendFile(path.resolve(import.meta.dirname, "..", "client", "icon.svg"));
+  });
+
   // Health check endpoint for deployment (separate from root)
   app.get("/health", (req, res) => {
     res.status(200).json({ status: "ok", service: "Shopify Report Card Generator" });

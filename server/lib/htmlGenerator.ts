@@ -52,20 +52,39 @@ function findPropertyValue(properties: Array<{ key: string; value: string }> | u
   return prop?.value || '';
 }
 
-function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties: string[] } {
+function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties: string[]; dimensions: string; poNumber: string; projectName: string } {
   const title = item.title || item.name || '';
 
   // Clean the title - remove Default_cpc suffix
   const cleanTitle = title.replace(/ - Default_cpc_.*$/, '').trim();
 
-  // Filter and format properties - exclude _ZapietId and any empty values
+  // Extract special properties
+  const poNumber = findPropertyValue(item.properties, 'PO#');
+  const projectName = findPropertyValue(item.properties, 'Project Name');
+  
+  // Extract dimension properties
+  const length = findPropertyValue(item.properties, 'Length');
+  const width = findPropertyValue(item.properties, 'Width');
+  
+  // Build dimensions string if we have length and/or width
+  let dimensions = '';
+  if (width && length) {
+    dimensions = `DIMENSIONS: ${width} W x ${length} L`;
+  } else if (width) {
+    dimensions = `DIMENSIONS: ${width}`;
+  } else if (length) {
+    dimensions = `DIMENSIONS: ${length}`;
+  }
+
+  // Filter and format properties - exclude _ZapietId, PO#, Project Name, Length, Width, and any empty values
+  const excludedKeys = ['_zapietid', 'po#', 'project name', 'length', 'width'];
   const relevantProperties = (item.properties || [])
     .filter(prop => {
       const name = prop.key.trim().toLowerCase();
       return prop.value &&
              prop.value.trim() !== '' &&
              !name.startsWith('_') &&
-             name !== '_zapietid';
+             !excludedKeys.includes(name);
     })
     .map(prop => {
       // Format the property as "Name: Value"
@@ -74,7 +93,10 @@ function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties:
 
   return {
     title: escapeHtml(cleanTitle),
-    properties: relevantProperties.map(p => escapeHtml(p))
+    properties: relevantProperties.map(p => escapeHtml(p)),
+    dimensions: escapeHtml(dimensions),
+    poNumber: escapeHtml(poNumber),
+    projectName: escapeHtml(projectName)
   };
 }
 
@@ -146,7 +168,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
           ${addressLines.map(line => `<div>${line}</div>`).join('')}
         </div>
         <div class="info-right">
-          <div><span class="label">Order #:</span> ${orderNumber}</div>
+          <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
           <div><span class="label">Order Date:</span> ${orderDate}</div>
           ${poNumber ? `<div><span class="label">PO #:</span> ${poNumber}</div>` : ''}
         </div>
@@ -165,7 +187,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
       <div class="footer">
         <div class="thank-you">THANK YOU FOR GOING SCISSORLESS!</div>
         <div class="contact-info">
-          PHONE: (404) 439-0985 - EMAIL: INFO@ITSUNDERITALL.COM
+          PHONE: (404) 436-0985 - EMAIL: INFO@ITSUNDERITALL.COM
         </div>
       </div>
     </div>
@@ -206,7 +228,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
   if (cityStateZip.length > 0) addressLines.push(cityStateZip.join(', '));
 
   const cardsHtml = order.lineItems.flatMap((item: ShopifyLineItem) => {
-    const { title, properties } = parseTitleForLabel(item);
+    const { title, properties, dimensions, poNumber: itemPo, projectName } = parseTitleForLabel(item);
 
     return Array.from({ length: item.quantity }, (_, i) => `
       <div class="card">
@@ -222,9 +244,10 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
             ${addressLines.map(line => `<div>${line}</div>`).join('')}
           </div>
           <div class="info-right">
-            <div><span class="label">Order #:</span> ${orderNumber}</div>
+            <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
             <div><span class="label">Order Date:</span> ${orderDate}</div>
-            ${itemPoNumber ? `<div><span class="label">PO #:</span> ${itemPoNumber}</div>` : ''}
+            ${itemPo ? `<div><span class="label">PO #:</span> ${itemPo}</div>` : ''}
+            ${projectName ? `<div><span class="label">Project Name:</span> ${projectName}</div>` : ''}
           </div>
         </div>
 
@@ -232,6 +255,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
         <div class="pad-description">
           <div class="item-title">${title}</div>
+          ${dimensions ? `<div class="dimensions-line">${dimensions}</div>` : ''}
           ${properties.length > 0 ? `
             <div class="properties-grid">
               ${properties.map(prop => `<div class="property-item">• ${prop}</div>`).join('')}
@@ -244,7 +268,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
         <div class="footer">
           <div class="thank-you">THANK YOU FOR GOING SCISSORLESS!</div>
           <div class="contact-info">
-            PHONE: (404) 439-0985 - EMAIL: INFO@ITSUNDERITALL.COM
+            PHONE: (404) 436-0985 - EMAIL: INFO@ITSUNDERITALL.COM
           </div>
         </div>
       </div>
@@ -381,6 +405,15 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       font-size: 20px;
       font-weight: 700;
       line-height: 1.1;
+    }
+
+    .dimensions-line {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #374151;
+      margin-top: 8px;
     }
 
     .properties-grid {

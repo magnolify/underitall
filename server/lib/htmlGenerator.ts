@@ -52,6 +52,18 @@ function findPropertyValue(properties: Array<{ key: string; value: string }> | u
   return prop?.value || '';
 }
 
+function findProjectName(properties: Array<{ key: string; value: string }> | undefined): string {
+  if (!properties) return '';
+  // Search for "Project Name", "Project Name ", or "Project Name/Sidemark "
+  const prop = properties.find(p => {
+    const name = p.key.trim().toLowerCase();
+    return name === 'project name' || 
+           name === 'project name/sidemark' ||
+           name.startsWith('project name');
+  });
+  return prop?.value?.trim() || '';
+}
+
 function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties: string[]; dimensions: string; poNumber: string; projectName: string } {
   const title = item.title || item.name || '';
 
@@ -60,7 +72,7 @@ function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties:
 
   // Extract special properties
   const poNumber = findPropertyValue(item.properties, 'PO#');
-  const projectName = findPropertyValue(item.properties, 'Project Name');
+  const projectName = findProjectName(item.properties);
   
   // Extract dimension properties - search for properties containing "width" and "length"
   const widthFtProp = item.properties?.find(p => p.key.toLowerCase().includes('width') && p.key.toLowerCase().includes('(ft)'));
@@ -201,7 +213,6 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
         <div class="info-right">
           <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
           <div><span class="label">Order Date:</span> ${orderDate}</div>
-          ${poNumber ? `<div><span class="label">PO #:</span> ${poNumber}</div>` : ''}
         </div>
       </div>
 
@@ -277,8 +288,8 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
           <div class="info-right">
             <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
             <div><span class="label">Order Date:</span> ${orderDate}</div>
+            ${projectName ? `<div><span class="label">Project Name/Sidemark:</span> ${projectName}</div>` : ''}
             ${itemPo ? `<div><span class="label">PO #:</span> ${itemPo}</div>` : ''}
-            ${projectName ? `<div><span class="label">Project Name:</span> ${projectName}</div>` : ''}
           </div>
         </div>
 

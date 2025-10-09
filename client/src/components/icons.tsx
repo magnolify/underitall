@@ -46,7 +46,7 @@ export const DataUrlIcon = ({ className }: IconProps) => (
 );
 
 export const UIAIcon = ({ className }: IconProps) => (
-  <svg className={className} viewBox="0 0 420 420" version="1.1" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" id="Layer_1">
+  <svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" id="Layer_1">
     <defs>
       <style>{`
         .cls-1, .cls-2 { stroke-width: 0px; }
@@ -61,23 +61,23 @@ export const UIAIcon = ({ className }: IconProps) => (
         @keyframes fadePulse {
           0% {
             opacity: 0;
-            transform: rotate(0deg) scale(0.5);
+            transform: rotate(0deg) scale(0.9);
           }
           15% {
             opacity: .5;
-            transform: rotate(90deg) scale(0.7);
+            transform: rotate(90deg) scale(1.2);
           }
           50% {
             opacity: 1;
-            transform: rotate(360deg) scale(1.1);
+            transform: rotate(360deg) scale(1.5);
           }
           85% {
             opacity: .5;
-            transform: rotate(90deg) scale(0.7);
+            transform: rotate(90deg) scale(1.2);
           }
           100% {
             opacity: 0;
-            transform: rotate(0deg) scale(0.5);
+            transform: rotate(0deg) scale(0.9);
           }        
         }
 

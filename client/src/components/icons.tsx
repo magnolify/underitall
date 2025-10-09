@@ -46,7 +46,7 @@ export const DataUrlIcon = ({ className }: IconProps) => (
 );
 
 export const UIAIcon = ({ className }: IconProps) => (
-  <svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" id="Layer_1">
+  <svg className={className} viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" id="Layer_1">
     <defs>
       <style>{`
         .cls-1, .cls-2 { stroke-width: 0px; }

@@ -155,7 +155,7 @@ export default function PrintPreview({
             data-testid="iframe-print-preview"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-soft-black">
+          <div className="w-full h-full flex items-center justify-center bg-black">
             <p className="text-felt-gray">Print preview will appear here.<br/><img src="/logo.svg" alt="Logo" className="w-24 h-auto mx-auto" /></p>
             
           </div>

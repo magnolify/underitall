@@ -444,7 +444,7 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
     }
 
     .pad-description {
-      padding: 12px 16px;
+      padding: 0;
       min-height: 60px;
       display: flex;
       flex-direction: column;

@@ -405,7 +405,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       text-align: center;
       color: #111827;
       gap: 0px;
-      padding: 12px 16px;
+      padding: 0;
     }
 
     .summary-section {

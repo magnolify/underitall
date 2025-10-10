@@ -167,7 +167,7 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
     if (dimensions) parts.push(dimensions.replace('DIMENSIONS: ', ''));
     if (location) parts.push(`Location: ${escapeHtml(location)}`);
     
-    return `<div class="summary-item">${parts.join(' - ')}</div>`;
+    return `<div class="summary-item">• ${parts.join(' - ')}</div>`;
   }).join('');
 
   return `
@@ -192,7 +192,7 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
       <hr />
 
       <div class="pad-description summary-section">
-        <div style="font-size: 14px; color: #1a1a1a; font-weight: 600; margin-bottom: 12px;">
+        <div style="font-size: 14px; color: #1a1a1a; font-weight: 600;">
           ORDER SUMMARY — ${order.line_items.length} Line Item${order.line_items.length !== 1 ? 's' : ''}
         </div>
         ${lineItemsSummary}
@@ -414,12 +414,10 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .summary-item {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
+      margin-bottom: 2px;
       font-size: 10px;
-      line-height: 0.8;
-      color: #1a1a1a;
+      line-height: 1.2;
+      color: #374151;
     }
 
     .item-title {

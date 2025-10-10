@@ -206,13 +206,13 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
     if (dimensions) parts.push(dimensions.replace('DIMENSIONS: ', ''));
     if (location) parts.push(`Location: ${escapeHtml(location)}`);
 
-    return `<div class="summary-item">${parts.join(' - ')}</div>`;
+    return `<div class="summary-item">• ${parts.join(' - ')}</div>`;
   }).join('');
 
   return `
     <div class="card">
       <div class="logo">
-        <img src="${process.env.REPL_SLUG ? `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/uia_logo.png` : '/uia_logo.png'}" alt="UNDERITALL Logo">
+        <img src="https://b2fc0def-6ac7-48a7-a9bd-cd2b71270629-00-3bziosto0yeeu.riker.replit.dev/uia_logo.png" alt="UNDERITALL Logo">
       </div>
 
       <div class="info-grid">
@@ -231,7 +231,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
       <hr />
 
       <div class="pad-description summary-section">
-        <div style="font-size: 14px; color: #1a1a1a; font-weight: 600; margin-bottom: 12px;">
+        <div style="font-size: 14px; color: #1a1a1a; font-weight: 600;">
           ORDER SUMMARY — ${order.lineItems.length} Line Item${order.lineItems.length !== 1 ? 's' : ''}
         </div>
         ${lineItemsSummary}
@@ -288,7 +288,7 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
     return Array.from({ length: item.quantity }, (_, i) => `
       <div class="card">
         <div class="logo">
-          <img src="${process.env.REPL_SLUG ? `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/uia_logo.png` : '/uia_logo.png'}" alt="UNDERITALL Logo">
+          <img src="https://b2fc0def-6ac7-48a7-a9bd-cd2b71270629-00-3bziosto0yeeu.riker.replit.dev/uia_logo.png" alt="UNDERITALL Logo">
         </div>
 
         <div class="info-grid">
@@ -462,16 +462,10 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
     }
 
     .summary-item {
-      margin-bottom: 6px;
-      padding-bottom: 4px;
-      border-bottom: 1px solid #e5e7eb;
+      margin-bottom: 2px;
       font-size: 10px;
       line-height: 1.2;
-      color: #1a1a1a;
-    }
-
-    .summary-item:last-child {
-      border-bottom: none;
+      color: #374151;
     }
 
     .item-title {

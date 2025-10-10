@@ -173,7 +173,7 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
   return `
     <div class="card">
       <div class="logo">
-        <img src="/uia_logo.png" alt="UNDERITALL Logo">
+        <img src="${window.location.origin}/uia_logo.png" alt="UNDERITALL Logo">
       </div>
 
       <div class="info-grid">
@@ -246,7 +246,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     return Array.from({ length: item.quantity }, (_, i) => `
       <div class="card">
         <div class="logo">
-          <img src="/uia_logo.png" alt="UNDERITALL Logo">
+          <img src="${window.location.origin}/uia_logo.png" alt="UNDERITALL Logo">
         </div>
 
         <div class="info-grid">

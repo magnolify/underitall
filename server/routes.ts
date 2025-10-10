@@ -18,8 +18,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.sendFile(path.resolve(import.meta.dirname, "..", "client", "icon.svg"));
   });
 
-  app.get("/favico.ico", (req, res) => {
-    res.sendFile(path.resolve(import.meta.dirname, "..", "client", "favico.ico"));
+  app.get("/favicon.ico", (req, res) => {
+    res.sendFile(path.resolve(import.meta.dirname, "..", "client", "favicon.ico"));
   });
 
   // Health check endpoint for deployment (separate from root)

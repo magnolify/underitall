@@ -202,13 +202,11 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
     const { title, dimensions } = parseTitleForLabel(item);
     const location = findPropertyValue(item.properties, 'Install Location') || findPropertyValue(item.properties, 'Location');
     
-    return `
-      <div class="summary-item">
-        <div class="summary-title">${title}</div>
-        ${dimensions ? `<div class="summary-dimensions">${dimensions}</div>` : ''}
-        ${location ? `<div class="summary-location">Location: ${escapeHtml(location)}</div>` : ''}
-      </div>
-    `;
+    const parts = [title];
+    if (dimensions) parts.push(dimensions.replace('DIMENSIONS: ', ''));
+    if (location) parts.push(`Location: ${escapeHtml(location)}`);
+    
+    return `<div class="summary-item">${parts.join(' - ')}</div>`;
   }).join('');
 
   return `
@@ -446,13 +444,13 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .pad-description {
-      padding: 20px 16px;
-      min-height: 80px;
+      padding: 12px 16px;
+      min-height: 60px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 8px;
       color: #1a1a1a;
       background: rgba(0, 0, 0, 0.02);
       border-radius: 8px;
@@ -460,35 +458,20 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
     .summary-section {
       text-align: left;
-      padding: 16px 20px;
+      padding: 12px 20px;
     }
 
     .summary-item {
-      margin-bottom: 10px;
-      padding-bottom: 8px;
+      margin-bottom: 6px;
+      padding-bottom: 4px;
       border-bottom: 1px solid #e5e7eb;
+      font-size: 10px;
+      line-height: 1.2;
+      color: #1a1a1a;
     }
 
     .summary-item:last-child {
       border-bottom: none;
-    }
-
-    .summary-title {
-      font-size: 12px;
-      font-weight: 600;
-      color: #1a1a1a;
-    }
-
-    .summary-dimensions {
-      font-size: 11px;
-      color: #374151;
-      margin-top: 2px;
-    }
-
-    .summary-location {
-      font-size: 10px;
-      color: #6b7280;
-      margin-top: 2px;
     }
 
     .item-title {
@@ -512,16 +495,16 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
       width: 100%;
-      font-size: 11px;
+      font-size: 10px;
       text-align: center;
       color: #374151;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .property-item {
-      line-height: 1.3;
+      line-height: 1.2;
     }
 
     .header-card .header-content {

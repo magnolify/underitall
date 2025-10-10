@@ -410,7 +410,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
     .summary-section {
       text-align: left;
-      padding: 12px 20px;
+      padding: 0px 0px;
     }
 
     .summary-item {

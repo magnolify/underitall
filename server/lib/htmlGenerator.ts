@@ -299,10 +299,10 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
             ${addressLines.map(line => `<div>${line}</div>`).join('')}
           </div>
           <div class="info-right">
-            <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
             <div><span class="label">Order Date:</span> ${orderDate}</div>
-            ${projectName ? `<div><span class="label">Project Name/Sidemark:</span><br/>${projectName}</div>` : ''}
+            <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
             ${itemPo ? `<div><span class="label">PO #:</span> ${itemPo}</div>` : ''}
+            ${projectName ? `<div><span class="label">Project Name/Sidemark:</span><br/>${projectName}</div>` : ''}
           </div>
         </div>
 

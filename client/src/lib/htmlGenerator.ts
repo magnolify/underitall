@@ -246,7 +246,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
           <div class="info-right">
             <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
             <div><span class="label">Order Date:</span> ${orderDate}</div>
-            ${projectName ? `<div><span class="label">Project Name/Sidemark:</span> ${projectName}</div>` : ''}
+            ${projectName ? `<div><span class="label">Project Name/Sidemark:</span><br/>${projectName}</div>` : ''}
             ${itemPo ? `<div><span class="label">PO #:</span> ${itemPo}</div>` : ''}
           </div>
         </div>

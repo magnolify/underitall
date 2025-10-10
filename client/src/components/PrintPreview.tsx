@@ -109,7 +109,7 @@ export default function PrintPreview({
                 value={orderNumber}
                 onChange={(e) => onOrderNumberChange?.(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && onLoadOrder?.()}
-                placeholder="Order Number (e.g., 1217)"
+                placeholder="e.g. 2265"
                 className="px-3 py-1.5 bg-black border border-[#777] rounded-md focus:outline-none text-gray-200 placeholder-gray-500 text-sm min-w-0 flex-shrink"
               />
               <Button

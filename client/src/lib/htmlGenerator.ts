@@ -309,8 +309,8 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       border: 1px solid #e5e7eb;
       padding: 20px;
       box-sizing: border-box;
-      width: 4in;
-      height: 8in;
+      width: 8in;
+      height: 4in;
       display: flex;
       flex-direction: column;
       box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -489,7 +489,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
     @media print {
       @page {
-        size: 4in 8in portrait;
+        size: 8in 4in landscape;
         margin: 0;
       }
       body {

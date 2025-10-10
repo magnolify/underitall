@@ -7,6 +7,12 @@ const app = express();
 
 // Serve static files from client directory
 app.use(express.static(path.join(process.cwd(), 'client')));
+
+// Explicit route for logo
+app.get('/uia_logo.png', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'client', 'uia_logo.png'));
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

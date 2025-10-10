@@ -347,8 +347,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       // Generate HTML using our server-side generator
-      const { generateReportCardHTML } = await import('./lib/htmlGenerator.js');
-      const html = generateReportCardHTML(transformedOrder, false);
+      const htmlGeneratorModule = await import('./lib/htmlGenerator.js');
+      const html = htmlGeneratorModule.default ? htmlGeneratorModule.default(transformedOrder, false) : htmlGeneratorModule.generateReportCardHTML(transformedOrder, false);
 
       res.setHeader('Content-Type', 'text/html');
       res.send(html);

@@ -212,7 +212,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
   return `
     <div class="card">
       <div class="logo">
-        <img src="https://b2fc0def-6ac7-48a7-a9bd-cd2b71270629-00-3bziosto0yeeu.riker.replit.dev/uia_logo.png" alt="UNDERITALL Logo">
+        <img src="/uia_logo.png" alt="UNDERITALL Logo">
       </div>
 
       <div class="info-grid">
@@ -288,7 +288,7 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
     return Array.from({ length: item.quantity }, (_, i) => `
       <div class="card">
         <div class="logo">
-          <img src="https://b2fc0def-6ac7-48a7-a9bd-cd2b71270629-00-3bziosto0yeeu.riker.replit.dev/uia_logo.png" alt="UNDERITALL Logo">
+          <img src="/uia_logo.png" alt="UNDERITALL Logo">
         </div>
 
         <div class="info-grid">
@@ -581,3 +581,6 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
 </html>
   `.trim();
 }
+
+// Export both named and default for compatibility
+export default generateReportCardHTML;

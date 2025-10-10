@@ -184,7 +184,7 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
           ${addressLines.map(line => `<div>${line}</div>`).join('')}
         </div>
         <div class="info-right">
-          <div><span class="label">UIA ORDER #:</span> ${orderNumber}</div>
+          <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
           <div><span class="label">Order Date:</span> ${orderDate}</div>
         </div>
       </div>
@@ -257,7 +257,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
             ${addressLines.map(line => `<div>${line}</div>`).join('')}
           </div>
           <div class="info-right">
-            <div><span class="label">UIA ORDER #:</span> ${orderNumber}</div>
+            <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
             <div><span class="label">Order Date:</span> ${orderDate}</div>
             ${projectName ? `<div><span class="label">Project Name/Sidemark:</span><br/>${projectName}</div>` : ''}
             ${itemPo ? `<div><span class="label">PO #:</span> ${itemPo}</div>` : ''}

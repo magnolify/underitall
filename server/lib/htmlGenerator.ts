@@ -353,10 +353,10 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     .card {
       background-color: white;
       border: 1px solid #e5e7eb;
-      padding: 24px;
+      padding: 20px;
       box-sizing: border-box;
-      width: 8.5in;
-      height: 5.5in;
+      width: 4in;
+      height: 8in;
       display: flex;
       flex-direction: column;
       box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -501,7 +501,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
     @media print {
       @page {
-        size: 8.5in 5.5in landscape;
+        size: 4in 8in portrait;
         margin: 0;
       }
 

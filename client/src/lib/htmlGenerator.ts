@@ -519,13 +519,17 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     @media print {
       @page {
         size: 8in 4in landscape;
-        margin: 0;
+        margin-top: 0.5in;
+        margin-right: 0.5in;
+        margin-bottom: 0.5in;
+        margin-left: 0.5in;
       }
       body {
         background-color: white !important;
         padding: 0;
         margin: 0;
         -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
       .no-print {
         display: none !important;

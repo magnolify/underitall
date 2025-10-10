@@ -69,6 +69,7 @@ export default function PrintPreview({
     styleSheet.textContent = `
       @media print {
         @page {
+          size: 8in 4in landscape;
           margin-top: ${printSettings.marginTop}in;
           margin-right: ${printSettings.marginRight}in;
           margin-bottom: ${printSettings.marginBottom}in;

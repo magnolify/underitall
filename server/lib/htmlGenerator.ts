@@ -530,7 +530,10 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
     @media print {
       @page {
         size: 8in 4in landscape;
-        margin: 0;
+        margin-top: 0.5in;
+        margin-right: 0.5in;
+        margin-bottom: 0.5in;
+        margin-left: 0.5in;
       }
 
       body {

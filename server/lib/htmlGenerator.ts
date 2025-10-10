@@ -197,6 +197,20 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
     addressLines.push(escapeHtml(address.country));
   }
 
+  // Generate line items summary
+  const lineItemsSummary = order.lineItems.map(item => {
+    const { title, dimensions } = parseTitleForLabel(item);
+    const location = findPropertyValue(item.properties, 'Install Location') || findPropertyValue(item.properties, 'Location');
+    
+    return `
+      <div class="summary-item">
+        <div class="summary-title">${title}</div>
+        ${dimensions ? `<div class="summary-dimensions">${dimensions}</div>` : ''}
+        ${location ? `<div class="summary-location">Location: ${escapeHtml(location)}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+
   return `
     <div class="card">
       <div class="logo">
@@ -218,10 +232,11 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
 
       <hr />
 
-      <div class="pad-description">
-        <div style="font-size: 14px; color: #6b7280; font-weight: 500;">
-          Total Line Items: ${order.lineItems.length}
+      <div class="pad-description summary-section">
+        <div style="font-size: 14px; color: #1a1a1a; font-weight: 600; margin-bottom: 12px;">
+          ORDER SUMMARY — ${order.lineItems.length} Line Item${order.lineItems.length !== 1 ? 's' : ''}
         </div>
+        ${lineItemsSummary}
       </div>
 
       <hr />
@@ -443,34 +458,70 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       border-radius: 8px;
     }
 
+    .summary-section {
+      text-align: left;
+      padding: 16px 20px;
+    }
+
+    .summary-item {
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+
+    .summary-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .summary-dimensions {
+      font-size: 11px;
+      color: #374151;
+      margin-top: 2px;
+    }
+
+    .summary-location {
+      font-size: 10px;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
     .item-title {
-      font-size: 20px;
+      font-size: 24px;
       font-weight: 700;
       line-height: 1.1;
+      text-align: center;
     }
 
     .dimensions-line {
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 18px;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      color: #000000;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .properties-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+      font-size: 11px;
+      text-align: center;
       color: #374151;
       margin-top: 8px;
     }
 
-    .properties-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px 12px;
-      width: 100%;
-      max-width: 90%;
-      font-size: 10px;
-      text-align: left;
-      color: #374151;
-    }
-
     .property-item {
-      line-height: 1.1;
+      line-height: 1.3;
     }
 
     .header-card .header-content {

@@ -283,10 +283,10 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Report Cards for Order ${escapeHtml(order.name)}</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap');
 
     body {
-      font-family: 'Inter', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Vazirmatn', Arial, sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
       background-color: #000000;
       margin: 0;
       padding: 0.5rem;

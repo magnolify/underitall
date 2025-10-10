@@ -2,15 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* DARK THEME ONLY - Original App Colors */
+/* UnderItAll Brand Theme */
 :root {
-  /* Orange accent colors from original app */
-  --primary: 38.23 87.6% 74.71%; /* #f2633a */
-  --primary-foreground: 39.27 43.31% 24.9%;
+  /* UnderItAll Brand Colors */
+  --rorange: 14 87.6% 58.8%; /* #F2633A */
+  --rorange-light: 14 80% 83.3%; /* #F9CAB0 */
+  --felt-gray: 210 1.4% 42%; /* #696A6D */
+  --soft-black: 225 8.3% 13.3%; /* #212227 */
+  --greige: 60 10.3% 86.9%; /* #E1E0DA */
+  --cream: 50 37.5% 93.3%; /* #F3F1E9 */
+  --green-gradient: 100 10.6% 54.9%; /* #869880 */
   
-  /* Pure black background */
-  --background: 45 100% 96.86%; /* #000 */
-  --foreground: 38.18 53.23% 24.31%; /* #f5f5f5 */
+  /* Primary accent (Rorange) */
+  --primary: var(--rorange);
+  --primary-foreground: 0 0% 100%;
+  
+  /* Dark background */
+  --background: var(--soft-black);
+  --foreground: var(--cream);
   
   /* Dark surfaces */
   --card: 47.14 87.5% 96.86%; /* #1a1a1a */
@@ -153,12 +162,14 @@
   }
 
   body {
-    @apply bg-black text-foreground antialiased;
-    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    @apply antialiased;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
   }
 }
 

@@ -11,6 +11,15 @@ export default {
         sm: ".25rem",
       },
       colors: {
+        rorange: {
+          DEFAULT: "hsl(var(--rorange) / <alpha-value>)",
+          light: "hsl(var(--rorange-light) / <alpha-value>)",
+        },
+        "felt-gray": "hsl(var(--felt-gray) / <alpha-value>)",
+        "soft-black": "hsl(var(--soft-black) / <alpha-value>)",
+        greige: "hsl(var(--greige) / <alpha-value>)",
+        cream: "hsl(var(--cream) / <alpha-value>)",
+        "green-gradient": "hsl(var(--green-gradient) / <alpha-value>)",
         background: "hsl(var(--background) / <alpha-value>)",
         foreground: "hsl(var(--foreground) / <alpha-value>)",
         border: "hsl(var(--border) / <alpha-value>)",
@@ -82,7 +91,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Vazirmatn", "Arial", "system-ui", "sans-serif"],
+        headline: ["Archivo", "Arial", "system-ui", "sans-serif"],
+        accent: ["Lora", "Georgia", "serif"],
         mono: ["Roboto Mono", "monospace"],
       },
       keyframes: {

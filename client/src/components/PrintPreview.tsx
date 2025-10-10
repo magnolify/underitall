@@ -115,7 +115,7 @@ export default function PrintPreview({
                 data-testid="button-load-order"
                 onClick={onLoadOrder}
                 size="sm"
-                className="gap-2 bg-[#f2633a] hover:bg-[#d9532f] text-white font-bold flex-shrink-0"
+                className="gap-2 bg-rorange hover:bg-rorange/90 text-white font-bold flex-shrink-0"
               >
                 Load Order
               </Button>
@@ -139,7 +139,7 @@ export default function PrintPreview({
             onClick={handlePrint}
             disabled={!printUrl}
             size="sm"
-            className="gap-2 bg-[#f2633a] hover:bg-[#d9532f] text-white font-bold"
+            className="gap-2 bg-rorange hover:bg-rorange/90 text-white font-bold"
           >
             <Printer className="h-4 w-4" />
             Print
@@ -155,8 +155,8 @@ export default function PrintPreview({
             data-testid="iframe-print-preview"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-black">
-            <p className="text-gray-500">Print preview will appear here.<br/><img src="/logo.svg" alt="Logo" className="w-24 h-auto mx-auto" /></p>
+          <div className="w-full h-full flex items-center justify-center bg-soft-black">
+            <p className="text-felt-gray">Print preview will appear here.<br/><img src="/logo.svg" alt="Logo" className="w-24 h-auto mx-auto" /></p>
             
           </div>
         )}

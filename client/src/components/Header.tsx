@@ -15,7 +15,9 @@ export default function Header({ isDevMode }: HeaderProps) {
               </span>
             )}
           </div>
-          <p className="font-mono text-m text-orange-300" style={{ color: '#f2633a' }}>REPORT CARD GENERATOR</p>
+          <p className="text-rorange font-headline font-bold text-sm tracking-wide">
+        REPORT CARD GENERATOR
+      </p>
         </div>
       </div>
     </header>

@@ -212,7 +212,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
   return `
     <div class="card">
       <div class="logo">
-        <img src="https://b2fc0def-6ac7-48a7-a9bd-cd2b71270629-00-3bziosto0yeeu.riker.replit.dev/uia_logo_1760121283031.png" alt="UNDERITALL Logo">
+        <img src="https://b2fc0def-6ac7-48a7-a9bd-cd2b71270629-00-3bziosto0yeeu.riker.replit.dev/uia_logo.png" alt="UNDERITALL Logo">
       </div>
 
       <div class="info-grid">
@@ -288,7 +288,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     return Array.from({ length: item.quantity }, (_, i) => `
       <div class="card">
         <div class="logo">
-          <img src="https://www.itsunderitall.com/cdn/shop/files/UnderItAll_Logo_FeltGrey_350x.png?v=1720724526" alt="UNDERITALL Logo">
+          <img src="https://b2fc0def-6ac7-48a7-a9bd-cd2b71270629-00-3bziosto0yeeu.riker.replit.dev/uia_logo.png" alt="UNDERITALL Logo">
         </div>
 
         <div class="info-grid">

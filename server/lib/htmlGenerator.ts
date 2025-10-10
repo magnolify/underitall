@@ -475,14 +475,15 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
     }
 
     .item-title {
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 16px;
+      font-weight: 400;
       line-height: 1.1;
       text-align: center;
+      text-transform: uppercase;
     }
 
     .dimensions-line {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;

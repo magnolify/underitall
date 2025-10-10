@@ -232,7 +232,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
 
       <div class="pad-description summary-section">
         <div style="font-size: 14px; color: #1a1a1a; font-weight: 600;">
-          ORDER SUMMARY — ${order.lineItems.length} Line Item${order.lineItems.length !== 1 ? 's' : ''}
+          ORDER SUMMARY ( ${order.lineItems.length} ITEM${order.lineItems.length !== 1 ? 'S' : ''} )
         </div>
         ${lineItemsSummary}
       </div>

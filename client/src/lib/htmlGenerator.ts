@@ -193,7 +193,7 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
 
       <div class="pad-description summary-section">
         <div style="font-size: 14px; color: #1a1a1a; font-weight: 600;">
-          ORDER SUMMARY — ${order.line_items.length} Line Item${order.line_items.length !== 1 ? 's' : ''}
+          ORDER SUMMARY ( ${order.line_items.length} ITEM${order.line_items.length !== 1 ? 'S' : ''} )
         </div>
         ${lineItemsSummary}
       </div>

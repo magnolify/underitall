@@ -10,6 +10,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.sendFile(path.resolve(import.meta.dirname, "..", "client", "logo.svg"));
   });
 
+  app.get("/logo.png", (req, res) => {
+    res.sendFile(path.resolve(import.meta.dirname, "..", "client", "logo.png"));
+  });
+
   app.get("/icon.svg", (req, res) => {
     res.sendFile(path.resolve(import.meta.dirname, "..", "client", "icon.svg"));
   });

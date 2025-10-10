@@ -404,7 +404,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       justify-content: center;
       text-align: center;
       color: #111827;
-      gap: 8px;
+      gap: 0px;
       padding: 12px 16px;
     }
 
@@ -436,7 +436,6 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: #000000;
-      margin-top: 10px;
       text-align: center;
     }
 

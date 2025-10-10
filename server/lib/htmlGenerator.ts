@@ -450,7 +450,7 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 0px;
       color: #1a1a1a;
       background: rgba(0, 0, 0, 0.02);
       border-radius: 8px;
@@ -488,7 +488,6 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: #000000;
-      margin-top: 10px;
       text-align: center;
     }
 

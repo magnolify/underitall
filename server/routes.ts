@@ -18,6 +18,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.sendFile(path.resolve(import.meta.dirname, "..", "client", "icon.svg"));
   });
 
+  app.get("/favico.ico", (req, res) => {
+    res.sendFile(path.resolve(import.meta.dirname, "..", "client", "favico.ico"));
+  });
+
   // Health check endpoint for deployment (separate from root)
   app.get("/health", (req, res) => {
     res.status(200).json({ status: "ok", service: "Shopify Report Card Generator" });

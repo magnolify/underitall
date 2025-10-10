@@ -414,16 +414,12 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .summary-item {
-      margin-bottom: 6px;
-      padding-bottom: 4px;
-      border-bottom: 1px solid #e5e7eb;
-      font-size: 10px;
-      line-height: 1.2;
-      color: #1a1a1a;
-    }
-
-    .summary-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
       border-bottom: none;
+      font-size: 10px;
+      line-height: 0.8;
+      color: #1a1a1a;
     }
 
     .item-title {
@@ -519,7 +515,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       font-size: 10px;
       font-weight: 700;
       color: #4b5563;
-      line-height: 1.1;
+      line-height: 0.8;
     }
 
     @media print {

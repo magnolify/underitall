@@ -57,7 +57,7 @@ function findProjectName(properties: Array<{ key: string; value: string }> | und
   // Search for "Project Name", "Project Name ", or "Project Name/Sidemark "
   const prop = properties.find(p => {
     const name = p.key.trim().toLowerCase();
-    return name === 'project name' || 
+    return name === 'project name' ||
            name === 'project name/sidemark' ||
            name.startsWith('project name');
   });
@@ -73,13 +73,13 @@ function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties:
   // Extract special properties
   const poNumber = findPropertyValue(item.properties, 'PO#');
   const projectName = findProjectName(item.properties);
-  
+
   // Extract dimension properties - search for properties containing "width" and "length"
   const widthFtProp = item.properties?.find(p => p.key.toLowerCase().includes('width') && p.key.toLowerCase().includes('(ft)'));
   const widthInProp = item.properties?.find(p => p.key.toLowerCase().includes('width') && p.key.toLowerCase().includes('(in)'));
   const lengthFtProp = item.properties?.find(p => p.key.toLowerCase().includes('length') && p.key.toLowerCase().includes('(ft)'));
   const lengthInProp = item.properties?.find(p => p.key.toLowerCase().includes('length') && p.key.toLowerCase().includes('(in)'));
-  
+
   // Build dimension strings
   let width = '';
   if (widthFtProp?.value || widthInProp?.value) {
@@ -93,7 +93,7 @@ function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties:
       width = inches;
     }
   }
-  
+
   let length = '';
   if (lengthFtProp?.value || lengthInProp?.value) {
     const ft = lengthFtProp?.value?.trim() || '';
@@ -106,7 +106,7 @@ function parseTitleForLabel(item: ShopifyLineItem): { title: string; properties:
       length = inches;
     }
   }
-  
+
   // Build dimensions string if we have length and/or width
   let dimensions = '';
   if (width && length) {
@@ -201,11 +201,11 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
   const lineItemsSummary = order.lineItems.map(item => {
     const { title, dimensions } = parseTitleForLabel(item);
     const location = findPropertyValue(item.properties, 'Install Location') || findPropertyValue(item.properties, 'Location');
-    
+
     const parts = [title];
     if (dimensions) parts.push(dimensions.replace('DIMENSIONS: ', ''));
     if (location) parts.push(`Location: ${escapeHtml(location)}`);
-    
+
     return `<div class="summary-item">${parts.join(' - ')}</div>`;
   }).join('');
 
@@ -249,7 +249,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
   `;
 }
 
-export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false): string {
+function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false): string {
   const clientName = escapeHtml(order.shippingAddress?.name ||
     `${order.customer?.firstName || ''} ${order.customer?.lastName || ''}`.trim());
   const orderNumber = escapeHtml(order.name.replace('#', ''));
@@ -530,7 +530,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
       font-size: 10px;
       font-weight: 700;
       color: #4b5563;
-      line-height: 1.1;
+      line-height: 0.8;
     }
 
     @media print {

@@ -5,14 +5,6 @@ import path from "path";
 
 const app = express();
 
-// Serve static files from client directory
-app.use(express.static(path.join(process.cwd(), 'client')));
-
-// Explicit route for logo
-app.get('/uia_logo.png', (req, res) => {
-  res.sendFile(path.join(process.cwd(), 'client', 'uia_logo.png'));
-});
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -63,6 +55,8 @@ app.use((req, res, next) => {
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
+    // In production, serve static files from client directory
+    app.use(express.static(path.join(process.cwd(), 'client')));
     serveStatic(app);
   }
 

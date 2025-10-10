@@ -212,7 +212,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
   return `
     <div class="card">
       <div class="logo">
-        <img src="/uia_logo.png" alt="UNDERITALL Logo">
+        <img src="${process.env.REPL_SLUG ? `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/uia_logo.png` : '/uia_logo.png'}" alt="UNDERITALL Logo">
       </div>
 
       <div class="info-grid">
@@ -288,7 +288,7 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
     return Array.from({ length: item.quantity }, (_, i) => `
       <div class="card">
         <div class="logo">
-          <img src="/uia_logo.png" alt="UNDERITALL Logo">
+          <img src="${process.env.REPL_SLUG ? `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/uia_logo.png` : '/uia_logo.png'}" alt="UNDERITALL Logo">
         </div>
 
         <div class="info-grid">

@@ -23,7 +23,7 @@ const findProjectName = (properties: ShopifyLineItemProperty[]): string => {
   // Search for "Project Name", "Project Name ", or "Project Name/Sidemark "
   const prop = properties.find(p => {
     const name = p.name.trim().toLowerCase();
-    return name === 'project name' || 
+    return name === 'project name' ||
            name === 'project name/sidemark' ||
            name.startsWith('project name');
   });
@@ -33,17 +33,17 @@ const findProjectName = (properties: ShopifyLineItemProperty[]): string => {
 const parseTitleForLabel = (item: ShopifyLineItem): { title: string; properties: string[]; dimensions: string; poNumber: string; projectName: string } => {
   // Clean the title - remove Default_cpc suffix
   const cleanTitle = item.title.replace(/ - Default_cpc_.*$/, '').trim();
-  
+
   // Extract special properties
   const poNumber = findPropertyValue(item.properties, 'PO#');
   const projectName = findProjectName(item.properties);
-  
+
   // Extract dimension properties - search for properties containing "width" and "length"
   const widthFtProp = item.properties.find(p => p.name.toLowerCase().includes('width') && p.name.toLowerCase().includes('(ft)'));
   const widthInProp = item.properties.find(p => p.name.toLowerCase().includes('width') && p.name.toLowerCase().includes('(in)'));
   const lengthFtProp = item.properties.find(p => p.name.toLowerCase().includes('length') && p.name.toLowerCase().includes('(ft)'));
   const lengthInProp = item.properties.find(p => p.name.toLowerCase().includes('length') && p.name.toLowerCase().includes('(in)'));
-  
+
   // Build dimension strings
   let width = '';
   if (widthFtProp?.value || widthInProp?.value) {
@@ -57,7 +57,7 @@ const parseTitleForLabel = (item: ShopifyLineItem): { title: string; properties:
       width = inches;
     }
   }
-  
+
   let length = '';
   if (lengthFtProp?.value || lengthInProp?.value) {
     const ft = lengthFtProp?.value?.trim() || '';
@@ -70,7 +70,7 @@ const parseTitleForLabel = (item: ShopifyLineItem): { title: string; properties:
       length = inches;
     }
   }
-  
+
   // Build dimensions string if we have length and/or width
   let dimensions = '';
   if (width && length) {
@@ -80,15 +80,15 @@ const parseTitleForLabel = (item: ShopifyLineItem): { title: string; properties:
   } else if (length) {
     dimensions = `DIMENSIONS: ${length}`;
   }
-  
+
   // Filter and format properties - exclude dimension properties, _ZapietId, PO#, Project Name, and any empty values
   const excludedPatterns = ['width', 'length'];
   const excludedKeys = ['_zapietid', 'po#', 'project name'];
   const relevantProperties = item.properties
     .filter(prop => {
       const name = prop.name.trim().toLowerCase();
-      return prop.value && 
-             prop.value.trim() !== '' && 
+      return prop.value &&
+             prop.value.trim() !== '' &&
              !name.startsWith('_') &&
              !excludedKeys.includes(name) &&
              !excludedPatterns.some(pattern => name.includes(pattern));
@@ -97,7 +97,7 @@ const parseTitleForLabel = (item: ShopifyLineItem): { title: string; properties:
       // Format the property as "Name: Value"
       return `${prop.name.trim()}: ${prop.value.trim()}`;
     });
-  
+
   return {
     title: escapeHtml(cleanTitle),
     properties: relevantProperties.map(p => escapeHtml(p)),
@@ -113,7 +113,7 @@ const formatOrderDate = (dateString: string): string => {
   const month = monthNames[date.getMonth()];
   const day = date.getDate();
   const year = date.getFullYear();
-  
+
   // Add ordinal suffix (st, nd, rd, th)
   const suffix = (day: number) => {
     if (day > 3 && day < 21) return 'th';
@@ -124,7 +124,7 @@ const formatOrderDate = (dateString: string): string => {
       default: return 'th';
     }
   };
-  
+
   return `${month} ${day}${suffix(day)}, ${year}`;
 };
 
@@ -133,7 +133,7 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
   const company = order.shipping_address?.company ? escapeHtml(order.shipping_address.company) : '';
   const orderNumber = escapeHtml(order.name.replace('#', ''));
   const orderDate = formatOrderDate(order.created_at);
-  
+
   // Extract PO# from line item properties
   let poNumber = '';
   for (const item of order.line_items) {
@@ -143,17 +143,17 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
       break;
     }
   }
-  
+
   const addressLines = [];
   if (order.shipping_address?.address1) addressLines.push(escapeHtml(order.shipping_address.address1));
   if (order.shipping_address?.address2) addressLines.push(escapeHtml(order.shipping_address.address2));
-  
+
   const cityStateZip = [];
   if (order.shipping_address?.city) cityStateZip.push(escapeHtml(order.shipping_address.city));
   if (order.shipping_address?.province_code) cityStateZip.push(escapeHtml(order.shipping_address.province_code));
   if (order.shipping_address?.zip) cityStateZip.push(escapeHtml(order.shipping_address.zip));
   if (cityStateZip.length > 0) addressLines.push(cityStateZip.join(', '));
-  
+
   if (order.shipping_address?.country && order.shipping_address.country !== 'United States') {
     addressLines.push(escapeHtml(order.shipping_address.country));
   }
@@ -162,11 +162,11 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
   const lineItemsSummary = order.line_items.map(item => {
     const { title, dimensions } = parseTitleForLabel(item);
     const location = findPropertyValue(item.properties, 'Install Location') || findPropertyValue(item.properties, 'Location');
-    
+
     const parts = [title];
     if (dimensions) parts.push(dimensions.replace('DIMENSIONS: ', ''));
     if (location) parts.push(`Location: ${escapeHtml(location)}`);
-    
+
     return `<div class="summary-item">• ${parts.join(' - ')}</div>`;
   }).join('');
 
@@ -184,7 +184,7 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
           ${addressLines.map(line => `<div>${line}</div>`).join('')}
         </div>
         <div class="info-right">
-          <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
+          <div><span class="label">UIA ORDER # (E.G. 2265):</span> ${orderNumber}</div>
           <div><span class="label">Order Date:</span> ${orderDate}</div>
         </div>
       </div>
@@ -233,7 +233,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
   const addressLines = [];
   if (order.shipping_address?.address1) addressLines.push(escapeHtml(order.shipping_address.address1));
   if (order.shipping_address?.address2) addressLines.push(escapeHtml(order.shipping_address.address2));
-  
+
   const cityStateZip = [];
   if (order.shipping_address?.city) cityStateZip.push(escapeHtml(order.shipping_address.city));
   if (order.shipping_address?.province_code) cityStateZip.push(escapeHtml(order.shipping_address.province_code));
@@ -257,7 +257,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
             ${addressLines.map(line => `<div>${line}</div>`).join('')}
           </div>
           <div class="info-right">
-            <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
+            <div><span class="label">UIA ORDER # (E.G. 2265):</span> ${orderNumber}</div>
             <div><span class="label">Order Date:</span> ${orderDate}</div>
             ${projectName ? `<div><span class="label">Project Name/Sidemark:</span><br/>${projectName}</div>` : ''}
             ${itemPo ? `<div><span class="label">PO #:</span> ${itemPo}</div>` : ''}

@@ -217,7 +217,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
   return `
     <div class="card">
       <div class="logo">
-        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjAwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8dGV4dCB4PSI1IiB5PSI0MCIgZm9udC1mYW1pbHk9IkFyY2hpdm8sIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMxYTFhMWEiPlVOREVSSVRBTEw8L3RleHQ+Cjwvc3ZnPg==" alt="UNDERITALL Logo">
+        <img src="https://underitall.replit.app/uia_logo.png" alt="UNDERITALL Logo">
       </div>
 
       <div class="info-grid">
@@ -295,7 +295,7 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
     return Array.from({ length: item.quantity }, (_, i) => `
       <div class="card">
         <div class="logo">
-          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjAwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8dGV4dCB4PSI1IiB5PSI0MCIgZm9udC1mYW1pbHk9IkFyY2hpdm8sIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMxYTFhMWEiPlVOREVSSVRBTEw8L3RleHQ+Cjwvc3ZnPg==" alt="UNDERITALL Logo">
+          <img src="https://underitall.replit.app/uia_logo.png" alt="UNDERITALL Logo">
         </div>
 
         <div class="info-grid">
@@ -381,7 +381,6 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
       flex-direction: column;
       box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
       page-break-inside: avoid;
-      color: #111827;
       transform-origin: top center;
       transform: scale(0.85);
       overflow: hidden;
@@ -406,16 +405,16 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
     }
 
     .logo {
+      text-align: center;
+      padding-bottom: 12px;
       display: flex;
       justify-content: center;
-      margin-bottom: 12px;
     }
 
     .logo img {
       width: 70%;
       height: auto;
-      filter: grayscale(20%);
-      opacity: 0.9;
+      filter: none;
     }
 
     .info-grid {

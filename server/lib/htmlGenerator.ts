@@ -343,6 +343,7 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'none';">
   <title>Report Cards for Order ${escapeHtml(order.name)}</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&family=Lora:ital@1&display=swap');

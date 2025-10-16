@@ -1,0 +1,152 @@
+# UnderItAll – Brand Guidelines Summary (Dev Claude 4.5 Prompt)
+
+## Overview
+**Document:** UnderItAll Brand Guidelines (v1, July 2024)  
+**Purpose:** Defines the visual, verbal, and behavioral DNA of the *UnderItAll* brand for consistent creative execution across all touchpoints.
+
+---
+
+## Brand Foundation
+
+### Mission & Promise
+- **Mission:** Custom rug pads for every rug and every designer, whenever they need it.  
+- **Promise:** Elevate each rug pad experience — premium, simple, fast, and satisfying.
+
+### Core Values
+1. **We Promise (Commitment):** Transparent, truth-first operations.  
+2. **We Connect:** Linking people, ideas, and design for meaningful outcomes.  
+3. **We Venture:** Fearless innovation toward better processes, products, and partnerships.
+
+### Archetype
+**Benevolent Outlaw:** Boldly challenges industry norms through innovation, simplicity, and efficiency. Prefers improvement over tradition.
+
+---
+
+## Brand Personality
+- **Essence:** Confident, Forthright, Open, Engaging, Unconventional, Venturous.  
+- **Tone:** Forthright, Engaging, Unconventional — speaks with clarity and a designer’s sophistication.
+
+---
+
+## Target Audience
+**“Creator Kate” – Interior Designer Persona**  
+- **Demographics:** 40–55 years old, 84% female, bachelor’s level educated.  
+- **Psychographics:** Creative, detail-obsessed, loves exclusivity and quality, seeks acknowledgment, multitasks intensely.  
+- **Behavior:** Values design ownership, uniqueness, and efficiency.
+
+---
+
+## Messaging Framework
+
+### Primary Headlines
+- “Rug pads have never been easier.”  
+- “Rug pads reinvented.”  
+- “Finally, a rug pad with a scissorless install.”
+
+### Supporting Copy
+- Focuses on innovation, precision, and user satisfaction.  
+- Reinforces “perforated edges” and “custom cut” as core product differentiators.
+
+---
+
+## Visual Identity
+
+### Logo System
+- **Primary Logo:** Custom industrial-style wordmark with *perforated accents* in felt gray.  
+- **Secondary Logo:** Cream variant for lighter contexts.  
+- **Minimum Sizes:**  
+  - Logo: 1” width minimum  
+  - Tagline logo: 1.5” width minimum  
+- **Exclusion Zone:** Based on the width of the “U” in the logo.
+
+### Tagline
+**“Custom Perforated Rug Pads.”**  
+Used where clarity of offering is key (ads, marketing).
+
+### Brand Icon
+- **Design:** Interlocked *U* + *A*, representing perforation blades and craft precision.  
+- **Usage:**  
+  - *Primary:* Orange “tag icon” in corners or social avatars.  
+  - *Secondary:* Felt gray, for contexts without corner placement.  
+- **Minimum Sizes:** Tag icon – 0.4”; Secondary icon – 0.25”.
+
+---
+
+## Typography
+
+| Purpose | Font | Style |
+|----------|------|-------|
+| Headlines | Archivo Regular | 60pt, kerning 0 |
+| Accent Words | Lora Italic | for emphasis |
+| Body Text | Vazirmatn Regular | 20pt, left-aligned |
+| Body Emphasis | Vazirmatn Bold | for callouts |
+
+**Style Guidelines:**
+- Left alignment preferred.
+- Headline size = 3× body copy.
+- Minimal center alignment use.
+
+---
+
+## Color Palette
+
+| Name | HEX | Description |
+|------|-----|--------------|
+| **Rorange** | `#F2633A` | Bold red-orange energy |
+| **Greige** | `#E1E0DA` | Neutral warmth |
+| **Felt Gray** | `#696A6D` | Industrial tone |
+| **Soft Black** | `#212227` | Grounded contrast |
+| **Cream** | `#F3F1E9` | Light background |
+| **Green Gradient** | `#869880` | Eco-conscious accent |
+
+---
+
+## Imagery
+
+### Moodboard
+- **Look & Feel:** Warm, airy, organic.
+- **Setting:** Minimal, natural light, wood tones, greenery.  
+- **Subjects:** Hands or designers interacting with rug pads; neutral attire.  
+- **Styling:** Rounded corners (22px standard, 11px small) + warming overlay (#8B5F29 at 20% opacity).
+
+---
+
+## Design Elements
+
+### Feature Icons
+- Geometric, minimalist, line-based icons.
+- Olive green gradient fills one element per icon.
+- Outlined stroke version ensures scalability.
+
+### Feature Pill Style
+- Capsules highlight product traits:
+  - *100% Recycled Felted Material*  
+  - *Rapid Relax for a Smooth Install*  
+  - *Custom Cut / Latex Free / Perfectly Perforated Edges*  
+- **Primary Style:** Green gradient fill.  
+- **Secondary Style:** Felt gray 0.5px stroke.
+
+### Perf Line
+- Signature dashed line symbolizing perforation.
+- **Digital:** 1.5pt stroke, 8pt dash/gap.  
+- **Print:** 0.5pt stroke, 2pt dash/gap.
+- Functions as divider or highlight accent.
+
+---
+
+## Application Examples
+- Product packaging, web UI, social media, and collateral maintain:
+  - Rorange and Felt Gray dominance.
+  - Clean type hierarchy.
+  - Corner icon placement and perf line continuity.
+
+---
+
+## Summary Statement
+**UnderItAll** is a *to-the-trade* brand redefining rug pad design through innovation, simplicity, and style.  
+Its identity unites *functionality and beauty* — confident in tone, disciplined in execution, and distinctive in every tactile and visual layer.
+
+---
+**URL:** [itsunderitall.com](https://itsunderitall.com)  
+**Tagline:** *“Custom perforated rug pads — made for designers.”*  
+:contentReference[oaicite:0]{index=0}

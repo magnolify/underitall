@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UIA Report Cards - Order #2289</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&family=Lora:ital@1&display=swap');
+
+    body {
+      font-family: 'Vazirmatn', Arial, sans-serif;
+      background-color: #000000;
+      margin: 0;
+      padding: 0.5rem;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 2rem;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid #e5e7eb;
+      padding: 20px;
+      box-sizing: border-box;
+      width: 8in;
+      height: 4in;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      page-break-inside: avoid;
+      transform-origin: top center;
+      transform: scale(0.85);
+      overflow: hidden;
+    }
+
+    @media screen and (max-width: 1000px) {
+      .card {
+        transform: scale(0.95);
+      }
+      .container {
+        padding: 0 1rem;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .card {
+        transform: scale(0.9);
+      }
+      .container {
+        padding: 0 0.5rem;
+      }
+    }
+
+    .logo {
+      text-align: center;
+      padding-bottom: 12px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .logo img {
+      width: 70%;
+      height: auto;
+      filter: none;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 12px;
+      font-size: 11px;
+    }
+
+    .info-left, .info-right {
+      width: 50%;
+    }
+
+    .info-left div, .info-right div {
+      margin-bottom: 1px;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .info-grid .label {
+      font-weight: 600;
+      color: #333;
+      margin-right: 6px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 12px 0;
+    }
+
+    .pad-description {
+      padding: 0;
+      min-height: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0px;
+      color: #1a1a1a;
+      background: rgba(0, 0, 0, 0.02);
+      border-radius: 8px;
+    }
+
+    .summary-section {
+      text-align: left;
+      padding: 0px 0px;
+    }
+
+    .summary-item {
+      margin-bottom: 2px;
+      font-size: 10px;
+      line-height: 1.2;
+      color: #374151;
+    }
+
+    .item-title {
+      font-family: 'Archivo', Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.1;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .dimensions-line {
+      font-family: 'Archivo', Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      color: #000000;
+      text-align: center;
+    }
+
+    .properties-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      width: 100%;
+      font-size: 10px;
+      text-align: center;
+      color: #374151;
+      margin-top: 6px;
+    }
+
+    .property-item {
+      line-height: 1.2;
+    }
+
+    .header-card .header-content {
+      margin-bottom: 8px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: auto;
+      padding-top: 12px;
+    }
+
+    .thank-you {
+      font-size: 12px;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .contact-info {
+      font-size: 10px;
+      font-weight: 700;
+      color: #4b5563;
+      line-height: 0.8;
+    }
+
+    @media print {
+      @page {
+        size: 8in 4in landscape;
+        margin: 0.5in;
+      }
+
+      body {
+        background-color: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+      }
+
+      .container {
+        padding: 0 !important;
+        gap: 0 !important;
+      }
+
+      .card {
+        page-break-after: always;
+        page-break-inside: avoid;
+        break-after: page;
+        break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+        background: white !important;
+        margin: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        transform: scale(1);
+        transform-origin: center center;
+        color: black !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
+      .card:last-of-type {
+        page-break-after: auto;
+        break-after: auto;
+      }
+
+      .logo img {
+        filter: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      hr {
+        border-top: 1px solid #ddd !important;
+      }
+
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="card">
+      <div class="logo">
+        <img src="https://underitall.replit.app/uia_logo.png" alt="UNDERITALL Logo">
+      </div>
+
+      <div class="info-grid">
+        <div class="info-left">
+          <div><span class="label">Ship To:</span></div>
+          <div>The knotting company</div>
+          <div>Attn: Noor Iftikhar</div>
+          <div>2 Tupper road</div><div>5</div><div>Sandwich, Massachusetts, 02563</div>
+        </div>
+        <div class="info-right">
+          <div><span class="label">UIA Order #:</span> 2289</div>
+          <div><span class="label">Order Date:</span> October 16th, 2025</div>
+          <div><span class="label">PO #:</span> 5142-27</div>
+          <div><span class="label">Project Name/Sidemark:</span><br/>Leo Alba</div>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="pad-description summary-section">
+        <div style="font-size: 14px; color: #1a1a1a; font-weight: 600;">
+          ORDER SUMMARY ( 3 ITEMS )
+        </div>
+        <div class="summary-item">• Rectangle Rug Pad, Luxe ¼” thick - 15 ft W x 5 ft L - Location: Hallway</div><div class="summary-item">• Rectangle Rug Pad, Luxe ¼” thick - 13 ft W x 5 ft L - Location: Hallway</div><div class="summary-item">• Rectangle Rug Pad, Luxe ¼” thick - 9 ft W x 13 ft L - Location: Main Entrance</div>
+      </div>
+
+      <hr />
+
+      <div class="footer">
+        <div class="thank-you">THANK YOU FOR GOING SCISSORLESS!</div>
+        <div class="contact-info">
+          PHONE: (404) 436-0985 - EMAIL: INFO@ITSUNDERITALL.COM
+        </div>
+      </div>
+    </div>
+  
+    
+      <div class="card">
+        <div class="logo">
+          <img src="https://underitall.replit.app/uia_logo.png" alt="UNDERITALL Logo">
+        </div>
+
+        <div class="info-grid">
+          <div class="info-left">
+            <div><span class="label">Ship To:</span></div>
+            <div>The knotting company</div>
+            <div>Attn: Noor Iftikhar</div>
+            <div>2 Tupper road</div><div>5</div><div>Sandwich, Massachusetts, 02563</div>
+          </div>
+          <div class="info-right">
+            <div><span class="label">Order Date:</span> October 16th, 2025</div>
+            <div><span class="label">UIA Order #:</span> 2289</div>
+            <div><span class="label">PO #:</span> 5142-27</div>
+            <div><span class="label">Project Name/Sidemark:</span><br/>Leo Alba</div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="pad-description">
+          <div class="item-title">Rectangle Rug Pad, Luxe ¼” thick</div>
+          <div class="dimensions-line">DIMENSIONS: 15 ft W x 5 ft L</div>
+          
+            <div class="properties-grid">
+              <div class="property-item">• Project Name/Sidemark: Leo Alba</div><div class="property-item">• Install Location: Hallway</div>
+            </div>
+          
+        </div>
+
+        <hr />
+
+        <div class="footer">
+          <div class="thank-you">THANK YOU FOR GOING SCISSORLESS!</div>
+          <div class="contact-info">
+            PHONE: (404) 436-0985 - EMAIL: INFO@ITSUNDERITALL.COM
+          </div>
+        </div>
+      </div>
+    
+      <div class="card">
+        <div class="logo">
+          <img src="https://underitall.replit.app/uia_logo.png" alt="UNDERITALL Logo">
+        </div>
+
+        <div class="info-grid">
+          <div class="info-left">
+            <div><span class="label">Ship To:</span></div>
+            <div>The knotting company</div>
+            <div>Attn: Noor Iftikhar</div>
+            <div>2 Tupper road</div><div>5</div><div>Sandwich, Massachusetts, 02563</div>
+          </div>
+          <div class="info-right">
+            <div><span class="label">Order Date:</span> October 16th, 2025</div>
+            <div><span class="label">UIA Order #:</span> 2289</div>
+            <div><span class="label">PO #:</span> 5142-27</div>
+            <div><span class="label">Project Name/Sidemark:</span><br/>Leo Alba</div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="pad-description">
+          <div class="item-title">Rectangle Rug Pad, Luxe ¼” thick</div>
+          <div class="dimensions-line">DIMENSIONS: 13 ft W x 5 ft L</div>
+          
+            <div class="properties-grid">
+              <div class="property-item">• Project Name/Sidemark: Leo Alba</div><div class="property-item">• Install Location: Hallway</div>
+            </div>
+          
+        </div>
+
+        <hr />
+
+        <div class="footer">
+          <div class="thank-you">THANK YOU FOR GOING SCISSORLESS!</div>
+          <div class="contact-info">
+            PHONE: (404) 436-0985 - EMAIL: INFO@ITSUNDERITALL.COM
+          </div>
+        </div>
+      </div>
+    
+      <div class="card">
+        <div class="logo">
+          <img src="https://underitall.replit.app/uia_logo.png" alt="UNDERITALL Logo">
+        </div>
+
+        <div class="info-grid">
+          <div class="info-left">
+            <div><span class="label">Ship To:</span></div>
+            <div>The knotting company</div>
+            <div>Attn: Noor Iftikhar</div>
+            <div>2 Tupper road</div><div>5</div><div>Sandwich, Massachusetts, 02563</div>
+          </div>
+          <div class="info-right">
+            <div><span class="label">Order Date:</span> October 16th, 2025</div>
+            <div><span class="label">UIA Order #:</span> 2289</div>
+            <div><span class="label">PO #:</span> 5142-27</div>
+            <div><span class="label">Project Name/Sidemark:</span><br/>Leo Alba</div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="pad-description">
+          <div class="item-title">Rectangle Rug Pad, Luxe ¼” thick</div>
+          <div class="dimensions-line">DIMENSIONS: 9 ft W x 13 ft L</div>
+          
+            <div class="properties-grid">
+              <div class="property-item">• Project Name/Sidemark: Leo Alba</div><div class="property-item">• Install Location: Main Entrance</div>
+            </div>
+          
+        </div>
+
+        <hr />
+
+        <div class="footer">
+          <div class="thank-you">THANK YOU FOR GOING SCISSORLESS!</div>
+          <div class="contact-info">
+            PHONE: (404) 436-0985 - EMAIL: INFO@ITSUNDERITALL.COM
+          </div>
+        </div>
+      </div>
+    
+  </div>
+</body>
+</html>

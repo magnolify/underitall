@@ -346,7 +346,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const adminToken = process.env.SHOPIFY_ADMIN_TOKEN;
     const shopDomain = process.env.SHOPIFY_SHOP_DOMAIN;
 
-    // Set CORS headers - Shopify requires Access-Control-Allow-Origin: *
+    // Set CORS headers FIRST - Shopify requires Access-Control-Allow-Origin: *
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -367,7 +367,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // Build the search query - try ID first, then name
       let searchQuery = '';
-      
+
       // If it's a long numeric ID (from the GID), search by ID
       if (orderIdentifier.length > 8 && /^\d+$/.test(orderIdentifier)) {
         searchQuery = `id:${orderIdentifier}`;
@@ -437,7 +437,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           'Content-Type': 'application/json',
           'X-Shopify-Access-Token': adminToken
         },
-        body: JSON.stringify({
+        body: JSON.JSON.stringify({
           query,
           variables: {
             query: searchQuery
@@ -522,7 +522,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).send("Missing HTML content");
     }
     res.setHeader('Content-Type', 'text/html');
-    
+
     res.send(html);
   });
 

@@ -1,3 +1,4 @@
+
 # UNDERITALL Report Card Generator
 
 > **Making order fulfillment efficient and professional since 2025**
@@ -16,7 +17,7 @@ This application provides both a **standalone web interface** and a **Shopify Ad
 - **Admin Integration**: Native print action in Shopify Admin order details page
 - **Individual Item Cards**: Generates separate cards for each line item quantity
 - **Smart Property Parsing**: Extracts dimensions, project names, install locations from product metadata
-- **Print-Optimized**: Clean 8.5" × 5.5" landscape format for professional printing
+- **Print-Optimized**: Clean 8" × 4" landscape format for professional printing
 - **Dark Theme UI**: Beautiful shadcn/ui components with Tailwind CSS
 - **Live Preview**: See report cards before printing
 
@@ -72,13 +73,15 @@ Following UnderItAll Brand Guidelines:
 ├── server/                        # Express backend
 │   ├── index.ts                  # Server entry point
 │   ├── routes.ts                 # API routes
+│   ├── lib/
+│   │   └── htmlGenerator.ts      # Server-side HTML generation
 │   └── vite.ts                   # Vite middleware
 ├── extensions/
-│   └── admin-print/
+│   └── report-cards/
 │       ├── shopify.extension.toml
 │       ├── src/
 │       │   └── PrintActionExtension.jsx
-│       └── package.json
+│       └── locales/
 ├── shared/
 │   └── schema.ts                 # Shared types
 ├── shopify.app.toml
@@ -105,12 +108,17 @@ The server runs automatically on port 5000:
 npm run dev
 ```
 
-### Endpoints
+### API Endpoints
 
-- **Frontend**: `http://localhost:5000/`
-- **Order API**: `GET http://localhost:5000/api/order/:orderNumber`
-- **Print Route**: `POST http://localhost:5000/api/print`
-- **Settings API**: `GET/POST http://localhost:5000/api/settings`
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/api/order/:orderNumber` | GET | Fetch order data (singular alias) |
+| `/api/orders/:orderNumber` | GET | Fetch order data (plural) |
+| `/print/:orderNumber` | GET | Generate printable HTML |
+| `/api/preview-html` | POST | Generate HTML preview |
+| `/api/settings` | GET | Retrieve print settings |
+
+**Base URL:** `http://localhost:5000`
 
 ## 📋 Shopify Setup
 
@@ -118,23 +126,12 @@ npm run dev
 
 1. Create a new app in your Shopify Partner dashboard
 2. Copy the API key, API secret, and access token
-3. Create `.env` file from `.env.example`:
-
-```bash
-cp .env.example .env
-```
-
-4. Update `.env` with your Shopify credentials:
-
-```env
-SHOPIFY_API_KEY=your_api_key_here
-SHOPIFY_API_SECRET=your_api_secret_here
-SHOPIFY_ACCESS_TOKEN=your_access_token_here
-SHOPIFY_APP_URL=https://your-repl-url.repl.co
-SHOPIFY_SCOPES=read_orders,read_products,read_customers
-PORT=5000
-NODE_ENV=development
-```
+3. Add credentials to Replit Secrets:
+   - `SHOPIFY_API_KEY`
+   - `SHOPIFY_API_SECRET` 
+   - `SHOPIFY_ADMIN_TOKEN`
+   - `SHOPIFY_SHOP_DOMAIN`
+   - `SHOPIFY_APP_URL`
 
 ### Step 2: Update shopify.app.toml
 
@@ -155,7 +152,7 @@ shopify app deploy
 ### Step 4: Use the Web App
 
 1. Open the preview at `http://localhost:5000`
-2. Enter an order number (e.g., 1217)
+2. Enter an order number (e.g., 2265)
 3. Click **Load Order**
 4. Preview the generated report cards
 5. Click **Print** to print
@@ -193,7 +190,7 @@ Each line item generates cards equal to its quantity. Each card includes:
 
 ### Print Specifications
 
-- **Size**: 8.5" × 5.5" (landscape)
+- **Size**: 8" × 4" (landscape)
 - **Format**: HTML with print-optimized CSS
 - **Typography**: Archivo headlines, Vazirmatn body (UnderItAll brand fonts)
 - **Page Breaks**: Automatic between cards
@@ -262,11 +259,20 @@ const customField = findPropertyValue(item.properties, 'Your Custom Field');
 3. Verify order data loads correctly
 4. Check print preview renders properly
 
-### Test Print Route
+### Test API Routes
 
 ```bash
-# Test with sample order
-curl "http://localhost:5000/api/order/12345"
+# Test order fetch (singular)
+curl "http://localhost:5000/api/order/2265"
+
+# Test order fetch (plural)
+curl "http://localhost:5000/api/orders/2265"
+
+# Test print route
+curl "http://localhost:5000/print/2265"
+
+# Test settings
+curl "http://localhost:5000/api/settings"
 ```
 
 ### Test in Shopify Admin
@@ -300,9 +306,8 @@ curl "http://localhost:5000/api/order/12345"
 
 ## 🔒 Security
 
-- API keys stored in environment variables
-- JWT validation for Shopify session tokens
-- CORS enabled for cross-origin requests
+- API keys stored in Replit Secrets
+- CORS enabled for Shopify Admin requests
 - No credentials exposed in code
 - Cache-Control headers prevent caching of sensitive data
 
@@ -314,7 +319,8 @@ curl "http://localhost:5000/api/order/12345"
 2. Configure environment variables in Secrets:
    - `SHOPIFY_API_KEY`
    - `SHOPIFY_API_SECRET`
-   - `SHOPIFY_ACCESS_TOKEN`
+   - `SHOPIFY_ADMIN_TOKEN`
+   - `SHOPIFY_SHOP_DOMAIN`
    - `SHOPIFY_APP_URL`
 
 The deployment is configured with:
@@ -349,9 +355,10 @@ This will:
 
 ### Order Data Not Loading
 
-1. Check Shopify credentials in `.env`
+1. Check Shopify credentials in Secrets
 2. Verify access token has correct scopes
 3. Ensure order number exists in store
+4. Check API route: `/api/order/:orderNumber` or `/api/orders/:orderNumber`
 
 ### Extension Not Showing in Admin
 
@@ -364,6 +371,16 @@ This will:
 1. Check order data loads successfully
 2. Verify HTML generator in `htmlGenerator.ts`
 3. Check browser console for rendering errors
+4. Test print route directly: `/print/:orderNumber`
+
+### 404 Errors on API Routes
+
+Current working routes:
+- ✅ `/api/order/:orderNumber` - order fetch (singular)
+- ✅ `/api/orders/:orderNumber` - order fetch (plural)
+- ✅ `/print/:orderNumber` - printable HTML
+- ✅ `/api/preview-html` - POST for preview
+- ✅ `/api/settings` - print settings
 
 ## 📚 Resources
 

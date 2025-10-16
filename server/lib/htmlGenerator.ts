@@ -413,7 +413,6 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
 
     .logo img {
       width: 70%;
-      max-width: 250px;
       height: auto;
       filter: none;
     }
@@ -559,10 +558,8 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
 
       .card {
         page-break-after: always;
-        page-break-before: auto;
         page-break-inside: avoid;
         break-after: page;
-        break-before: auto;
         break-inside: avoid;
         box-shadow: none !important;
         border: 1px solid #ddd !important;

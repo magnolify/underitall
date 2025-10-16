@@ -366,6 +366,7 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
 
     .logo img {
       width: 200px;
+      max-width: 250px;
       height: auto;
       filter: none;
     }

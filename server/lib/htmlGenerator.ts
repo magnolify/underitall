@@ -413,6 +413,7 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
 
     .logo img {
       width: 70%;
+      max-width: 250px;
       height: auto;
       filter: none;
     }

@@ -2,7 +2,9 @@
 
 > **Making order fulfillment efficient and professional since 2025**
 
-A full-stack web application for generating printable report cards for Shopify order line items. Features a modern React frontend with dark-themed UI and seamless Shopify Admin integration.
+A full-stack web application for generating printable report cards for Shopify order line items. Features a modern React frontend with UnderItAll brand styling and seamless Shopify Admin integration.
+
+**Brand Alignment:** This application follows the UnderItAll Brand Guidelines (v1, July 2024), incorporating Archivo headlines, Vazirmatn body text, and the brand's sophisticated design language.
 
 ## 🎯 Overview
 
@@ -27,10 +29,26 @@ This application provides both a **standalone web interface** and a **Shopify Ad
 | **Frontend** | React 18 + TypeScript + Vite | Modern UI with HMR |
 | **Backend** | Express + TypeScript | API server and Vite middleware |
 | **Styling** | Tailwind CSS 4.x + shadcn/ui | Dark theme and responsive design |
+| **Typography** | Archivo, Vazirmatn, Lora | UnderItAll brand fonts |
 | **Router** | Wouter | Client-side routing |
 | **State** | TanStack Query | API state management |
 | **Extension** | Shopify UI Extensions | Admin print action |
 | **API** | Shopify Admin API (GraphQL) | Order data fetching |
+
+### Brand Typography
+
+Following UnderItAll Brand Guidelines:
+
+- **Headlines:** Archivo Regular (kerning 0)
+- **Body Text:** Vazirmatn Regular (left-aligned)
+- **Accent/Emphasis:** Lora Italic
+
+**Color Palette:**
+- Rorange: `#F2633A` (primary accent)
+- Felt Gray: `#696A6D` (industrial tone)
+- Soft Black: `#212227` (grounded contrast)
+- Greige: `#E1E0DA` (neutral warmth)
+- Cream: `#F3F1E9` (light background)
 
 ### Project Structure
 
@@ -156,59 +174,73 @@ shopify app deploy
 
 The first card contains:
 - Order number and date
-- Total amount
-- Shipping address
+- Shipping address with company/attention line
+- PO # and Project Name/Sidemark (shows "Not Provided" if blank)
 - Line items summary table
 
 ### Individual Item Cards
 
 Each line item generates cards equal to its quantity. Each card includes:
-- Item name and SKU
-- Card number (e.g., "1 of 6")
-- Custom properties:
-  - Project Name
+- **Item Title** (Archivo font, uppercase)
+- **Dimensions** (Archivo bold, prominent display)
+- **Custom Properties:**
+  - PO # (shows "Not Provided" if blank)
+  - Project Name/Sidemark (shows "Not Provided" if blank)
   - Install Location
-  - Dimensions (Rectangle, Rug Shape, Thickness)
-- Order reference (number and date)
+  - Rug Shape, Thickness, etc.
+- **Order Reference** (UIA Order # and date)
+- **Footer** with contact information
 
 ### Print Specifications
 
 - **Size**: 8.5" × 5.5" (landscape)
 - **Format**: HTML with print-optimized CSS
+- **Typography**: Archivo headlines, Vazirmatn body (UnderItAll brand fonts)
 - **Page Breaks**: Automatic between cards
-- **Styling**: Clean black text on white background
+- **Styling**: Clean black text on white background with brand alignment
+- **Contact Footer**: "THANK YOU FOR GOING SCISSORLESS!" + phone/email
 
 ## 🎨 Customization
 
 ### Modifying Card Layout
 
-Edit `client/src/lib/htmlGenerator.ts`:
+Edit `client/src/lib/htmlGenerator.ts` or `server/lib/htmlGenerator.ts`:
 
 ```typescript
-// Customize card styling
+// Customize card styling (maintain brand fonts)
 const cardStyles = `
-  .report-card {
-    width: 8.5in;
-    height: 5.5in;
-    // Add your custom styles
+  .item-title {
+    font-family: 'Archivo', Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .dimensions-line {
+    font-family: 'Archivo', Arial, sans-serif;
+    font-weight: 700;
   }
 `;
 ```
+
+### Brand Font Usage
+
+Following UnderItAll guidelines:
+- **Archivo**: Headlines, item titles, dimensions (kerning: 0)
+- **Vazirmatn**: Body text, properties, addresses
+- **Lora Italic**: Available for accent/emphasis
 
 ### Adding New Properties
 
 In `htmlGenerator.ts`, add new property extraction:
 
 ```typescript
-const customField = lineItem.customAttributes?.find(
-  attr => attr.key === 'Your Custom Field'
-)?.value || '';
+const customField = findPropertyValue(item.properties, 'Your Custom Field');
+// Returns empty string if not found - can use || 'Not Provided' for fallback
 ```
 
 ### UI Customization
 
 - Edit components in `client/src/components/`
-- Modify Tailwind config in `tailwind.config.ts`
+- Modify Tailwind config in `tailwind.config.ts` (maintains UnderItAll colors)
 - Customize dark theme in `client/src/index.css`
 
 ## 🛠️ Development Commands

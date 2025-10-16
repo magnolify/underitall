@@ -303,10 +303,10 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Report Cards for Order ${escapeHtml(order.name)}</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&family=Lora:ital@1&display=swap');
 
     body {
-      font-family: 'Vazirmatn', Arial, sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
+      font-family: 'Vazirmatn', Arial, sans-serif;
       background-color: #000000;
       margin: 0;
       padding: 0.5rem;
@@ -428,18 +428,21 @@ export function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean 
     }
 
     .item-title {
+      font-family: 'Archivo', Arial, sans-serif;
       font-size: 16px;
       font-weight: 400;
       line-height: 1.1;
       text-align: center;
       text-transform: uppercase;
+      letter-spacing: 0;
     }
 
     .dimensions-line {
+      font-family: 'Archivo', Arial, sans-serif;
       font-size: 20px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0;
       color: #000000;
       text-align: center;
     }

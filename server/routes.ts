@@ -437,7 +437,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           'Content-Type': 'application/json',
           'X-Shopify-Access-Token': adminToken
         },
-        body: JSON.JSON.stringify({
+        body: JSON.stringify({
           query,
           variables: {
             query: searchQuery

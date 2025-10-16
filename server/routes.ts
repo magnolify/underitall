@@ -367,17 +367,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     try {
-      // Determine if this is an order ID (long number) or order number (short number)
+      // Build the search query - try ID first, then name
       let searchQuery = '';
-      if (orderIdentifier.length > 8) {
-        // This is likely a GID-based ID (like 6751928615139)
+      
+      // If it's a long numeric ID (from the GID), search by ID
+      if (orderIdentifier.length > 8 && /^\d+$/.test(orderIdentifier)) {
         searchQuery = `id:${orderIdentifier}`;
       } else {
-        // This is likely an order number (like 1217)
+        // Otherwise treat as order number
         searchQuery = `name:#${orderIdentifier}`;
       }
 
-      console.log('Searching for order with query:', searchQuery);
+      console.log('Print route - searching for order:', orderIdentifier, 'query:', searchQuery);
 
       // Fetch order data using the same GraphQL query
       const query = `

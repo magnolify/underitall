@@ -14,51 +14,31 @@ function ReportCardsExtension() {
   console.log('Order data received:', data);
   
   useEffect(() => {
-    // The extension receives order data in data.selected array
-    // Each order has an id (GID format) and possibly a name property
     if (data && data.selected && data.selected.length > 0 && printReportCards) {
       const order = data.selected[0];
       console.log('Processing order:', order);
       
       if (order && order.id) {
-        // Try to get the order number from the order data
-        // The order.id is in format: gid://shopify/Order/5678901234567
-        // But we need the order name/number (like #1217)
-        
-        // First check if we have a name property
-        let orderNumber = null;
-        
-        // If the order has a name field (like "#1217"), use it
-        if (order.name) {
-          orderNumber = order.name.replace('#', '');
-        } else {
-          // Fallback: extract the numeric ID from the GID and use it
-          // This might not match the order number exactly
-          const match = order.id.match(/Order\/(\d+)/);
-          if (match && match[1]) {
-            // Note: This is the internal order ID, not the order number
-            // The print route expects the order number, so this is a fallback
-            orderNumber = match[1];
-            console.warn('Using order ID as fallback, order name not available');
-          }
-        }
-        
-        if (orderNumber) {
-          const printUrl = `/print/${orderNumber}`;
-          console.log('Setting print URL for order:', orderNumber, printUrl);
+        // Extract the numeric ID from the GID format
+        // Format: gid://shopify/Order/6509259587819
+        const match = order.id.match(/Order\/(\d+)/);
+        if (match && match[1]) {
+          const orderId = match[1];
+          const printUrl = `/print/${orderId}`;
+          console.log('Setting print URL for order ID:', orderId);
           setSrc(printUrl);
         } else {
-          console.log('Could not determine order number from data:', order);
+          console.error('Could not extract order ID from:', order.id);
           setSrc(null);
         }
       } else {
+        console.error('No order ID found in data:', order);
         setSrc(null);
       }
     } else if (!printReportCards) {
-      // Checkbox is unchecked
       setSrc(null);
     } else {
-      console.log('No order data available or checkbox unchecked');
+      console.log('No order data or checkbox unchecked');
       setSrc(null);
     }
   }, [data, printReportCards]);

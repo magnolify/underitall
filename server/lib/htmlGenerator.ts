@@ -217,7 +217,7 @@ function generateOrderHeaderHTML(order: ShopifyOrder): string {
   return `
     <div class="card">
       <div class="logo">
-        <img src="https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/uia_logo.png" alt="UNDERITALL Logo" onerror="this.src='/uia_logo.png'">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjAwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8dGV4dCB4PSI1IiB5PSI0MCIgZm9udC1mYW1pbHk9IkFyY2hpdm8sIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMxYTFhMWEiPlVOREVSSVRBTEw8L3RleHQ+Cjwvc3ZnPg==" alt="UNDERITALL Logo">
       </div>
 
       <div class="info-grid">
@@ -295,7 +295,7 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
     return Array.from({ length: item.quantity }, (_, i) => `
       <div class="card">
         <div class="logo">
-          <img src="https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/uia_logo.png" alt="UNDERITALL Logo" onerror="this.src='/uia_logo.png'">
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjAwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8dGV4dCB4PSI1IiB5PSI0MCIgZm9udC1mYW1pbHk9IkFyY2hpdm8sIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMxYTFhMWEiPlVOREVSSVRBTEw8L3RleHQ+Cjwvc3ZnPg==" alt="UNDERITALL Logo">
         </div>
 
         <div class="info-grid">

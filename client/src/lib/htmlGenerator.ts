@@ -134,14 +134,19 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
   const orderNumber = escapeHtml(order.name.replace('#', ''));
   const orderDate = formatOrderDate(order.created_at);
 
-  // Extract PO# from line item properties
+  // Extract PO# and Project Name from line item properties
   let poNumber = '';
+  let projectName = '';
   for (const item of order.line_items) {
     const po = findPropertyValue(item.properties, 'PO#');
     if (po) {
       poNumber = escapeHtml(po);
-      break;
     }
+    const project = findProjectName(item.properties);
+    if (project) {
+      projectName = escapeHtml(project);
+    }
+    if (poNumber && projectName) break;
   }
 
   const addressLines = [];

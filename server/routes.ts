@@ -346,13 +346,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const adminToken = process.env.SHOPIFY_ADMIN_TOKEN;
     const shopDomain = process.env.SHOPIFY_SHOP_DOMAIN;
 
-    // Set CORS headers FIRST - Shopify requires Access-Control-Allow-Origin: *
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.header('Content-Type', 'text/html; charset=utf-8');
-    res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.header('Content-Security-Policy', "default-src 'self' 'unsafe-inline' https:; img-src 'self' https: data:; script-src 'none';");
+    // Set headers for Shopify iframe compatibility (mimics authenticate.admin cors() behavior)
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
     if (!adminToken || !shopDomain) {
       return res.status(500).send(`

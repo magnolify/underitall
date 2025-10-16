@@ -186,6 +186,8 @@ const generateOrderHeaderHTML = (order: ShopifyOrder): string => {
         <div class="info-right">
           <div><span class="label">UIA Order #:</span> ${orderNumber}</div>
           <div><span class="label">Order Date:</span> ${orderDate}</div>
+          <div><span class="label">PO #:</span> ${poNumber || 'Not Provided'}</div>
+          <div><span class="label">Project Name/Sidemark:</span><br/>${projectName || 'Not Provided'}</div>
         </div>
       </div>
 

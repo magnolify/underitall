@@ -43,7 +43,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Settings endpoint (returns empty config for now)
   app.get("/api/settings", (req, res) => {
-    res.json({ 
+    res.json({
       marginTop: 0.5,
       marginRight: 0.5,
       marginBottom: 0.5,
@@ -59,8 +59,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const shopDomain = process.env.SHOPIFY_SHOP_DOMAIN;
 
     if (!adminToken || !shopDomain) {
-      return res.status(500).json({ 
-        error: "Missing Shopify credentials. Set SHOPIFY_ADMIN_TOKEN and SHOPIFY_SHOP_DOMAIN in Secrets." 
+      return res.status(500).json({
+        error: "Missing Shopify credentials. Set SHOPIFY_ADMIN_TOKEN and SHOPIFY_SHOP_DOMAIN in Secrets."
       });
     }
 
@@ -198,8 +198,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const shopDomain = process.env.SHOPIFY_SHOP_DOMAIN;
 
     if (!adminToken || !shopDomain) {
-      return res.status(500).json({ 
-        error: "Missing Shopify credentials. Set SHOPIFY_ADMIN_TOKEN and SHOPIFY_SHOP_DOMAIN in Secrets." 
+      return res.status(500).json({
+        error: "Missing Shopify credentials. Set SHOPIFY_ADMIN_TOKEN and SHOPIFY_SHOP_DOMAIN in Secrets."
       });
     }
 
@@ -502,6 +502,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const html = htmlGeneratorModule.default ? htmlGeneratorModule.default(transformedOrder, false) : htmlGeneratorModule.generateReportCardHTML(transformedOrder, false);
 
       res.setHeader('Content-Type', 'text/html');
+      res.setHeader('Content-Security-Policy', 'sandbox allow-scripts allow-modals allow-same-origin');
+      res.setHeader('X-Frame-Options', 'ALLOWALL');
       res.send(html);
     } catch (error: any) {
       console.error('Error generating print preview:', error);

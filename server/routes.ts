@@ -535,13 +535,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).send("Missing HTML content");
     }
     res.setHeader('Content-Type', 'text/html');
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.header('Access-Control-Allow-Headers', '*');
-    res.header('Access-Control-Max-Age', '86400');
-    res.header('X-Frame-Options', 'ALLOWALL');
-    res.header('X-Content-Type-Options', 'nosniff, allow-scripts, allow-styles, allow-images, allow-fonts, allow-objects, allow-frames, allow-iframes, allow-same-origin, allow-cross-origin, allow-any-origin, allow-modals');
-
+    
     res.send(html);
   });
 

@@ -352,6 +352,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('Content-Type', 'text/html; charset=utf-8');
     res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.header('Content-Security-Policy', "default-src 'self' 'unsafe-inline' https:; img-src 'self' https: data:; script-src 'none';");
 
     if (!adminToken || !shopDomain) {
       return res.status(500).send(`

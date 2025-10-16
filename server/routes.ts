@@ -335,9 +335,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Handle OPTIONS requests for CORS preflight
   app.options("/print/:orderNumber", (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS, POST');
+    res.header('Access-Control-Allow-Headers', '*');
     res.header('Access-Control-Max-Age', '86400');
+    res.header('X-Frame-Options', 'ALLOWALL');
+    res.header('X-Content-Type-Options', 'nosniff, allow-scripts, allow-styles, allow-images, allow-fonts, allow-objects, allow-frames, allow-iframes, allow-same-origin, allow-cross-origin, allow-any-origin, allow-modals');
     res.status(200).send();
   });
 
@@ -350,10 +352,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Set comprehensive CORS headers for Shopify Admin iframe
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    res.header('Access-Control-Allow-Headers', '*');
     res.header('Access-Control-Max-Age', '86400');
     res.header('X-Frame-Options', 'ALLOWALL');
-    res.header('X-Content-Type-Options', 'nosniff');
+    res.header('X-Content-Type-Options', 'nosniff, allow-scripts, allow-styles, allow-images, allow-fonts, allow-objects, allow-frames, allow-iframes, allow-same-origin, allow-cross-origin, allow-any-origin, allow-modals');
 
     if (!adminToken || !shopDomain) {
       return res.status(500).send(`
@@ -505,6 +507,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Set proper headers for printable document
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      res.header('Access-Control-Allow-Headers', '*');
+      res.header('Access-Control-Max-Age', '86400');
+      res.header('X-Frame-Options', 'ALLOWALL');
+      res.header('X-Content-Type-Options', 'nosniff, allow-scripts, allow-styles, allow-images, allow-fonts, allow-objects, allow-frames, allow-iframes, allow-same-origin, allow-cross-origin, allow-any-origin, allow-modals');
+
       res.send(html);
     } catch (error: any) {
       console.error('Error generating print preview:', error);
@@ -526,6 +535,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).send("Missing HTML content");
     }
     res.setHeader('Content-Type', 'text/html');
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.header('Access-Control-Allow-Headers', '*');
+    res.header('Access-Control-Max-Age', '86400');
+    res.header('X-Frame-Options', 'ALLOWALL');
+    res.header('X-Content-Type-Options', 'nosniff, allow-scripts, allow-styles, allow-images, allow-fonts, allow-objects, allow-frames, allow-iframes, allow-same-origin, allow-cross-origin, allow-any-origin, allow-modals');
+
     res.send(html);
   });
 

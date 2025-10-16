@@ -335,11 +335,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Handle OPTIONS requests for CORS preflight
   app.options("/print/:orderNumber", (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS, POST');
-    res.header('Access-Control-Allow-Headers', '*');
-    res.header('Access-Control-Max-Age', '86400');
-    res.header('X-Frame-Options', 'ALLOWALL');
-    res.header('X-Content-Type-Options', 'nosniff, allow-scripts, allow-styles, allow-images, allow-fonts, allow-objects, allow-frames, allow-iframes, allow-same-origin, allow-cross-origin, allow-any-origin, allow-modals');
+    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.status(200).send();
   });
 
@@ -349,13 +346,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const adminToken = process.env.SHOPIFY_ADMIN_TOKEN;
     const shopDomain = process.env.SHOPIFY_SHOP_DOMAIN;
 
-    // Set comprehensive CORS headers for Shopify Admin iframe
+    // Set CORS headers - Shopify requires Access-Control-Allow-Origin: *
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.header('Access-Control-Allow-Headers', '*');
-    res.header('Access-Control-Max-Age', '86400');
-    res.header('X-Frame-Options', 'ALLOWALL');
-    res.header('X-Content-Type-Options', 'nosniff, allow-scripts, allow-styles, allow-images, allow-fonts, allow-objects, allow-frames, allow-iframes, allow-same-origin, allow-cross-origin, allow-any-origin, allow-modals');
+    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Content-Type', 'text/html; charset=utf-8');
+    res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
 
     if (!adminToken || !shopDomain) {
       return res.status(500).send(`
@@ -504,16 +500,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const htmlGeneratorModule = await import('./lib/htmlGenerator.js');
       const html = htmlGeneratorModule.default ? htmlGeneratorModule.default(transformedOrder, false) : htmlGeneratorModule.generateReportCardHTML(transformedOrder, false);
 
-      // Set proper headers for printable document
-      res.setHeader('Content-Type', 'text/html; charset=utf-8');
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-      res.header('Access-Control-Allow-Headers', '*');
-      res.header('Access-Control-Max-Age', '86400');
-      res.header('X-Frame-Options', 'ALLOWALL');
-      res.header('X-Content-Type-Options', 'nosniff, allow-scripts, allow-styles, allow-images, allow-fonts, allow-objects, allow-frames, allow-iframes, allow-same-origin, allow-cross-origin, allow-any-origin, allow-modals');
-
+      // Headers already set at route level
       res.send(html);
     } catch (error: any) {
       console.error('Error generating print preview:', error);

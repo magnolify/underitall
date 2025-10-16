@@ -44,7 +44,7 @@ function ReportCardsExtension() {
         }
         
         if (orderNumber) {
-          const printUrl = `https://underitall.replit.app/print/${orderNumber}`;
+          const printUrl = `/print/${orderNumber}`;
           console.log('Setting print URL for order:', orderNumber, printUrl);
           setSrc(printUrl);
         } else {

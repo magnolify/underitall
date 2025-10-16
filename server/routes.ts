@@ -347,13 +347,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const adminToken = process.env.SHOPIFY_ADMIN_TOKEN;
     const shopDomain = process.env.SHOPIFY_SHOP_DOMAIN;
 
-    // Set CORS headers for Shopify Admin
+    // Set comprehensive CORS headers for Shopify Admin iframe
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    res.header('Access-Control-Max-Age', '86400');
     res.header('X-Frame-Options', 'ALLOWALL');
-    res.header('Content-Security-Policy', "frame-ancestors *; script-src 'unsafe-inline' 'unsafe-eval' *; default-src *;");
-    res.header('Permissions-Policy', 'print=*');
+    res.header('X-Content-Type-Options', 'nosniff');
 
     if (!adminToken || !shopDomain) {
       return res.status(500).send(`
@@ -501,9 +501,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const htmlGeneratorModule = await import('./lib/htmlGenerator.js');
       const html = htmlGeneratorModule.default ? htmlGeneratorModule.default(transformedOrder, false) : htmlGeneratorModule.generateReportCardHTML(transformedOrder, false);
 
-      res.setHeader('Content-Type', 'text/html');
-      res.setHeader('Content-Security-Policy', 'sandbox allow-scripts allow-modals allow-same-origin');
-      res.setHeader('X-Frame-Options', 'ALLOWALL');
+      // Set proper headers for printable document
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
       res.send(html);
     } catch (error: any) {
       console.error('Error generating print preview:', error);

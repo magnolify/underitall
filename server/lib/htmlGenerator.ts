@@ -343,8 +343,7 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="script-src 'none';">
-  <title>Report Cards for Order ${escapeHtml(order.name)}</title>
+  <title>UIA Report Cards - Order ${escapeHtml(order.name)}</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&family=Lora:ital@1&display=swap');
 
@@ -540,10 +539,7 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
     @media print {
       @page {
         size: 8in 4in landscape;
-        margin-top: 0.5in;
-        margin-right: 0.5in;
-        margin-bottom: 0.5in;
-        margin-left: 0.5in;
+        margin: 0.5in;
       }
 
       body {
@@ -552,35 +548,51 @@ function generateReportCardHTML(order: ShopifyOrder, hideHeader: boolean = false
         padding: 0 !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+        color-adjust: exact;
       }
 
       .container {
         padding: 0 !important;
+        gap: 0 !important;
       }
 
       .card {
+        page-break-after: always;
+        page-break-inside: avoid;
         break-after: page;
+        break-inside: avoid;
         box-shadow: none !important;
         border: 1px solid #ddd !important;
         background: white !important;
         margin: 0 !important;
         width: 100% !important;
         height: 100% !important;
-        transform: scale(0.9);
+        transform: scale(1);
         transform-origin: center center;
         color: black !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
 
       .card:last-of-type {
         page-break-after: auto;
+        break-after: auto;
       }
 
       .logo img {
         filter: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
 
       hr {
         border-top: 1px solid #ddd !important;
+      }
+
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
       }
     }
   </style>
